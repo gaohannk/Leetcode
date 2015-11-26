@@ -21,6 +21,7 @@ package leetcode;
  * 2 从右子树到root再到parent  
  * 3 直接从root到parent  
  * 注意arch那条路是不可能走到parent，因为那条路已经经过root了，除非折回来重复走！但这是不允许的  
+ * 返回以Node的终点的路径的和，但最大值可能是穿过Node的和 
  */
 public class BinaryTreeMaximumPathSum {
 	public int maxPathSum(TreeNode root) {

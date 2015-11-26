@@ -7,7 +7,7 @@ package leetcode;
 import java.util.*;
 
 
-public class GenerateParenthesis4 {
+public class GenerateParentheses4 {
 	public List<String> generateParenthesis(int n) {
 		List<String> result = new ArrayList<String>();
 		if (n == 0) {

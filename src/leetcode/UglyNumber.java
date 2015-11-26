@@ -1,7 +1,7 @@
 package leetcode;
 
 public class UglyNumber {
-	public boolean isUgly(int num) {
+	public static boolean isUgly(int num) {
 		if (num <= 0)
 			return false;
 		while (num % 2 == 0) {
@@ -14,5 +14,8 @@ public class UglyNumber {
 			num /= 5;
 		}
 		return num == 1;
+	}
+	public static void main(String[] args){
+		System.out.println(isUgly(1312200000));
 	}
 }

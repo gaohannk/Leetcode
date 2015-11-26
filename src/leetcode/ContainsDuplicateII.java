@@ -9,12 +9,12 @@ import java.util.HashSet;
 public class ContainsDuplicateII {
 
 	public boolean containsNearbyDuplicate(int[] nums, int k) {
-		if (k > nums.length) {
-			return iscontainsDuplicate(nums, 0, nums.length - 1);
+		if (k > nums.length)
+			return false;
+		if (nums.length == 1)
+			return false;
 
-		}
-
-		for (int i = 0; i < nums.length - k; i++) {
+		for (int i = 0; i <= nums.length - k; i++) {
 			for (int j = i + 1; j <= i + k; j++) {
 				if (nums[i] == nums[j])
 					return true;

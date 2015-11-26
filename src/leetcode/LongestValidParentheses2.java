@@ -5,13 +5,13 @@ package leetcode;
  * For "(()", the longest valid parentheses substring is "()", which has length = 2.
  * Another example is ")()())", where the longest valid parentheses substring is "()()", which has length = 4.
  */
+// d[i] means max valid length starts with i
 public class LongestValidParentheses2 {
 	public int longestValidParentheses(String s) {
 		if (s.length() == 0)
 			return 0;
 		int maxLen = 0;
 		int[] d = new int[s.length()];
-		// d[i] means max valid length starts with i
 		d[s.length() - 1] = 0;
 		for (int i = s.length() - 2; i >= 0; i--) {
 			if (s.charAt(i) == ')')
