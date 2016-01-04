@@ -8,13 +8,13 @@ public class ReverseLinkedList {
 		if (head == null)
 			return head;
 		ListNode p = head;
-		ListNode front = head.next;
+		ListNode curr = head.next;
 		head.next = null;
-		while (front != null) {
-			ListNode temp = front.next;
-			front.next = p;
-			p = front;
-			front = temp;
+		while (curr != null) {
+			ListNode next = curr.next;
+			curr.next = p;
+			p = curr;
+			curr = next;
 		}
 		return p;
 	}

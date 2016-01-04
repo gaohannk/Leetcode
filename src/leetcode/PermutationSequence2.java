@@ -30,8 +30,12 @@ public class PermutationSequence2 {
 			int index = (k - 1) / total;
 			str.append(num.charAt(index));
 			num.deleteCharAt(index);
+			//System.out.println(num.toString());
 			k -= index * total;
 		}
 		return str.toString();
+	}
+	public static void main(String[] args){
+		System.out.println(getPermutation(4, 17));
 	}
 }

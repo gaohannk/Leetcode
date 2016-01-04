@@ -12,7 +12,6 @@ package leetcode;
  */
 public class RangeSumQueryImmutable {
 	public class NumArray {
-
 		int[] prefixSum;
 
 		public NumArray(int[] nums) {

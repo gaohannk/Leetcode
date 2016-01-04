@@ -8,7 +8,7 @@ import java.util.Comparator;
  * Note: The result may be very large, so you need to return a string instead of an integer.
  */
 /* [5,343,23] compare 500 and 343,230 is wrong method see case [121,12]
- * Turn number to string and compare string by position. Can't use Integer.value of()  since out of Integer Range.
+ * Turn number to string and compare string by position. Can't use Integer.value of() directly to a+b, since out of Integer Range.
  * Corner Case: [0,0]
  */
 public class LargestNumber {
@@ -30,15 +30,7 @@ public class LargestNumber {
 			public int compare(String o1, String o2) {
 				String a = o1 + o2;
 				String b = o2 + o1;
-				for (int i = 0; i < a.length(); i++) {
-					int temp1 = Integer.valueOf(a.charAt(i));
-					int temp2 = Integer.valueOf(b.charAt(i));
-					if (temp1 < temp2)
-						return -1;
-					else if (temp1 > temp2)
-						return 1;
-				}
-				return 0;
+				return b.compareTo(a);
 			}
 		});
 		for (int i = 0; i < strs.length; i++) {

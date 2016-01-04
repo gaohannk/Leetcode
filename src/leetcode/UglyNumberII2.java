@@ -11,31 +11,40 @@ public class UglyNumberII2 {
 		ugly[0] = 1;
 		while (count < n) {
 			int min = Integer.MAX_VALUE;
+			int flag=0;
 			for (int i = 0; i < count; i++) {
-				if (min > ugly[i] * 2 && ugly[i] * 2 > ugly[count - 1]) {
+				if (ugly[i] * 2 > ugly[count - 1] && min > ugly[i] * 2) {
 					min = ugly[i] * 2;
+					flag=1;
 					break;
 				}
 			}
 			for (int i = 0; i < count; i++) {
-				if (min > ugly[i] * 3 && ugly[i] * 3 > ugly[count - 1]) {
+				if (ugly[i] * 3 > ugly[count - 1] && min > ugly[i] * 3) {
 					min = ugly[i] * 3;
+					flag=2;
 					break;
 				}
 			}
 			for (int i = 0; i < count; i++) {
-				if (min > ugly[i] * 5 && ugly[i] * 5 > ugly[count - 1]) {
+				if (ugly[i] * 5 > ugly[count - 1] && min > ugly[i] * 5) {
 					min = ugly[i] * 5;
+					flag=3;
 					break;
 				}
 			}
 			ugly[count] = min;
+			if(count==n-160){
+				System.out.println(flag);
+				System.out.println(min/5);
+			}
 			count++;
 		}
 		return ugly[count - 1];
 	}
 
 	public static void main(String[] args) {
-		System.out.println(nthUglyNumber(1600));
+		System.out.println(nthUglyNumber(1548));
+		//System.out.println(1076168025);
 	}
 }

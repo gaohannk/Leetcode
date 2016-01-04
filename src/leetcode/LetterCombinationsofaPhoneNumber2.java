@@ -1,9 +1,9 @@
 package leetcode;
-/*Given a digit string, return all possible letter combinations that the number could represent.
-A mapping of digit to letters (just like on the telephone buttons) is given below.
-*/
+
 import java.util.*;
+
 /* Given a digit string, return all possible letter combinations that the number could represent.
+ * A mapping of digit to letters (just like on the telephone buttons) is given below.
  * Input:Digit string "23"
  * Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
  */
@@ -21,8 +21,7 @@ public class LetterCombinationsofaPhoneNumber2 {
 		return letterCombinationsHelper(digits, table);
 	}
 
-	public static List<String> letterCombinationsHelper(String digits,
-			Hashtable<Integer, String> table) {
+	public static List<String> letterCombinationsHelper(String digits, Hashtable<Integer, String> table) {
 		ArrayList<String> result = new ArrayList<String>();
 		if (digits.length() == 0) {
 			result.add("");

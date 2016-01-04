@@ -8,17 +8,17 @@ import java.util.HashMap;
 public class LongestSubstringwithoutReapeatCharacter3 {
 	public static int lengthOfLongestSubstring(String s) {
 		char[] arr = s.toCharArray();
-		int pre = 0;
+		int len = 0;
 		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
 		for (int i = 0; i < arr.length; i++) {
 			if (!map.containsKey(arr[i])) {
 				map.put(arr[i], i);
 			} else {
-				pre = pre > map.size() ? pre : map.size();
+				len = len > map.size() ? len : map.size();
 				i = map.get(arr[i]);
 				map.clear();
 			}
 		}
-		return Math.max(pre, map.size());
+		return Math.max(len, map.size());
 	}
 }

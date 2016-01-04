@@ -41,12 +41,11 @@ public class LRUCache {
 			pre.next = post;
 		else 
 			head = post;
-
-		if (post != null) {
+		if (post != null) 
 			post.pre = pre;
-		} else {
+		else 
 			end = pre;
-		}
+		
 	}
 
 	public void setHead(DoubleLinkedListNode node) {

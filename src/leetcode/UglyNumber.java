@@ -16,6 +16,6 @@ public class UglyNumber {
 		return num == 1;
 	}
 	public static void main(String[] args){
-		System.out.println(isUgly(1312200000));
+		System.out.println(isUgly(215960780));
 	}
 }

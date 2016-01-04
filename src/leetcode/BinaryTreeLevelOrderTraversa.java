@@ -22,15 +22,15 @@ public class BinaryTreeLevelOrderTraversa {
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 		if (root == null)
 			return res;
-		ArrayList<TreeNode> layer = new ArrayList<TreeNode>();
-		layer.add(root);
+		ArrayList<TreeNode> currlayer = new ArrayList<TreeNode>();
+		currlayer.add(root);
 		while (true) {
-			if (layer.isEmpty())
+			if (currlayer.isEmpty())
 				break;
 			ArrayList<TreeNode> nextlayer = new ArrayList<TreeNode>();
-			ArrayList<Integer> currlayer = new ArrayList<Integer>();
-			for (TreeNode node : layer) {
-				currlayer.add(node.val);
+			ArrayList<Integer> currValue = new ArrayList<Integer>();
+			for (TreeNode node : currlayer) {
+				currValue.add(node.val);
 				if (node.left != null) {
 					nextlayer.add(node.left);
 				}
@@ -38,8 +38,8 @@ public class BinaryTreeLevelOrderTraversa {
 					nextlayer.add(node.right);
 				}
 			}
-			res.add(currlayer);
-			layer = nextlayer;
+			res.add(currValue);
+			currlayer = nextlayer;
 		}
 		return res;
 	}

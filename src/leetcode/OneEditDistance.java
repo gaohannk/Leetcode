@@ -1,4 +1,5 @@
 package leetcode;
+
 /* Given two strings S and T, determine if they are both one edit distance apart. Hint:
  * 1. If | n – m | is greater than 1, we know immediately both are not one-edit distance apart.
  * 2. It might help if you consider these cases separately, m == n and m ≠ n.
@@ -12,7 +13,7 @@ package leetcode;
  * 3. If | n – m | == 0, then we skip both non-matching characters in S and T and make sure the remaining characters between S and T are exactly matching. (Append operation)
  */
 public class OneEditDistance {
-	public boolean isOneEditDistance(String s, String t) {
+	public static boolean isOneEditDistance(String s, String t) {
 		int m = s.length(), n = t.length();
 		if (m > n)
 			return isOneEditDistance(t, s);
@@ -21,12 +22,21 @@ public class OneEditDistance {
 		int i = 0, shift = n - m;
 		while (i < m && s.charAt(i) == t.charAt(i))
 			i++;
-		if (i == m)
-			return shift > 0;
+		if (i == m) {
+			if (shift == 0)
+				return false; // s ==t
+			else
+				return true; // s append one letter == t
+		}
 		if (shift == 0)
-			i++;
+			i++; // jump one diff letter
 		while (i < m && s.charAt(i) == t.charAt(i + shift))
 			i++;
 		return i == m;
+	}
+	public static void main(String[] args) {
+		String s = "ababa";
+		String t = "abcba";
+		System.out.println(isOneEditDistance(s, t));
 	}
 }

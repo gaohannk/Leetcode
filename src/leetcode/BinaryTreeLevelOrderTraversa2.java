@@ -19,6 +19,9 @@ import java.util.Queue;
  *   [15,7]
  * ]
  */
+/* Using null to seperate each layer
+ * 
+ */
 public class BinaryTreeLevelOrderTraversa2 {
 	public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();

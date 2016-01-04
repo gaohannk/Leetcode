@@ -12,25 +12,25 @@ import java.util.ArrayList;
  * What if you could modify the BST node's structure?
  * The optimal runtime complexity is O(height of BST).
  */
-// wrong answer need fix
 public final class KthSmallestElementinaBST2 {
+	int idx = 0;
+	int kthvalue = 0;
+
 	public int kthSmallest(TreeNode root, int k) {
-		int res = 0;
 		TreeNode knode = new TreeNode(0);
-		helper(root, res, k, knode);
-		return knode.val;
+		helper(root, k, knode);
+		return kthvalue;
 	}
 
-	public int helper(TreeNode root, int res, int k, TreeNode knode) {
+	public void helper(TreeNode root, int k, TreeNode knode) {
 		if (root != null) {
-			res = helper(root.left, res, k, knode);
-			res++;
-			if (res == k){
-				knode = root;
-				return res;
+			helper(root.left, k, knode);
+			idx++;
+			if (idx == k) {
+				kthvalue = root.val;
+				return;
 			}
-			res = helper(root.right, res, k, knode);
+			helper(root.right, k, knode);
 		}
-		return res;
 	}
 }

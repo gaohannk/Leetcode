@@ -1,5 +1,7 @@
 package leetcode;
-/*Divide two integers without using multiplication, division and mod operator.*/
+/* Divide two integers without using multiplication, division and mod operator.
+ * If it is overflow, return MAX_INT.
+ */
 public class DivideTwoIntegers2 {
 	public int divide(int dividend, int divisor) {
 		boolean signA = dividend >= 0, signB = divisor > 0;

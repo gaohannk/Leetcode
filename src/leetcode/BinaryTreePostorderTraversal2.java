@@ -18,15 +18,15 @@ public class BinaryTreePostorderTraversal2 {
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		if (root == null)
 			return list;
-		return helper(root, list);
+		helper(root, list);
+		return list;
 	}
 
-	public ArrayList<Integer> helper(TreeNode root, ArrayList<Integer> list) {
+	public void helper(TreeNode root, ArrayList<Integer> list) {
 		if (root != null) {
-			list = helper(root.left, list);
-			list = helper(root.right, list);
+			helper(root.left, list);
+			helper(root.right, list);
 			list.add(root.val);
 		}
-		return list;
 	}
 }
