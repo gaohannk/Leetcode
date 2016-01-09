@@ -1,8 +1,5 @@
 package leetcode;
 
-import java.util.HashMap;
-import java.util.HashSet;
-
 /* There are a total of n courses you have to take, labeled from 0 to n - 1.
  * Some courses may have prerequisites, for example to take course 0 you have to first take course 1, 
  * which is expressed as a pair: [0,1]
@@ -15,26 +12,35 @@ import java.util.HashSet;
  * Note:
  * The input prerequisites is a graph represented by a list of edges, not adjacency matrices. Read more about how a graph is represented.
  */
-//TLE
-public class CourseSchedule {
+public class CourseSchedule2 {
 	public boolean canFinish(int numCourses, int[][] prerequisites) {
-		HashMap<Integer, Integer> map = new HashMap<>();
-		for (int edge[] : prerequisites) {
-			map.put(edge[0], edge[1]);
-		}
-		for (int from : map.keySet()) {
-			HashSet<Integer> set = new HashSet<>();
-			while (map.containsKey(from)) {
-				if (set.contains(from))
+		// 0 for white, unvisited
+		// 1 for grey, in stack
+		// 2 for black, fully explored
+		int[] status = new int[numCourses];
+		for (int i = 0; i < numCourses; i++) {
+			if (status[i] == 0) {
+				if (!DFS(i, prerequisites, status)) {
 					return false;
-				set.add(from);
-				from = map.get(from);
+				}
 			}
 		}
 		return true;
 	}
 
-	public static void main(String[] args) {
-		int[][] pre = {};
+	private boolean DFS(int curr, int[][] prerequisites, int[] status) {
+		if (status[curr] == 1) {
+			return false;
+		}
+		status[curr] = 1;
+		for (int[] p : prerequisites) {
+			if (p[0] == curr && status[p[1]] != 2) {
+				if (!DFS(p[1], prerequisites, status)) {
+					return false;
+				}
+			}
+		}
+		status[curr] = 2;
+		return true;
 	}
 }

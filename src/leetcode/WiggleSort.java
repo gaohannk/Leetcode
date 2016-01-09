@@ -6,6 +6,8 @@ package leetcode;
 /* i is odd，nums[i] >= nums[i - 1]
  * i is even，nums[i] <= nums[i - 1]
  * We exchange if not statify. If nums[i] > nums[i - 1]， then exchange nums[i] <= nums[i - 1]。
+ * Time O(n)
+ * Space O(1)
  */
 public class WiggleSort {
 	public void wiggleSort(int[] nums) {
