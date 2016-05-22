@@ -16,25 +16,28 @@ import java.util.Stack;
  * All root-to-leaf paths are:
  * ["1->2->5", "1->3"]
  */
-// Best Solution
-public class BinaryTreePaths {
+public class BinaryTreePaths2 {
 	public List<String> binaryTreePaths(TreeNode root) {
 		List<String> res = new LinkedList<String>();
 		StringBuilder sb = new StringBuilder();
 		if (root == null)
 			return res;
-		helper(root, res, sb);
+		sb.append(root.val);
+		if (root.left != null)
+			helper(root.left, res, sb);
+		if (root.right != null)
+			helper(root.right, res, sb);
+		if (root.left == null && root.right == null)
+			res.add(sb.toString());
 		return res;
 	}
 
 	public void helper(TreeNode node, List<String> res, StringBuilder sb) {
+		sb.append("->" + node.val);
 		if (node.left == null && node.right == null) {
-			sb.append(node.val);
 			res.add(sb.toString());
-			sb.delete(sb.length() - String.valueOf(node.val).length(), sb.length());
+			sb.delete(sb.length() - 2 - String.valueOf(node.val).length(), sb.length());
 			return;
-		} else {
-			sb.append(node.val + "->");
 		}
 		if (node.left != null)
 			helper(node.left, res, sb);
