@@ -18,36 +18,36 @@ import java.util.Iterator;
 public class PeekingIterator {
 	public Iterator<Integer> it;
 	public int cache;
-	public boolean isPeek;
+	public boolean pointToFirst;
 
 	public PeekingIterator(Iterator<Integer> iterator) {
 		// initialize any member here.
 		it = iterator;
-		isPeek = false;
+		pointToFirst = true;
 
 	}
 
 	// Returns the next element in the iteration without advancing the iterator.
 	public Integer peek() {
-		if (isPeek)
+		if (!pointToFirst)
 			return cache;
 		cache = it.next();
-		isPeek = true;
+		pointToFirst = false;
 		return cache;
 	}
 
 	// hasNext() and next() should behave the same as in the Iterator interface.
 	// Override them if needed.
 	public Integer next() {
-		if (isPeek) {
-			isPeek = false;
+		if (!pointToFirst) {
+			pointToFirst = true;
 			return cache;
 		}
 		return it.next();
 	}
 
 	public boolean hasNext() {
-		if (isPeek)
+		if (!pointToFirst)
 			return true;
 		return it.hasNext();
 	}

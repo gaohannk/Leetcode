@@ -23,8 +23,9 @@ public class IntersectionofTwoArrays {
 				list.add(nums2[i]);
 		}
 		int res[] = new int[list.size()];
-		for (int i = 0; i < list.size(); i++) {
-			res[i] = list.get(i);
+		int index = 0;
+		for (int num : list) {
+			res[index++] = num;
 		}
 		return res;
 	}
