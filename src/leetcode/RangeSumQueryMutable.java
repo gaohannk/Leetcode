@@ -15,34 +15,27 @@ package leetcode;
 public class RangeSumQueryMutable {
 
 	public static class NumArray {
-		public int[] sum;
-
-		public NumArray(int[] nums) {
-			sum = new int[nums.length];
-			if (nums.length > 0) {
-				sum[0] = nums[0];
-				for (int i = 1; i < nums.length; i++) {
-					sum[i] = sum[i - 1] + nums[i];
-				}
-			}
-		}
+		int[] prefixSum;
 
 		void update(int i, int val) {
 			int valofi;
-			if (i > 0)
-				valofi = sum[i] - sum[i - 1];
-			else
-				valofi = sum[i];
-			for (int index = i; index < sum.length; index++) {
-				sum[index] += val - valofi;
+			valofi = prefixSum[i + 1] - prefixSum[i];
+			for (int index = i; index < prefixSum.length-1; index++) {
+				prefixSum[index+1] += val - valofi;
+			}
+		}
+
+		public NumArray(int[] nums) {
+			int len = nums.length;
+			prefixSum = new int[len + 1];
+			prefixSum[0] = 0;
+			for (int i = 0; i < len; i++) {
+				prefixSum[i + 1] = prefixSum[i] + nums[i];
 			}
 		}
 
 		public int sumRange(int i, int j) {
-			if (i != 0)
-				return sum[j] - sum[i - 1];
-			else
-				return sum[j];
+			return prefixSum[j + 1] - prefixSum[i];
 		}
 	}
 

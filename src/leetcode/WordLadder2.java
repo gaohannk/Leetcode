@@ -20,34 +20,33 @@ import java.util.Set;
  * All words have the same length.
  * All words contain only lowercase alphabetic characters.
  */
-public class WordLadder {
+public class WordLadder2 {
 	public int ladderLength(String start, String end, Set<String> dict) {
 		if (start.equals(end))
 			return 0;
-		Queue<String> words = new LinkedList<String>();
-		Queue<Integer> steps = new LinkedList<Integer>();
-		Set<String> unused = new HashSet<String>(dict);
-		unused.remove(start);
-		words.add(start);
-		steps.add(Integer.valueOf(0));
-
-		while (!words.isEmpty()) {
-			String word = words.remove();
-			int step = steps.remove().intValue();
-			for (int i = 0; i < word.length(); i++) {
-				for (char ch = 'a'; ch <= 'z'; ch++) {
-					String newly = word.substring(0, i) + ch + word.substring(i + 1);
-					if (newly.equals(end)) {
-						return step + 2;
-					}
-					if (!newly.equals(word) && unused.contains(newly)) {
-						words.add(newly);
-						steps.add(Integer.valueOf(step + 1));
-						unused.remove(newly); // NOTE: put this argument here
-												// accelerates.
+		Queue<String> queue = new LinkedList<String>();
+		queue.add(start);
+		int level = 0;
+		while (!queue.isEmpty()) {
+			int size = queue.size();
+			for (int i = 0; i < size; i++) {
+				String cur = queue.remove();
+				if (cur.equals(end)) {
+					return level + 1;
+				}
+				for (int j = 0; j < cur.length(); j++) {
+					char[] word = cur.toCharArray();
+					for (char ch = 'a'; ch < 'z'; ch++) {
+						word[j] = ch;
+						String check = new String(word);
+						if (!check.equals(cur) && dict.contains(check)) {
+							queue.add(check);
+							dict.remove(check);
+						}
 					}
 				}
 			}
+			level++;
 		}
 		return 0;
 	}

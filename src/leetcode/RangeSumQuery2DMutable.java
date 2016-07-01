@@ -1,6 +1,6 @@
 package leetcode;
 
-import leetcode.RangeSumQueryMutable2.NumArray;
+import leetcode.RangeSumQuery2DMutable2.NumMatrix;
 
 /* Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
  * Range Sum Query 2D
@@ -21,15 +21,14 @@ import leetcode.RangeSumQueryMutable2.NumArray;
  * There are many calls to sumRegion function.
  * You may assume that row1 ≤ row2 and col1 ≤ col2.
  */
-public class RangeSumQuery2DImmutable {
+public class RangeSumQuery2DMutable {
 	public static class NumMatrix {
-		private  int[][] dp;
+		private int[][] dp;
 
 		public NumMatrix(int[][] matrix) {
 			if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
 				return;
 			}
-
 			int m = matrix.length;
 			int n = matrix[0].length;
 
@@ -41,16 +40,23 @@ public class RangeSumQuery2DImmutable {
 			}
 		}
 
+		public void update(int row, int col, int val) {
+			int oldValue = dp[row + 1][col + 1] - dp[row + 1][col] - dp[row][col + 1] + dp[row][col];
+			for (int i = row + 1; i < dp.length; i++) {
+				for (int j = col + 1; j < dp[0].length; j++) {
+					dp[i][j] = dp[i][j] - oldValue + val;
+				}
+			}
+		}
+
 		public int sumRegion(int row1, int col1, int row2, int col2) {
 			int iMin = Math.min(row1, row2);
 			int iMax = Math.max(row1, row2);
-
 			int jMin = Math.min(col1, col2);
 			int jMax = Math.max(col1, col2);
-
 			return dp[iMax + 1][jMax + 1] - dp[iMax + 1][jMin] - dp[iMin][jMax + 1] + dp[iMin][jMin];
 		}
-		
+
 		public void print(int[][] mat) {
 			for (int i = 0; i < mat.length; i++) {
 				for (int j = 0; j < mat[0].length; j++) {
@@ -66,8 +72,12 @@ public class RangeSumQuery2DImmutable {
 		NumMatrix numMatrix = new NumMatrix(matrix);
 		System.out.println(numMatrix.sumRegion(0, 0, 2, 2));
 		numMatrix.print(numMatrix.dp);
+		numMatrix.update(1, 1, 1);
+		numMatrix.print(numMatrix.dp);
+
 		// numMatrix.update(1, 10);
 	}
+
 	// Your NumMatrix object will be instantiated and called as such:
 	// NumMatrix numMatrix = new NumMatrix(matrix);
 	// numMatrix.sumRegion(0, 1, 2, 3);

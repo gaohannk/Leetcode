@@ -9,21 +9,22 @@ package leetcode;
  * 
  * OAB
  * OCD
-OOE
-Same thing goes with 4, 6, 7, 8, 9 keys. Count the total possible pattern. The order of keys used matters.
-Rules:
-At-least 4 and at-max 9 dots must be connected.
-There can be no jumps
-Once a dot is crossed, you can jump over it.
-*/
+ * OOE
+ * Same thing goes with 4, 6, 7, 8, 9 keys. Count the total possible pattern. The order of keys used matters。
+ * Rules:
+ * At-least 4 and at-max 9 dots must be connected.
+ * There can be no jumps
+ * Once a dot is crossed, you can jump over it.
+ */
 public class AndroidUnlockPatterns {
+	static int res = 0;
+
 	public static int numberOfPatterns() {
 		boolean board[] = new boolean[10];
 		int res[] = { 0 };
 		for (int i = 1; i < 10; i++) {
 			board[i] = true;
-			int count = 1;
-			dfs(board, count, i, res);
+			dfs(board, 1, i, res);
 			board[i] = false;
 		}
 		return res[0];
@@ -47,24 +48,70 @@ public class AndroidUnlockPatterns {
 		// TODO Auto-generated method stub
 		if (board[i] == true)
 			return false;
-		if (last == 2 || last == 4 || last == 5 || last == 6 || last == 8)
-			return true;
-		if (i == 1 && ((board[2] == true && last == 3) || (board[4] == true && last == 7)
-				|| (board[5] == true && last == 9)))
-			return true;
-		if (i == 3 && ((board[2] == true && last == 1) || (board[6] == true && last == 9)
-				|| (board[5] == true && last == 7)))
-			return true;
-		if (i == 7 && ((board[4] == true && last == 1) || (board[5] == true && last == 3)
-				|| (board[8] == true && last == 9)))
-			return true;
-		if (i == 9 && ((board[6] == true && last == 3) || (board[5] == true && last == 1)
-				|| (board[8] == true && last == 7)))
-			return true;
-		return false;
+		if (i == 2 && board[5] == false && last == 8)
+			return false;
+		if (i == 4 && board[5] == false && last == 6)
+			return false;
+		if (i == 6 && board[5] == false && last == 4)
+			return false;
+		if (i == 8 && board[5] == false && last == 2)
+			return false;
+		if (i == 1 && ((board[2] == false && last == 3) || (board[4] == false && last == 7)
+				|| (board[5] == false && last == 9)))
+			return false;
+		if (i == 3 && ((board[2] == false && last == 1) || (board[6] == false && last == 9)
+				|| (board[5] == false && last == 7)))
+			return false;
+		if (i == 7 && ((board[4] == false && last == 1) || (board[5] == false && last == 3)
+				|| (board[8] == false && last == 9)))
+			return false;
+		if (i == 9 && ((board[6] == false && last == 3) || (board[5] == false && last == 1)
+				|| (board[8] == false && last == 7)))
+			return false;
+		return true;
+	}
+
+	public static int numberOfPatterns(int m, int n) {
+		boolean[][] keyboard = new boolean[3][3];
+		int ret = 0;
+		for (int p = m; p <= n; p++) {
+			for (int i = 0; i < 2; i++) {
+				for (int j = 0; j < 2; j++) {
+					if (j == 0 && i == 1)
+						continue;
+					keyboard[i][j] = true;
+					helper(keyboard, p - 1, i, j);
+					keyboard[i][j] = false;
+					ret += (i == 1 && j == 1) ? res : 4 * res;
+					res = 0;
+				}
+			}
+		}
+		return ret;
+	}
+
+	private static void helper(boolean[][] keyboard, int left, int x, int y) {
+		if (left == 0) {
+			res++;
+			return;
+		}
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (keyboard[i][j] || (x == i && Math.abs(y - j) > 1) && !keyboard[x][1]
+						|| (y == j && Math.abs(x - i) > 1) && !keyboard[1][y]
+						|| (x + y == i + j) && Math.abs(x - i) > 1 && !keyboard[1][1]
+						|| (x - y == i - j) && Math.abs(x - i) > 1 && !keyboard[1][1] || (x == i && y == j)) {
+					continue;
+				} else {
+					keyboard[i][j] = true;
+					helper(keyboard, left - 1, i, j);
+					keyboard[i][j] = false;
+				}
+			}
+		}
 	}
 
 	public static void main(String[] args) {
-		System.out.println(numberOfPatterns());
+		System.out.println(numberOfPatterns(4, 9));
 	}
 }
