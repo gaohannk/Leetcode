@@ -4,6 +4,7 @@ import java.util.*;
 
 /* Merge k sorted linked lists and return it as one sorted list.
  */
+// 两个合并，合并k-1次
 public class MergekSortedLists {
 
 	public ListNode mergeKLists(ArrayList<ListNode> lists) {

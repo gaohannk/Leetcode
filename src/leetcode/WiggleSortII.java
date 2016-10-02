@@ -11,10 +11,18 @@ import java.util.Arrays;
  * Follow Up:
  * Can you do it in O(n) time and/or in-place with O(1) extra space?
  */
+//TLE O(nlogn)
 public class WiggleSortII {
 
 	public static void wiggleSort(int[] nums) {
-
+		int newNum[] = Arrays.copyOf(nums, nums.length);
+		Arrays.sort(newNum);
+		for (int i = 0; i < nums.length; i = i + 2) {
+			nums[i] = newNum[i / 2];
+		}
+		for (int i = 1; i < nums.length; i = i + 2) {
+			nums[i] = newNum[nums.length - 1 - i / 2];
+		}
 	}
 
 	public static void main(String[] args) {

@@ -24,23 +24,55 @@ import java.util.Stack;
  Maximum amount of money the thief can rob = 4 + 5 = 9.
 */
 public class HouseRobberIII {
-	 public int rob(TreeNode root) {
-	     dfs(root);
-	     return root.val;
-	  }
+	class Node {
+		public Node(int val2) {
+			this.val = val2;
+		}
 
-	private void dfs(TreeNode root) {
-		if(root==null)
+		boolean rob = false;
+		int norobValue;
+		int robValue;
+		Node left, right;
+		int val;
+	}
+
+	public int rob(TreeNode root) {
+		if (root == null)
+			return 0;
+		Node r = tree(root);
+		dfs(r);
+		return Math.max(r.norobValue, r.robValue);
+	}
+	private Node tree(TreeNode root) {
+		Node r = new Node(root.val);
+		if (root.left != null)
+			r.left = tree(root.left);
+		if (root.right != null)
+			r.right = tree(root.right);
+		return r;
+	}
+
+	private void dfs(Node root) {
+		if (root == null)
 			return;
-		if(root.left!=null)
+		if (root.left != null)
 			dfs(root.left);
-		if(root.right!=null);
+		if (root.right != null)
 			dfs(root.right);
-		if(root.right==null&&root.left!=null)
-			root.val=Math.max(root.left.val, root.val);
-		else if(root.left==null&&root.right!=null)
-			root.val=Math.max(root.right.val, root.val);
-		else if(root.left!=null && root.right!=null)
-			root.val=Math.max(root.left.val+root.right.val, root.val);
+		if (root.right == null && root.left != null) {
+			root.robValue = root.left.norobValue + root.val;
+			root.norobValue = Math.max(root.left.robValue, root.left.norobValue);
+		} else if (root.left == null && root.right != null) {
+			root.robValue = root.right.norobValue + root.val;
+			root.norobValue = Math.max(root.right.robValue, root.right.norobValue);
+		} else if (root.left != null && root.right != null) {
+			root.robValue = root.right.norobValue + root.val + root.left.norobValue;
+			int max = Math.max(root.right.robValue + root.left.robValue, root.right.norobValue + root.left.norobValue);
+			max = Math.max(max, root.right.robValue + root.left.norobValue);
+			root.norobValue = Math.max(max, root.left.robValue + root.right.norobValue);
+		} else {
+			root.robValue = root.val;
+			root.norobValue = 0;
+		}
 	}
 }

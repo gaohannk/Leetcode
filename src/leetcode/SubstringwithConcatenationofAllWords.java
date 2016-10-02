@@ -10,31 +10,42 @@ package leetcode;
  */
 import java.util.*;
 
+/* Scan every wordlength*wordnum long string start from each position in S, see if all the strings in L 
+ * have been appeared only once using Map data structure. If so, store the starting position.
+ */
+//TLE
 public class SubstringwithConcatenationofAllWords {
 	public List<Integer> findSubstring(String S, String[] L) {
-		HashSet<String> set = new HashSet<String>();
-		ArrayList<Integer> list= new ArrayList<Integer>();
-		for (String s : L) {
-			if (!set.contains(s))
-				set.add(s);
-		}
-		boolean flag=false;
-		int j=0;
-		for (int i = 0; i < S.length(); i++) {
-			int length=0;
-			for (j = i + 1; j < S.length(); j++) {
-				if (set.contains(S.substring(i, j))) {
-					set.remove(S.substring(i, j));
-					length+=S.substring(i,j).length();
-					flag=true;
-					break;
-				}
+		List<Integer> list = new LinkedList<>();
+		if (S == null || L == null)
+			return list;
+		Map<String, Integer> covered = new HashMap<String, Integer>();
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		int wordlength = L[0].length();
+		int wordnum = L.length;
+		for (int j = 0; j < wordnum; j++) {
+			if (covered.containsKey(L[j])) {
+				covered.put(L[j], covered.get(L[j]) + 1);
+			} else {
+				covered.put(L[j], 1);
 			}
-			if(set.isEmpty())
-				list.add(j-length);
-			if(flag)
-			  i=j;
 		}
-		return list;
+		
+		for (int i = 0; i + wordlength * wordnum <= S.length(); i++) {
+			Map<String, Integer> temp = new HashMap<String, Integer>(covered);
+			for (int j = 0; j < wordnum; j++) {
+				String testStr = S.substring(i + j * wordlength, i + (j + 1) * wordlength);
+				if (temp.containsKey(testStr)) {
+					if (temp.get(testStr) - 1 == 0)
+						temp.remove(testStr);
+					else
+						temp.put(testStr, temp.get(testStr) - 1);
+				} else
+					break;
+			}
+			if (temp.size() == 0)
+				res.add(i);
+		}
+		return res;
 	}
 }

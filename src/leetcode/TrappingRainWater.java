@@ -4,7 +4,7 @@ package leetcode;
  * For example, 
  * Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6.
  */
-/* 核心思想是：对某个值A[i]来说，能trapped的最多的water取决于在左边i右边的最高的值
+/* 核心思想是：考虑每一个i能trap的water, 对某个值A[i]来说，能trapped的最多的water取决于在左边i右边的最高的值
  * 如果min(left,right) > A[i]，那么在i这个位置上能trapped的water就是min(left,right) – A[i]。
  */
 public class TrappingRainWater {
