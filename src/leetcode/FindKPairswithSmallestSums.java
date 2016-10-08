@@ -59,9 +59,9 @@ public class FindKPairswithSmallestSums {
 		int[] item= {nums1[0],nums2[0]};
 		res.add(item);
 		for (int i = 0; i < k; i++) {
-			if(pq.peek()+)
-			res.add(pq.poll());
+
 		}
+		return res;
 	}
 
 	public static void main(String[] args) {

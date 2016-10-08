@@ -23,39 +23,39 @@ The input is always valid. You may assume that evaluating the queries will resul
 public class EvaluateDivision {
 	public static double[] calcEquation(String[][] equations, double[] values, String[][] queries) {
 		double res[] = new double[queries.length];
-		LinkedList<HashMap<String, Double>> list = new LinkedList<HashMap<String, Double>>();
-		Stack<String> stack = new Stack<>();
-		int count=0;
-		for (int j = 0; j < equations.length; j++) {
-			if (!list.get(count).containsKey(equations[j][0]) && !list.get(count).containsKey(equations[j][1])) {
-				HashMap<String, Double> map = new HashMap<>();
-				map.put(equations[j][0], 1.0);
-				map.put(equations[j][1], 1.0 / values[j]);
-				list.add(map);
-				stack.push(equations[j][0]);
-				stack.push(equations[j][1]);
-			}
-			while (!stack.isEmpty()) {
-				String s = stack.pop();
-				for (int i = 0; i < equations.length; i++) {
-					if (equations[i][0].equals(s) && !map.containsKey(equations[i][1])) {
-						map.put(equations[i][1], map.get(equations[i][0]) / values[i]);
-						stack.push(equations[i][1]);
-					}
-					if (equations[i][1].equals(s) && !map.containsKey(equations[i][0])) {
-						map.put(equations[i][0], map.get(equations[i][1]) * values[i]);
-						stack.push(equations[i][0]);
-					}
-				}
-			}
-		}
-
-		for (int i = 0; i < queries.length; i++) {
-			if (!map.containsKey(queries[i][0]) || !map.containsKey(queries[i][1]))
-				res[i] = -1.0;
-			else
-				res[i] = map.get(queries[i][0]) / map.get(queries[i][1]);
-		}
+//		LinkedList<HashMap<String, Double>> list = new LinkedList<HashMap<String, Double>>();
+//		Stack<String> stack = new Stack<>();
+//		int count=0;
+//		for (int j = 0; j < equations.length; j++) {
+//			if (!list.get(count).containsKey(equations[j][0]) && !list.get(count).containsKey(equations[j][1])) {
+//				HashMap<String, Double> map = new HashMap<>();
+//				map.put(equations[j][0], 1.0);
+//				map.put(equations[j][1], 1.0 / values[j]);
+//				list.add(map);
+//				stack.push(equations[j][0]);
+//				stack.push(equations[j][1]);
+//			}
+//			while (!stack.isEmpty()) {
+//				String s = stack.pop();
+//				for (int i = 0; i < equations.length; i++) {
+//					if (equations[i][0].equals(s) && !map.containsKey(equations[i][1])) {
+//						map.put(equations[i][1], map.get(equations[i][0]) / values[i]);
+//						stack.push(equations[i][1]);
+//					}
+//					if (equations[i][1].equals(s) && !map.containsKey(equations[i][0])) {
+//						map.put(equations[i][0], map.get(equations[i][1]) * values[i]);
+//						stack.push(equations[i][0]);
+//					}
+//				}
+//			}
+//		}
+//
+//		for (int i = 0; i < queries.length; i++) {
+//			if (!map.containsKey(queries[i][0]) || !map.containsKey(queries[i][1]))
+//				res[i] = -1.0;
+//			else
+//				res[i] = map.get(queries[i][0]) / map.get(queries[i][1]);
+//		}
 		return res;
 	}
 

@@ -30,6 +30,6 @@ Return true (self crossing)
 */
 public class SelfCrossing {
 	 public boolean isSelfCrossing(int[] x) {
-	        
+	        return true;
 	    }
 }
