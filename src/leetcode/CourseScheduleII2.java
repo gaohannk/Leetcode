@@ -1,6 +1,7 @@
 package leetcode;
 
 import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * There are a total of n courses you have to take, labeled from 0 to n - 1.
@@ -32,42 +33,50 @@ import java.util.LinkedList;
  * Topological Sort via DFS - A great video tutorial (21 minutes) on Coursera explaining the basic concepts of Topological Sort.
  * Topological sort could also be done via BFS.
  */
-public class CourseScheduleII {
+public class CourseScheduleII2 {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        // 0 for white, unvisited
-        // 1 for grey, in stack
-        // 2 for black, fully explored
-        int[] status = new int[numCourses];
-        LinkedList<Integer> res = new LinkedList<>();
-        int arr[] = new int[numCourses];
-        for (int i = 0; i < numCourses; i++) {
-            if (status[i] == 0) {
-                res.add(i);
-                if (!DFS(i, prerequisites, status, res)) {
-                    for (int j = 0; j < res.size(); j++) {
-                        arr[j] = res.get(j);
-                    }
-                    return arr;
-                }
-            }
-        }
-        return arr;
-    }
+        if (prerequisites == null)
+            return null;
 
-    private boolean DFS(int curr, int[][] prerequisites, int[] status, LinkedList res) {
-        if (status[curr] == 1) {
-            return false;
+        // Edge case No prerequisites e.g. 2,[]
+        if (prerequisites.length == 0) {
+            int[] res = new int[numCourses];
+            for (int i = 0; i < res.length; i++) {
+                res[i] = i;
+            }
+            return res;
         }
-        status[curr] = 1;
-        for (int[] p : prerequisites) {
-            if (p[0] == curr && status[p[1]] != 2) {
-                if (!DFS(p[1], prerequisites, status, res)) {
-                    return false;
+
+        int degree[] = new int[numCourses];
+        // Store the course with input degree equals 0
+        Queue<Integer> queue = new LinkedList();
+        int[] res = new int[numCourses];
+        int index = 0;
+        for (int edge[] : prerequisites) {
+            degree[edge[0]]++;
+        }
+        for (int i = 0; i < numCourses; i++) {
+            if (degree[i] == 0)
+                queue.add(i);
+        }
+        int count = queue.size();
+        while (!queue.isEmpty()) {
+            int p = queue.poll();
+            res[index++] = p;
+            for (int edge[] : prerequisites) {
+                if (edge[1] == p) {
+                    degree[edge[0]]--;
+                    if (degree[edge[0]] == 0) {
+                        count++;
+                        queue.add(edge[0]);
+                    }
                 }
             }
+
         }
-        status[curr] = 2;
-        res.add(curr);
-        return true;
+        // Cycle exist
+        if (count != numCourses)
+            return new int[]{};
+        return res;
     }
 }

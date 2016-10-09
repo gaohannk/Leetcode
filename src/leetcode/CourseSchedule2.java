@@ -12,6 +12,7 @@ package leetcode;
  * Note:
  * The input prerequisites is a graph represented by a list of edges, not adjacency matrices. Read more about how a graph is represented.
  */
+//DFS
 public class CourseSchedule2 {
 	public boolean canFinish(int numCourses, int[][] prerequisites) {
 		// 0 for white, unvisited
@@ -43,4 +44,5 @@ public class CourseSchedule2 {
 		status[curr] = 2;
 		return true;
 	}
+
 }
