@@ -23,9 +23,11 @@ public class WordBreak2 {
 
 		for (int i = 0; i <= s.length(); i++) {
 			// should continue from match position
-			for (int j = i - 1; j >= 0; j--) {
+			for (int j = i ; j >= 0; j--) {
 				if (t[j] && dict.contains(s.substring(j, i))) {
+					System.out.println("t["+i+"]"+t[i]);
 					t[i] = true;
+
 					break;
 				}
 			}
@@ -35,10 +37,12 @@ public class WordBreak2 {
 
 	public static void main(String[] args) {
 		HashSet<String> dict = new HashSet<>();
-		dict.add("leet");
-		dict.add("code");
-		dict.add("abcdefghijk");
-		String s = "leetcode";
+		dict.add("cat");
+		dict.add("cats");
+		dict.add("and");
+		dict.add("sand");
+		dict.add("dog");
+		String s = "catsanddog";
 		System.out.println(wordBreak(s, dict));
 	}
 }

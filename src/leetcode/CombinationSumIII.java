@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,47 +16,43 @@ import java.util.List;
  * Output:[[1,2,6], [1,3,5], [2,3,4]]
  */
 public class CombinationSumIII {
-	public static List<List<Integer>> combinationSum3(int k, int n) {
-		List<List<Integer>> res = new LinkedList<List<Integer>>();
-		LinkedList<Integer> set = new LinkedList<Integer>();
-		HashSet<Integer> hash = new HashSet<>();
-		helper(k, n, 0, res, set, hash);
-		return res;
-	}
+    public static List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
 
-	public static void helper(int k, int n, int sum, List<List<Integer>> res, LinkedList<Integer> set,
-			HashSet<Integer> hash) {
-		if (sum == n && k == 0) {
-			LinkedList<Integer> list = new LinkedList<Integer>();
-			list = set;
-			res.add(list);
-			return;
-		}
-		if (sum > n)
-			return;
-		if (k < 0)
-			return;
+        dfs(res, temp, 1, k, n);
+        return res;
+    }
 
-		for (int i = 0; i < 10; i++) {
-			if (!hash.contains(i)) {
-				hash.add(i);
-				set.add(i);
-				sum += i;
-				helper(k - 1, n, sum, res, set, hash);
-				sum -= i;
-				hash.remove(i);
-				set.remove(set.size() - 1);
-			}
-		}
-	}
+    public static void dfs(List<List<Integer>> res, List<Integer> list, int begin, int k, int n) {
+        if (k == 1) {
+            if (n <= 9 && n >= 1) {
+                list.add(n);
+                List<Integer> temp = new ArrayList<>(list);
+                res.add(temp);
+                list.remove(list.size() - 1);
+            }
+            return;
+        }
 
-	public static void main(String[] args) {
-		List<List<Integer>> res=combinationSum3(8, 36);
-		for(List<Integer> l : res){
-			for(int i=0;i<l.size();i++){
-				System.out.print(l.get(i)+" ");
-			}
-			System.out.println();
-		}
-	}
+        for (int i = begin; i <= 9; i++) {
+            if (n - i >= i + 1) {
+                list.add(i);
+                dfs(res, list, i + 1, k - 1, n - i);
+                list.remove(list.size() - 1);
+            } else {
+                return;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        List<List<Integer>> res = combinationSum3(8, 36);
+        for (List<Integer> l : res) {
+            for (int i = 0; i < l.size(); i++) {
+                System.out.print(l.get(i) + " ");
+            }
+            System.out.println();
+        }
+    }
 }

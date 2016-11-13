@@ -1,7 +1,8 @@
 package leetcode;
-/* Given a binary tree, find its minimum depth.
+/** Given a binary tree, find its minimum depth.
  * The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
  */
+
 public class MinimumDepthofBinaryTree2 {
 	public int minDepth(TreeNode root) {
 		if (root == null)

@@ -1,5 +1,8 @@
 package leetcode;
-import java.security.SecureRandom;
+
+import java.util.HashMap;
+import java.util.Random;
+
 /*Design a data structure that supports all following operations in average O(1) time.
 
 insert(val): Inserts an item val to the set if not already present.
@@ -31,63 +34,70 @@ randomSet.insert(2);
 // Since 1 is the only number in the set, getRandom always return 1.
 randomSet.getRandom();
 */
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Random;
 
 public class InsertDeleteGetRandom2 {
-	public class RandomizedSet {
-		private Random rnd = new Random();
-		private HashMap<Integer, Integer> map = new HashMap<>();
-		private LinkedList<Integer> list = new LinkedList<>();
+    public class RandomizedSet {
+        private Random rnd;
+        private HashMap<Integer, Integer> index2Num;
+        private HashMap<Integer, Integer> num2Index;
+        private int size;
 
-		/** Initialize your data structure here. */
-		public RandomizedSet() {
+        /**
+         * Initialize your data structure here.
+         */
+        public RandomizedSet() {
+            size = 0;
+            rnd = new Random();
+            index2Num = new HashMap<>();
+            num2Index = new HashMap<>();
+        }
 
-		}
+        /**
+         * Inserts a value to the set. Returns true if the set did not already
+         * contain the specified element.
+         */
+        public boolean insert(int val) {
+            if (num2Index.containsKey(val))
+                return false;
+            num2Index.put(val, size);
+            index2Num.put(size, val);
+            size++;
+            return true;
+        }
 
-		/**
-		 * Inserts a value to the set. Returns true if the set did not already
-		 * contain the specified element.
-		 */
-		public boolean insert(int val) {
-			if (map.containsKey(val)) {
-				return false;
-			}
+        /**
+         * Removes a value from the set. Returns true if the set contained the
+         * specified element.
+         */
+        public boolean remove(int val) {
+            if (!num2Index.containsKey(val))
+                return false;
+            int index = num2Index.get(val);
+            size--;
+            num2Index.remove(val);
+            if (index == size) {
+                index2Num.remove(index);
+            } else {
+                int num = index2Num.get(size);
+                index2Num.remove(size);
+                num2Index.put(num, index);
+                index2Num.put(index, num);
+            }
+            return true;
+        }
 
-			map.put(val, list.size());
-			list.add(val);
-			return true;
-		}
+        /**
+         * Get a random element from the set.
+         */
+        public int getRandom() {
+            return index2Num.get(rnd.nextInt(size));
+        }
+    }
 
-		/**
-		 * Removes a value from the set. Returns true if the set contained the
-		 * specified element.
-		 */
-		public boolean remove(int val) {
-			 if(!map.containsKey(val)) {
-		            return false;
-		        }
-		        
-		        int idx = map.remove(val); // remove our val from mapping
-		        int lastValue = list.remove(list.size() - 1);// remove the last item
-		        if(val != lastValue) {
-		            list.set(idx, lastValue); // set the current item to equal the last item
-		            map.put(lastValue, idx); // map the last item to our current index
-		        }
-		        return true;
-		}
-
-		/** Get a random element from the set. */
-		public int getRandom() {
-			 return list.get(rnd.nextInt(list.size()));
-		}
-	}
-
-	/**
-	 * Your RandomizedSet object will be instantiated and called as such:
-	 * RandomizedSet obj = new RandomizedSet(); boolean param_1 =
-	 * obj.insert(val); boolean param_2 = obj.remove(val); int param_3 =
-	 * obj.getRandom();
-	 */
+    /**
+     * Your RandomizedSet object will be instantiated and called as such:
+     * RandomizedSet obj = new RandomizedSet(); boolean param_1 =
+     * obj.insert(val); boolean param_2 = obj.remove(val); int param_3 =
+     * obj.getRandom();
+     */
 }

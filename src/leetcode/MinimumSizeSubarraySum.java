@@ -7,27 +7,35 @@ package leetcode;
  * More practice:
  * If you have figured out the O(n) solution, try coding another solution of which the time complexity is O(n log n).
  */
-//TLE
+
 public class MinimumSizeSubarraySum {
-	public int minSubArrayLen(int s, int[] nums) {
-		int sum = 0;
-		int p1 = 0;
-		int p2 = 0;
-		int res = Integer.MAX_VALUE;
-		while (p1 < nums.length) {
-			while (sum < s) {
-				if (p2 >= nums.length)
-					break;
-				sum += nums[p2];
-				p2++;
-			}
-			int length = p2 - p1 + 1;
-			res = res < length ? res : length;
-			while (sum >= s) {
-				sum -= nums[p1];
-				p1++;
-			}
-		}
-		return res;
-	}
+    public static int minSubArrayLen(int s, int[] nums) {
+        int sum = 0, p1 = 0, p2 = 0;
+        int res = Integer.MAX_VALUE;
+        //  p2<nums.length to ensure loop jump out
+        while (p1 < nums.length && p2 < nums.length) {
+            while (sum < s) {
+                if (p2 >= nums.length)
+                    break;
+                sum += nums[p2];
+                p2++;
+            }
+
+            while (sum >= s) {
+                // p2-p1 +1 is wrong since p2++ before
+                int length = p2 - p1;
+                // System.out.println(p2+","+p1+",");
+                res = res < length ? res : length;
+                sum -= nums[p1];
+                p1++;
+            }
+        }
+        return res == Integer.MAX_VALUE ? 0 : res;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 4, 4};
+        int s = 4;
+        System.out.println(minSubArrayLen(s, nums));
+    }
 }

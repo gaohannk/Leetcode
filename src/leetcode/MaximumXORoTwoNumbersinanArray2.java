@@ -10,7 +10,7 @@ package leetcode;
  */
 //brute force
 public class MaximumXORoTwoNumbersinanArray2 {
-    public int findMaximumXOR(int[] nums) {
+    public static  int findMaximumXOR(int[] nums) {
         int res = 0;
         for (int i = 0; i < nums.length; i++) {
             for (int j = 0; j < nums.length; j++) {
@@ -20,5 +20,9 @@ public class MaximumXORoTwoNumbersinanArray2 {
             }
         }
         return res;
+    }
+    public static  void main(String[] args){
+        int[] nums = {3, 10, 5, 25, 2, 8};
+        System.out.println(findMaximumXOR(nums));
     }
 }
