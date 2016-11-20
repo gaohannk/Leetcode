@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.Stack;
+
 /**
  * You are given two linked lists representing two non-negative numbers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
  * <p>
@@ -13,68 +15,53 @@ package leetcode;
  * Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
  * Output: 7 -> 8 -> 0 -> 7
  */
+//stack
 public class AddTwoNumbersII2 {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode r1 = reverseList(l1);
-        ListNode r2 = reverseList(l2);
-        int size1 = getSize(r1);
-        int size2 = getSize(r2);
-        ListNode res = size1 > size2 ? r1 : r2;
-        int count = 0;
-        while (r1 != null || r2 != null) {
-            int val = r1.val + r2.val + count;
-            if (val >= 10) {
-                val -= 10;
-                count = 1;
+        int count1 = count(l1);
+        int count2 = count(l2);
+        Stack<Integer> stack = new Stack<>();
+        if (count1 > count2) {
+            for (int i = 0; i < count1 - count2; i++) {
+                stack.push(l1.val);
+                l1 = l1.next;
             }
-            res.val = val;
-            r1 = r1.next;
-            r2 = r2.next;
-        }
-        while (r1 != null) {
-            int val = r1.val + count;
-            if (val >= 10) {
-                val -= 10;
-                count = 1;
+        } else {
+            for (int i = 0; i < count2 - count1; i++) {
+                stack.push(l2.val);
+                l2 = l2.next;
             }
-            res.val = val;
-            r1 = r1.next;
         }
-        while (r2 != null) {
-            int val = r2.val + count;
-            if (val >= 10) {
-                val -= 10;
-                count = 1;
-            }
-            res.val = val;
-            r2 = r2.next;
+
+        while (l1 != null) {
+            stack.push(l1.val + l2.val);
+            l1 = l1.next;
+            l2 = l2.next;
         }
-        if (count == 1)
-            res = new ListNode(1);
-        return reverseList(res);
+        int carry = 0;
+        ListNode curr = null;
+        while (!stack.isEmpty()) {
+            int top = stack.pop();
+            ListNode node = new ListNode((top + carry) % 10);
+            carry = (top + carry) / 10;
+            node.next = curr;
+            curr = node;
+        }
+        if (carry > 0) {
+            ListNode node = new ListNode(carry);
+            node.next = curr;
+            curr = node;
+        }
+        return curr;
     }
 
-    private int getSize(ListNode head) {
-        ListNode cur =head;
+    private int count(ListNode head) {
+        ListNode curr = head;
         int count = 0;
-        while (cur != null) {
-            cur = cur.next;
-            count++;
+        while (curr != null) {
+            count ++;
+            curr = curr.next;
         }
         return count;
-    }
-
-    private ListNode reverseList(ListNode head) {
-        if (head == null)
-            return head;
-        ListNode iter = head;
-        ListNode front = head.next;
-        while (front != null) {
-            ListNode temp = front.next;
-            front.next = iter;
-            iter = front;
-            front = temp;
-        }
-        return iter;
     }
 }

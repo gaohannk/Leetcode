@@ -42,29 +42,24 @@ import java.util.Stack;
  * -> "(T ? F : 3)"                 or       -> "(T ? F : 5)"
  * -> "F"                                    -> "F"
  */
-public class TernaryExpressionParser {
+public class TernaryExpressionParser2 {
+
     public char parseTernary(String expression) {
-        Stack<Character> num = new Stack<>(); // 0-9 or T or F
-        Stack<Character> symbol = new Stack<>(); // : or ?
-        int i = expression.length() - 1;
-        while (i-- >= 0) {
+        Stack<Character> s = new Stack<>();
+        for (int i = expression.length() - 1; i >= 0; --i) {
             char c = expression.charAt(i);
-            if (c > '0' && c < '9' || c=='T' || c=='F')
-                num.push(c);
-            else if (c == ':')
-                symbol.push(c);
-            else if (c == '?') {
-                if (expression.charAt(i - 1) == 'T') {
-                    char val = num.pop();
-                    num.pop();
-                    num.push(val);
-                } else {
-                    num.pop();
-                }
-                symbol.pop();
-                i--;
+            if (!s.isEmpty() && s.peek() == '?') {
+                s.pop();
+                char first = s.peek();
+                s.pop();
+                s.pop();
+                char second = s.peek();
+                s.pop();
+                s.push(c == 'T' ? first : second);
+            } else {
+                s.push(c);
             }
         }
-        return num.pop();
+        return s.peek();
     }
 }

@@ -15,23 +15,54 @@ s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 
 */
 public class DecodeString {
-	public String decodeString(String s) {
-		Stack<Integer> stack = new Stack<>();
-		Stack<Character> stack2 = new Stack<>();
-		String res = "";
-		String num = "";
-		for (int i = 0; i < s.length(); i++) {
-			if (s.charAt(i) >= 0 && s.charAt(i) <= 9) {
-				num += s.charAt(i);
-			} else if (s.charAt(i) >= 'a' && s.charAt(i) <= 'z')
-				res += s.charAt(i);
-			else if (s.charAt(i) == '[')
-				break;
-		}
-		int time = Integer.parseInt(num);
-		while (time-- > 0) {
-			res += decodeString(s.substring(s.indexOf('[')+1));
-		}
-		return res;
-	}
+    public static String decodeString(String s) {
+        Stack<String> stack = new Stack<>();
+        Stack<Integer> num = new Stack<>();
+        int i = 0;
+        while (i < s.length()) {
+            int begin = i;
+            while (i < s.length() && s.charAt(i) >= 'a' && s.charAt(i) <= 'z') {
+                i++;
+            }
+            if (i != begin)
+                stack.push(s.substring(begin, i));
+            begin = i;
+            while (i < s.length() && s.charAt(i) >= '0' && s.charAt(i) <= '9') {
+                i++;
+            }
+            if (i != begin) {
+                num.push(Integer.parseInt(s.substring(begin, i)));
+            }
+            if (i<s.length()&&s.charAt(i) == '[')
+                stack.push("[");
+            else if (i<s.length()&& s.charAt(i) == ']') {
+                String str = "";
+                while (!stack.isEmpty()&&stack.peek()!="["){
+                    str=stack.pop()+str;
+                }
+                String temp ="";
+                int times = num.pop();
+                while (times-->0){
+                    temp+=str;
+                }
+                while (!stack.isEmpty()&&stack.peek()!="["){
+                    temp=stack.pop()+temp;
+                }
+                if(!stack.isEmpty())
+                    stack.pop();
+                stack.push(temp);
+            }
+            i++;
+        }
+        StringBuilder res= new StringBuilder();
+        while(!stack.isEmpty()){
+            res.insert(0, stack.pop());
+        }
+        return res.toString();
+    }
+    public static void  main(String[] args){
+        String s ="3[a2[c]]";
+        String ss ="3[a]2[bc]";
+        System.out.println(decodeString(s));
+    }
 }

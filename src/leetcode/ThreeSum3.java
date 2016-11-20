@@ -10,7 +10,7 @@ package leetcode;
  *     (-1, -1, 2)
  */
 import java.util.*;
-
+// Fix a, find b and c from head and end
 public class ThreeSum3 {
 	public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();

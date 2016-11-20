@@ -13,6 +13,7 @@ import java.util.Arrays;
  *     (-1, 0, 1)
  *     (-1, -1, 2)
  */
+// Fix a, find b and c from head and end
 public class ThreeSum2 {
 	public ArrayList<ArrayList<Integer>> threeSum(int[] num) {
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
