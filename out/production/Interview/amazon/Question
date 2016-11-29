@@ -1,0 +1,5 @@
+1 Hashcode imlement hashset
+h(s)= sum_1 to n (s[i]*31^n-1-i)
+2 What is stack implement
+FILO
+3 

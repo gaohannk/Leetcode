@@ -12,35 +12,35 @@ import java.util.List;
  * "3456237490", 9191 -> []
  */
 public class ExpressionAddOperators {
-	public List<String> addOperators(String num, int target) {
-		List<String> res = new ArrayList<>();
-		for (int i = 1; i <= num.length(); i++) {
-			if (i >= 2 && num.charAt(0) == '0')
-				continue;
-			helper(res, num.substring(0, i), num.substring(i), 0, Integer.parseInt(num.substring(0, i)), target, false);
-		}
+    public List<String> addOperators(String num, int target) {
+        List<String> res = new ArrayList<>();
+        for (int i = 1; i <= num.length(); i++) {
+            if (i >= 2 && num.charAt(0) == '0')
+                continue;
+            helper(res, num.substring(0, i), num.substring(i), 0, Integer.parseInt(num.substring(0, i)), target, false);
+        }
 
-		return res;
-	}
+        return res;
+    }
 
-	private void helper(List<String> res, String exp, String num, int value, int number, int target, boolean sign) {
-		int sum = sign ? value + number : value - number;
-		if (num.length() == 0 && value == target) {
-			res.add(exp);
-			return;
-		}
-		for (int i = 1; i < num.length(); i++) {
-			int current = Integer.parseInt(num.substring(0, i));
-			exp += "+" + num.substring(0, i);
-			helper(res, exp, num.substring(i), sum, current, target, true);
-			exp = exp.substring(0, exp.length() - i - 1);
-			exp += "-" + num.substring(0, i);
-			helper(res, exp, num.substring(i), sum, current, target, false);
-			exp = exp.substring(0, exp.length() - i - 1);
-			exp += "*" + num.substring(0, i);
-			helper(res, exp, num.substring(i), value, current * number, target, sign);
-			exp = exp.substring(0, exp.length() - i - 1);
-		}
-		return;
-	}
+    private void helper(List<String> res, String exp, String num, int value, int number, int target, boolean sign) {
+        int sum = sign ? value + number : value - number;
+        if (num.length() == 0 && value == target) {
+            res.add(exp);
+            return;
+        }
+        for (int i = 1; i < num.length(); i++) {
+            int current = Integer.parseInt(num.substring(0, i));
+            exp += "+" + num.substring(0, i);
+            helper(res, exp, num.substring(i), sum, current, target, true);
+            exp = exp.substring(0, exp.length() - i - 1);
+            exp += "-" + num.substring(0, i);
+            helper(res, exp, num.substring(i), sum, current, target, false);
+            exp = exp.substring(0, exp.length() - i - 1);
+            exp += "*" + num.substring(0, i);
+            helper(res, exp, num.substring(i), value, current * number, target, sign);
+            exp = exp.substring(0, exp.length() - i - 1);
+        }
+        return;
+    }
 }

@@ -1,0 +1,4 @@
+1.what is hash table + collision resolve. 具体问了linear probing怎么处理insert，delete，search
+2.median of data stream
+3.quick sort vs merge sort
+4.process vs thread, how to communicate

@@ -5,6 +5,7 @@ package leetcode;
  * You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times). 
  * However, you may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
  */
+// find local min and max point
 public class BestTimetoBuyandSellStockII2 {
 	public int maxProfit(int[] prices) {
 		int maxprofit = 0;

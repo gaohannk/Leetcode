@@ -9,17 +9,16 @@ package leetcode;
  * maxprofit[i]表示从0到i的最大利润
  */
 public class BestTimetoBuyandSellStock {
-	public int maxProfit(int[] prices) {
-		if (prices.length == 0)
-			return 0;
-		int min = Integer.MAX_VALUE;
-		int[] maxprofit = new int[prices.length];
-		for (int i = 0; i < prices.length; i++) {
-			if (prices[i] < min)
-				min = prices[i];
-			int profit = prices[i] - min;
-			maxprofit[i] = Math.max(maxprofit[i - 1], profit);
-		}
-		return maxprofit[prices.length - 1];
-	}
+    public int maxProfit(int[] prices) {
+        if (prices.length == 0)
+            return 0;
+        int min = Integer.MAX_VALUE;
+        int[] maxprofit = new int[prices.length];
+        for (int i = 0; i < prices.length; i++) {
+            min = prices[i] < min ? prices[i] : min;
+            int profit = prices[i] - min;
+            maxprofit[i] = Math.max(maxprofit[i - 1], profit);
+        }
+        return maxprofit[prices.length - 1];
+    }
 }

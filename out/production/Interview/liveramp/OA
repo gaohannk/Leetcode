@@ -1,0 +1,55 @@
+First lets get the exact meaning of input data. The A[k] value is the **position** and the k index is **time**.
+Since we want to get the earlist time that monkey can cross the river, we can **check** weather monkey can cross with the increaing of time.
+That meaning we can iterate with the **time**. When we know the monkey can cross river, we return current time. The problem is how do we do the **check** process at each time.
+
+If we go through all the position, the time complexity is O(max(A)*N), which is high.
+We wish the monkey can jump further at each jump. In the ideal case, each jump is D distance. In the first jump, there has to be a stone exist in 0,1,2,3.. D-1. If consider 1,2...D is a BIN, the BIN should be filled at least one stone at a position. This inspire us to divide the length of position into bins with each has length D. The monkdy has to stop at each BIN at least one time. But that does not mean the monkey can certainly cross the river. The most right stone in first BIN and the most left stone in second BIN should has distance less then D. We can call two bins ***connected***
+
+The **certainly** cross river condition is that all bins are connected together. 
+
+
+For example 
+D=3
+-1| 0,1,2|3,4,5|6,7,8|9
+	BIN 0 BIN 1	BIN 2 BANK
+
+three bins should be connected. 
+
+Since the max jump distance one time is D, we only need to check connection with adjacent bin. Therefore, when we have a stone, we have to know if the furthest jump can reach this stone position. We use a Range to remember the right most and left most position which can cover by the stone in each bin. We use a boolean array with length is the number of bin) to represent weather this bin is connected with the next bin. (The last bin connect to bank).
+
+Checking all connections array need time O(N/D), but if check the number of connections only need O(1). 
+We should consider two cases
+
+case 1: the length can be divided with no remainder
+D=3
+-1| 0,1,2|3,4,5|6,7,8|9
+	BIN 0 BIN 1	BIN 2 BANK
+
+case 2:
+D=3
+-1| 0,1,2|3,4,5|6,7 |8
+	BIN 0 BIN 1	BIN 2 BANK
+If position 5 has a stone, monkey can jump from  5 to 8(bank), the last bin don't need to be filled. 
+If position 4 has a stone, monkey can not jump from  4 to 8(bank), the last bin has to be filled. 
+
+In the code, we need to deal witht this special case. The condition is 
+binNum == totalBin - 2 && map.get(binNum).max >= A.length 
+
+
+Time complexity analysis:
+Find the largest time in A[k] need O(N) time
+The max time is max(A), thus the length of array B is max(A). The iteration is O(max(A))
+Checking the connecttion is O(1)
+The total time is O(n+max(A))
+
+
+
+
+
+First, my personal backgroud is related to cloud computing and big data. I have one year research expereiecne in these field and have two publiation papers related to big data framework such as Hadoop/Spark. I wish my future work is closed to what I have done before and can apply my experience in the work.
+
+Second, my opionin is that data is the king for winning the market and become extemelly important in the future. As a pragmatist, I hope that each bunch of data can has it own value. Liveramp is typically data-orientated company and has to deal with large amount of data.  The product is attractive which can enlarge the value of data.
+
+Third, based my own reserach feeling, handle dirty data is not a easy problem and involve intellectual work. I am confident that I can contribute myself to help geting these work done. Besides, the great team and warm working enviroment in Liveramp are attractive to me. 
+
+Forth, geting thing done is the final objective in the work. 

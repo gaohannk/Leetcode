@@ -1,0 +1,21 @@
+Luke has just bought 7 disk drives and grouped them together into a single logical drive so he could back up all funny cat pictures from the internet. Luke's drive usage can be described as a sustained workload of 200,000 write operations per second with following distribution:
+1.	512 bytes - 20% of all operations
+2.	1024 bytes - 30% of all operations
+3.	4096 bytes - 40% of all operations
+16384 bytes - 10% of all operations
+
+Each write operation appends sequentially to an individual drive, and the load is evenly distributed among all drives. There is no compression, garbage collection, or redundancy elimination involved.
+Assuming each drive has a capacity of exactly 513 GiB (1 GiB = 1024 MiB; 1 MiB = 1024 KiB; 1 KiB = 1024 bytes), how soon will Luke's array be filled from completely empty to 86% (at that point, Luke should probably consider buying few more disks)? Please round the answer to minutes.
+1，代码题：Remove nodes from a LinkedList that have the given value.
+给一个LinkedList和一个int值，去掉List里面所有包含这个值的节点。
+
+2，代码改错题：给了一段很简单的C代码要求改正错误。题目大概就是给一个int数组和intdiff，
+要求找到数组中的all pairs使得the two elements have difference diff (a-b == diff, b-a == diff). 返回值是所有符合条件的pair的个数
+
+3，判断下列哪些小数有确定有限的(exact)二进制表示：A 0.1, B 0.2, C 0.3, D 0.4, E 0.5 (E)
+
+
+4，1-1000猜数字，你每次的提问对方只能用yes或no来回答，问最少需要猜多少次才能才出来 (10)
+用binarysearch, 每次缩小一半范围
+
+5，一个singlyLinkedList, 给了指向头尾节点的指针，问以下哪个操作的时间复杂度依赖于list的长度(O(n)) (delete tail)

@@ -1,0 +1,94 @@
+First, we'll design the deck class in detail. When a deck of cards is first created, it contains 52 cards in some standard order. 
+The Deck class will need a constructor to create a new deck. 
+The constructor needs no parameters because any new deck is the same as any other. 
+There will be an instance method called shuffle() that will rearrange the 52 cards into a random order. 
+The dealCard() instance method will get the next card from the deck. 
+This will be a function with a return type of Card, since the caller needs to know what card is being dealt. 
+It has no parameters -- when you deal the next card from the deck, you don't provide any information to the deck; you just get the next card, 
+whatever it is. 
+
+
+Constructor and instance methods in class Deck:
+
+     /**
+      * Constructor.  Create an unshuffled deck of cards.
+      */
+     public Deck()
+
+     /**
+      * Put all the used cards back into the deck,
+      * and shuffle it into a random order.
+      */
+     public void shuffle()
+
+     /**
+      * As cards are dealt from the deck, the number of 
+      * cards left decreases.  This function returns the 
+      * number of cards that are still left in the deck.
+      */
+     public int cardsLeft()
+
+     /**
+      * Deals one card from the deck and returns it.
+      * @throws IllegalStateException if no more cards are left.
+      */
+     public Card dealCard()
+
+Constructor and instance methods in class Hand:
+
+    /**
+     * Constructor. Create a Hand object that is initially empty.
+     */
+    public Hand()
+
+    /**
+     * Discard all cards from the hand, making the hand empty.
+     */
+    public void clear()
+
+    /**
+     * Add the card c to the hand.  c should be non-null.
+     * @throws NullPointerException if c is null.
+     */
+    public void addCard(Card c)
+
+    /**
+     * If the specified card is in the hand, it is removed.
+     */
+    public void removeCard(Card c)
+
+    /**
+     * Remove the card in the specified position from the
+     * hand.  Cards are numbered counting from zero.
+     * @throws IllegalArgumentException if the specified 
+     *    position does not exist in the hand.
+     */
+    public void removeCard(int position)
+
+    /**
+     * Return the number of cards in the hand.
+     */
+    public int getCardCount()
+
+    /**
+     * Get the card from the hand in given position, where 
+     * positions are numbered starting from 0.
+     * @throws IllegalArgumentException if the specified 
+     *    position does not exist in the hand.
+     */
+    public Card getCard(int position)
+
+    /**
+     * Sorts the cards in the hand so that cards of the same 
+     * suit are grouped together, and within a suit the cards 
+     * are sorted by value.
+     */
+    public void sortBySuit()
+
+    /**
+     * Sorts the cards in the hand so that cards are sorted into
+     * order of increasing value.  Cards with the same value 
+     * are sorted by suit. Note that aces are considered
+     * to have the lowest value.
+     */
+    public void sortByValue()
