@@ -17,21 +17,21 @@ public class MergeTwoSortedLists {
 			return l1;
 
 		ListNode newhead = new ListNode(0);
-		ListNode p = newhead;
+		ListNode cur = newhead;
 		while (l1 != null && l2 != null) {
 			if (l1.val > l2.val) {
-				p.next = l2;
+				cur.next = l2;
 				l2 = l2.next;
 			} else {
-				p.next = l1;
+				cur.next = l1;
 				l1 = l1.next;
 			}
-			p = p.next;
+			cur = cur.next;
 		}
 		if (l1 == null)
-			p.next = l2;
+			cur.next = l2;
 		else
-			p.next = l1;
+			cur.next = l1;
 		return newhead.next;
 	}
 }

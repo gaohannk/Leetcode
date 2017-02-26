@@ -7,42 +7,26 @@ package leetcode;
  * Output: 7 -> 0 -> 8
  */
 public class AddTwoNumbers2 {
-	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummyHead = new ListNode(0);
+        ListNode p = l1, q = l2, curr = dummyHead;
+        int carry = 0;
+        while (p != null || q != null) {
+            int x = (p != null) ? p.val : 0;
+            int y = (q != null) ? q.val : 0;
+            int sum = carry + x + y;
+            carry = sum / 10;
+            curr.next = new ListNode(sum % 10);
+            curr = curr.next;
+            if (p != null)
+                p = p.next;
+            if (q != null)
+                q = q.next;
+        }
+        if (carry > 0) {
+            curr.next = new ListNode(carry);
+        }
+        return dummyHead.next;
+    }
 
-		ListNode p1 = l1;
-		ListNode p2 = l2;
-		ListNode newHead = new ListNode(0);
-		ListNode p3 = newHead;
-		int val;// store sum
-		int carry = 0;
-
-		while (p1 != null || p2 != null) {
-			// both p1 and p2 have value
-			if (p1 != null && p2 != null) {
-				val = p1.val + p2.val + carry;
-				carry=val/10;
-				p3.next = new ListNode(val % 10);
-				p1 = p1.next;
-				p2 = p2.next;
-				// p1 is null, because p2 is longer
-			} else if (p2 != null) {
-				val = p2.val + carry;
-				carry=val/10;
-				p3.next = new ListNode(val % 10);
-				p2 = p2.next;
-				// p2 is null, because p1 is longer
-			} else if (p1 != null) {
-				val = p1.val + carry;
-				carry=val/10;
-				p3.next = new ListNode(val % 10);
-				p1 = p1.next;
-			}
-			p3 = p3.next;
-		}
-
-		// handle situation that same length final sum >=10
-		if (p1 == null && p2 == null && carry == 1)
-			p3.next = new ListNode(1);
-		return newHead.next;
-	}
 }

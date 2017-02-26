@@ -8,49 +8,21 @@ package leetcode;
  */
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TwoSum2 {
-	class pairs implements Comparable<pairs> {
-		int number;
-		int index;
-
-		pairs(int number, int index) {
-			this.number = number;
-			this.index = index;
-		}
-
-		public int compareTo(pairs p2) {
-			return this.number - p2.number;
-		}
-
-	}
-	public int[] twoSum(int[] numbers, int target) {
-		int index = 0;
-		int index2 = numbers.length - 1;
-		int[] result = new int[2];
-		pairs[] pair = new pairs[numbers.length];
-		for (int i = 0; i < numbers.length; i++) {
-			pair[i] = new pairs(numbers[i], i + 1);
-		}
-		Arrays.sort(pair);
-		while (index < index2) {
-			if ((pair[index].number + pair[index2].number) < target) {
-				index++;
-			} else {
-				if (pair[index].number + pair[index2].number > target) {
-					index--;
-				} else {
-					if (pair[index].index < pair[index].index) {
-						result[0] = pair[index].index;
-						result[1] = pair[index2].index;
-					} else {
-						result[1] = pair[index].index;
-						result[0] = pair[index2].index;
-					}
-				}
-
-			}
-		}
-		return result;
-	}
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            map.put(nums[i], i);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (map.containsKey(complement) && map.get(complement) != i) {
+                return new int[]{i, map.get(complement)};
+            }
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
 }

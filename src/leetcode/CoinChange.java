@@ -1,5 +1,8 @@
 package leetcode;
-/* You are given coins of different denominations and a total amount of money amount. 
+
+import java.util.Stack;
+
+/* You are given coins of different denominations and a total amount of money amount.
  * Write a function to compute the fewest number of coins that you need to make up that amount. 
  * If that amount of money cannot be made up by any combination of the coins, return -1.
  * Example 1:
@@ -12,8 +15,8 @@ package leetcode;
  * You may assume that you have an infinite number of each kind of coin.
  */
 public class CoinChange {
-    public int coinChange(int[] coins, int amount) {
 
-    }
+
+
 
 }

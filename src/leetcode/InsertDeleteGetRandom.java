@@ -1,5 +1,4 @@
 package leetcode;
-import java.security.SecureRandom;
 /*Design a data structure that supports all following operations in average O(1) time.
 
 insert(val): Inserts an item val to the set if not already present.
@@ -37,13 +36,15 @@ import java.util.Random;
 
 public class InsertDeleteGetRandom {
 	public class RandomizedSet {
-		private Random rnd = new Random();
-		private HashMap<Integer, Integer> map = new HashMap<>();
-		private LinkedList<Integer> list = new LinkedList<>();
+		private Random rnd;
+		private HashMap<Integer, Integer> num2index;
+		private LinkedList<Integer> list ;
 
 		/** Initialize your data structure here. */
 		public RandomizedSet() {
-
+			rnd = new Random();
+			list= new LinkedList<>();
+			num2index = new HashMap<>();
 		}
 
 		/**
@@ -51,11 +52,11 @@ public class InsertDeleteGetRandom {
 		 * contain the specified element.
 		 */
 		public boolean insert(int val) {
-			if (map.containsKey(val)) {
+			if (num2index.containsKey(val)) {
 				return false;
 			}
 
-			map.put(val, list.size());
+			num2index.put(val, list.size());
 			list.add(val);
 			return true;
 		}
@@ -65,15 +66,15 @@ public class InsertDeleteGetRandom {
 		 * specified element.
 		 */
 		public boolean remove(int val) {
-			 if(!map.containsKey(val)) {
+			 if(!num2index.containsKey(val)) {
 		            return false;
 		        }
 		        
-		        int idx = map.remove(val); // remove our val from mapping
+		        int idx = num2index.remove(val); // remove our val from mapping
 		        int lastValue = list.remove(list.size() - 1);// remove the last item
 		        if(val != lastValue) {
 		            list.set(idx, lastValue); // set the current item to equal the last item
-		            map.put(lastValue, idx); // map the last item to our current index
+		            num2index.put(lastValue, idx); // num2index the last item to our current index
 		        }
 		        return true;
 		}

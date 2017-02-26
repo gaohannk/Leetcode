@@ -6,20 +6,15 @@ package leetcode;
  * A = [2,3,1,1,4], return true.
  * A = [3,2,1,0,4], return false.
  */
-/* brute force
- * 
+/* 优化解法，只需要顺序扫描数组，记录下能够到达的最远位置
  */
 public class JumpGame {
 	public boolean canJump(int[] A) {
-		boolean[] canArrive = new boolean[A.length];
-		canArrive[0] = true;
-		for (int i = 0; i < A.length; i++) {
-			if (canArrive[i] == false)
-				continue;
-			int farest = Math.min(i + A[i], A.length - 1);
-			for (int j = i + 1; j <= farest; j++)
-				canArrive[j] = true;
-			if (canArrive[A.length - 1])
+		int farest = 0;
+		for (int i = 0; i <= farest; i++) {
+			if (A[i] + i > farest)
+				farest = A[i] + i;
+			if (farest >= A.length - 1)
 				return true;
 		}
 		return false;
