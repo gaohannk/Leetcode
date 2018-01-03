@@ -33,6 +33,6 @@ package leetcode;
  */
 public class ZumaGame {
     public int findMinStep(String board, String hand) {
-
+        return 0;
     }
 }

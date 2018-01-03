@@ -1,3 +1,5 @@
+package leetcode;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -5,6 +7,7 @@ import java.util.LinkedList;
 /**
  * Created by gaohan on 8/9/17.
  */
+//TLE
 public class TwoKeysKeyboard {
     public static int minSteps(int n) {
         int[] minStep = new int[n + 1];
