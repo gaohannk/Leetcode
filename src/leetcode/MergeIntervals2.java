@@ -17,7 +17,13 @@ public class MergeIntervals2 {
 			return intervals;
 
 		// sort the input by start value
-		Collections.sort(intervals, new IntervalComparator());
+		Collections.sort(intervals, new Comparator<Interval>() {
+			@Override
+			public int compare(Interval a, Interval b) {
+				return a.start - b.start;
+			}
+		});
+
 		Interval a = intervals.get(0);
 		for (int i = 1; i < len; i++) {
 			Interval b = intervals.get(i);
@@ -34,11 +40,5 @@ public class MergeIntervals2 {
 		}
 		res.add(a);
 		return res;
-	}
-}
-
-class IntervalComparator implements Comparator<Interval> {
-	public int compare(Interval a, Interval b) {
-		return a.start - b.start;
 	}
 }

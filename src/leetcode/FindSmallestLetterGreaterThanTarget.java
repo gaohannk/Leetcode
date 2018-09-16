@@ -24,7 +24,10 @@ package leetcode;
  * Input:
  * letters = ["c", "f", "j"]
  * target = "g"
- * Output: "j"
+ * Output: "j
+ *
+ *
+ * "
  * <p>
  * Input:
  * letters = ["c", "f", "j"]
@@ -40,5 +43,22 @@ package leetcode;
  * letters consists of lowercase letters, and contains at least 2 unique letters.
  * target is a lowercase letter.
  */
+
+/**
+ * Let's scan through letters and record if we see a letter or not. We could do this with an array of size 26, or with a Set structure.
+ * Then, for every next letter (starting with the letter that is one greater than the target), let's check if we've seen it. If we have, it must be the answer.
+ */
 public class FindSmallestLetterGreaterThanTarget {
+    public char nextGreatestLetter(char[] letters, char target) {
+        boolean[] seen = new boolean[26];
+        for (char c: letters)
+            seen[c - 'a'] = true;
+
+        while (true) {
+            target++;
+            if (target > 'z') target = 'a';
+            if (seen[target - 'a'])
+                return target;
+        }
+    }
 }

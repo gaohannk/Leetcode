@@ -13,13 +13,13 @@ import java.util.Set;
 a = 2
 b = [3]
 
-Result: 8
+TreeNodeWithDist: 8
 Example2:
 
 a = 2
 b = [1,0]
 
-Result: 1024
+TreeNodeWithDist: 1024
  */
 public class SuperPow {
 	public static int superPow(int a, int[] b) {

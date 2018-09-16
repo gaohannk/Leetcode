@@ -28,17 +28,17 @@ public class CloneGraph2 {
 		return head;
 	}
 
-	public void DFS(HashMap<UndirectedGraphNode, UndirectedGraphNode> hm, UndirectedGraphNode node) {
+	public void DFS(HashMap<UndirectedGraphNode, UndirectedGraphNode> map, UndirectedGraphNode node) {
 		if (node == null)
 			return;
 
 		for (UndirectedGraphNode aneighbor : node.neighbors) {
-			if (!hm.containsKey(aneighbor)) {
+			if (!map.containsKey(aneighbor)) {
 				UndirectedGraphNode newneighbor = new UndirectedGraphNode(aneighbor.label);
-				hm.put(aneighbor, newneighbor);
-				DFS(hm, aneighbor);// DFS
+				map.put(aneighbor, newneighbor);
+				DFS(map, aneighbor);// DFS
 			}
-			hm.get(node).neighbors.add(hm.get(aneighbor));
+			map.get(node).neighbors.add(map.get(aneighbor));
 		}
 	}
 }

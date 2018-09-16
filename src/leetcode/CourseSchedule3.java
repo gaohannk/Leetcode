@@ -1,10 +1,10 @@
 package leetcode;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /* There are a total of n courses you have to take, labeled from 0 to n - 1.
- * Some courses may have prerequisites, for example to take course 0 you have to first take course 1, 
+ * Some courses may have prerequisites, for example to take course 0 you have to first take course 1,
  * which is expressed as a pair: [0,1]
  * Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
  * For example:
@@ -15,37 +15,36 @@ import java.util.Queue;
  * Note:
  * The input prerequisites is a graph represented by a list of edges, not adjacency matrices. Read more about how a graph is represented.
  */
-// BFS
+//DFS
 public class CourseSchedule3 {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        if (prerequisites == null)
-            return false;
-        if (numCourses == 0 || prerequisites.length == 0)
-            return true;
-        int degree[] = new int[numCourses];
-        // Store the course with input degree equals 0
-        Queue<Integer> queue = new LinkedList();
-        for (int edge[] : prerequisites) {
-            degree[edge[0]]++;
-        }
-        for (int i = 0; i < numCourses; i++) {
-            if (degree[i] == 0)
-                queue.add(i);
-        }
-        int count = queue.size();
-        while (!queue.isEmpty()) {
-            int p = queue.poll();
-            for (int edge[] : prerequisites) {
-                if (edge[1] == p) {
-                    degree[edge[0]]--;
-                    if (degree[edge[0]] == 0) {
-                        count++;
-                        queue.add(edge[0]);
-                    }
-                }
-            }
+        ArrayList[] graph = new ArrayList[numCourses];
+        for (int i = 0; i < numCourses; i++)
+            graph[i] = new ArrayList();
 
+        boolean[] visited = new boolean[numCourses];
+        for (int i = 0; i < prerequisites.length; i++) {
+            graph[prerequisites[i][1]].add(prerequisites[i][0]);
         }
-        return count == numCourses;
+
+        for (int i = 0; i < numCourses; i++) {
+            if (!dfs(graph, visited, i))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean dfs(ArrayList[] graph, boolean[] visited, int course) {
+        if (visited[course])
+            return false;
+        else
+            visited[course] = true;
+
+        for (int i = 0; i < graph[course].size(); i++) {
+            if (!dfs(graph, visited, (int) graph[course].get(i)))
+                return false;
+        }
+        visited[course] = false;
+        return true;
     }
 }

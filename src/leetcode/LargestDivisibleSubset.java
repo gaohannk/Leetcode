@@ -8,10 +8,10 @@ import java.util.List;
 If there are multiple solutions, return any subset is fine.
 Example 1:
 nums: [1,2,3]
-Result: [1,2] (of course, [1,3] will also be ok)
+TreeNodeWithDist: [1,2] (of course, [1,3] will also be ok)
 Example 2:
 nums: [1,2,4,8]
-Result: [1,2,4,8]
+TreeNodeWithDist: [1,2,4,8]
 */
 // len[i] store the number of largest subset ending with i
 // index[i] trace the last element index for constructing the list result

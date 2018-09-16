@@ -18,24 +18,25 @@ package leetcode;
  * 17/3!=2 所以第一个数字是3
  */
 public class PermutationSequence2 {
-	public static String getPermutation(int n, int k) {
-		StringBuffer num = new StringBuffer("123456789");
-		StringBuffer str = new StringBuffer();
-		int total = 1;
-		for (int i = 2; i <= n; i++) {
-			total *= i;
-		}
-		for (int i = 0; i < n; i++) {
-			total /= (n - i);
-			int index = (k - 1) / total;
-			str.append(num.charAt(index));
-			num.deleteCharAt(index);
-			//System.out.println(num.toString());
-			k -= index * total;
-		}
-		return str.toString();
-	}
-	public static void main(String[] args){
-		System.out.println(getPermutation(4, 17));
-	}
+    public static String getPermutation(int n, int k) {
+        StringBuffer num = new StringBuffer("123456789");
+        StringBuffer res = new StringBuffer();
+        int total = 1;
+        for (int i = 2; i <= n; i++) {
+            total *= i;
+        }
+        for (int i = 0; i < n; i++) {
+            total /= (n - i);
+            int index = (k - 1) / total;
+            res.append(num.charAt(index));
+            num.deleteCharAt(index);
+            //System.out.println(num.toString());
+            k -= index * total;
+        }
+        return res.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getPermutation(4, 17));
+    }
 }

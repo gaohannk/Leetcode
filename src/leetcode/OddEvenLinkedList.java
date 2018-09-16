@@ -44,16 +44,8 @@ public class OddEvenLinkedList {
 			dummy = dummy.next;
 			count++;
 		}
-//		System.out.println(count);
 		count = (count - 1) / 2;
 		while (count-- > 0) {
-//			ListNode printhead = head;
-//			while (printhead != null) {
-//				System.out.print(printhead.val + ",");
-//				printhead = printhead.next;
-//			}
-//			System.out.println();
-			
 			int temp = step;
 			while (temp > 0 && cur.next != null) {
 				cur = cur.next;

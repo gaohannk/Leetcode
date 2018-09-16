@@ -23,7 +23,6 @@ public class StringtoInteger {
 				num = s.charAt(i) - '0';
 				flag = true;
 			} else if (s.charAt(i) == ' ' && !flag) {
-				;
 			} else
 				break;
 

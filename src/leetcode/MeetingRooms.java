@@ -11,13 +11,8 @@ import java.util.Comparator;
  * return false.
  */
 public class MeetingRooms {
-    public boolean canAttendMeetings(Interval[] intervals) {
-        Arrays.sort(intervals, new Comparator<Interval>() {
-            @Override
-            public int compare(Interval o1, Interval o2) {
-                return o1.start - o2.start;
-            }
-        });
+    public static boolean canAttendMeetings(Interval[] intervals) {
+        Arrays.sort(intervals, (o1, o2) -> o1.start-o2.start);
         int endTime = 0;
         for (int i = 0; i < intervals.length; i++) {
             if (intervals[i].start < endTime)
@@ -26,5 +21,14 @@ public class MeetingRooms {
                 endTime = intervals[i].end;
         }
         return true;
+    }
+
+    public static void main(String[] args){
+        Interval[] intervals = new Interval[3];
+        intervals[0] = new Interval(0,30);
+        intervals[1] = new Interval(5,10);
+        intervals[2] = new Interval(15,20);
+
+        System.out.print(canAttendMeetings(intervals));
     }
 }

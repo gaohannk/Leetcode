@@ -79,12 +79,3 @@ public class IPO {
     }
 }
 
-class Pair {
-    int prf;
-    int cap;
-
-    public Pair(int prf, int cap) {
-        this.prf = prf;
-        this.cap = cap;
-    }
-}

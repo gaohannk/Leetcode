@@ -4,6 +4,7 @@ package leetcode;
  * Note: You can only move either down or right at any point in time.
  */
 /* 设dp[i][j]表示从左上角到grid[i][j]的最小路径和。那么dp[i][j] = grid[i][j] + min( dp[i-1][j], dp[i][j-1] );
+Space O(m*n)
  */
 public class MinimumPathSum {
 	public int mindistPathSum(int[][] grid) {

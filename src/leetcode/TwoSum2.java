@@ -7,7 +7,6 @@ package leetcode;
  * Output: index1=1, index2=2
  */
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
