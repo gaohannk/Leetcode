@@ -17,41 +17,20 @@ package leetcode;
  */
 public class Searcha2DMatrixII {
 	public boolean searchMatrix(int[][] matrix, int target) {
-		int startx = 0;
-		int starty = 0;
-		int endx = matrix.length-1;
-		int endy = matrix[0].length-1;
-		return helper(matrix, startx, starty, endx, endy, target);
-	}
-
-	private boolean helper(int[][] matrix, int startx, int starty, int endx, int endy, int target) {
-		if (startx == endx - 1 || starty == endy - 1 || startx == endx || starty == endy) {
-			for (int i = 0; i < matrix.length; i++) {
-				if (matrix[i][endy] == target)
-					return true;
-				if (endy - 1 >= 0 && matrix[i][endy - 1] == target)
-					return true;
-			}
-			for (int i = 0; i < matrix[0].length; i++) {
-				if (matrix[endx][i] == target)
-					return true;
-				if (endx - 1 >= 0 && matrix[endx - 1][i] == target)
-					return true;
-			}
+		if(matrix == null || matrix.length < 1 || matrix[0].length <1) {
 			return false;
 		}
-		int midx = (startx + endx) / 2;
-		int midy = (starty + endy) / 2;
-		if (matrix[midx][midy] == target)
-			return true;
-		else if (matrix[midx][midy] > target) {
-			endx = midx;
-			endy = midy;
-			return helper(matrix, startx, starty, endx, endy, target);
-		} else {
-			startx = midx;
-			starty = midy;
-			return helper(matrix, startx, starty, endx, endy, target);
+		int col = matrix[0].length-1;
+		int row = 0;
+		while(col >= 0 && row <= matrix.length-1) {
+			if(target == matrix[row][col]) {
+				return true;
+			} else if(target < matrix[row][col]) {
+				col--;
+			} else if(target > matrix[row][col]) {
+				row++;
+			}
 		}
+		return false;
 	}
 }

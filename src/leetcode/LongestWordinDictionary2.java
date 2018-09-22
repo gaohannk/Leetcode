@@ -8,9 +8,10 @@ import java.util.Stack;
 public class LongestWordinDictionary2 {
     public String longestWord(String[] words) {
         Trie trie = new Trie();
-        int index = 0;
+        int index = 1;
         for (String word : words) {
-            trie.insert(word, ++index); //indexed by 1
+            trie.insert(word, index);//indexed by 1
+            index++;
         }
         trie.words = words;
         return trie.dfs();
@@ -64,7 +65,5 @@ public class LongestWordinDictionary2 {
             }
             return ans;
         }
-
     }
-
 }

@@ -7,8 +7,9 @@ public class LongestWordinDictionary {
     public String longestWord(String[] words) {
         String ans = "";
         Set<String> wordset = new HashSet();
-        for (String word : words)
+        for (String word : words) {
             wordset.add(word);
+        }
         for (String word : words) {
             if (word.length() > ans.length() ||
                     word.length() == ans.length() && word.compareTo(ans) < 0) {
