@@ -1,7 +1,5 @@
 package leetcode;
 
-import java.util.LinkedList;
-
 /* Reverse a singly linked list.
  */
 /* recursive solution 

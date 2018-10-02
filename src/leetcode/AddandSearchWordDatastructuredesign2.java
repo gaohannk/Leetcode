@@ -3,8 +3,6 @@ package leetcode;
 import java.util.HashMap;
 import java.util.Map;
 
-import leetcode.ImplementTriePrefixTree2.TrieNode;
-
 /* Design a data structure that supports the following two operations:
  * void addWord(word)
  * bool search(word)

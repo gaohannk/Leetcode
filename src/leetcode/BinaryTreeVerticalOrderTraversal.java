@@ -1,7 +1,6 @@
 package leetcode;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /* Given a binary tree, print it vertically. The following example illustrates vertical order traversal.
 

@@ -2,7 +2,6 @@ package leetcode;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 /*
  * Given a binary tree, return all root-to-leaf paths.

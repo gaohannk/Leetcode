@@ -1,7 +1,6 @@
 package leetcode;
 
 import java.util.LinkedList;
-import leetcode.Interval;
 /**
  * Definition for an interval.
  * public class Interval {

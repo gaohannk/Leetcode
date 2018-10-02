@@ -4,7 +4,6 @@ package leetcode;
  */
 import java.util.*;
 
-import leetcode.ListNode;
 //两个合并，合并k-1次， 递归
 public class MergekSortedLists2 {
 	public ListNode mergeKLists(ArrayList<ListNode> lists) {
