@@ -19,11 +19,11 @@ package leetcode;
  *   4-> 5 -> 7 -> NULL
  */
 public class PopulatingNextRightPointersinEachNodeII {
-	public void connect(TreeLinkNode root) {
+	public Node  connect(Node root) {
 		if (root == null)
-			return;
+			return null;
 
-		TreeLinkNode p = root.next;
+		Node p = root.next;
 
 		while (p != null) {
 			if (p.left != null) {
@@ -46,5 +46,6 @@ public class PopulatingNextRightPointersinEachNodeII {
 		}
 		connect(root.right);
 		connect(root.left);
+		return root;
 	}
 }

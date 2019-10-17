@@ -14,18 +14,18 @@ import java.util.Random;
  * Example 1:
  * <p>
  * Input:
- * ["Solution","randPoint","randPoint","randPoint"]
+ * ["MinDeleteNoMoreThanThree","randPoint","randPoint","randPoint"]
  * [[1,0,0],[],[],[]]
  * Output: [null,[-0.72939,-0.65505],[-0.78502,-0.28626],[-0.83119,-0.19803]]
  * Example 2:
  * <p>
  * Input:
- * ["Solution","randPoint","randPoint","randPoint"]
+ * ["MinDeleteNoMoreThanThree","randPoint","randPoint","randPoint"]
  * [[10,5,-7.5],[],[],[]]
  * Output: [null,[11.52438,-8.33273],[2.46992,-16.21705],[11.13430,-12.42337]]
  * Explanation of Input Syntax:
  * <p>
- * The input is two lists: the subroutines called and their arguments. Solution's constructor has three arguments, the radius, x-position of the center,
+ * The input is two lists: the subroutines called and their arguments. MinDeleteNoMoreThanThree's constructor has three arguments, the radius, x-position of the center,
  * and y-position of the center of the circle. randPoint has no arguments. Arguments are always wrapped with a list, even if there aren't any.
  */
 public class GenerateRandomPointinaCircle {

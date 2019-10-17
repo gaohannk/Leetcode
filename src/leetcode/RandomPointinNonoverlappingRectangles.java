@@ -18,13 +18,13 @@ import java.util.Random;
  * Example 1:
  * <p>
  * Input:
- * ["Solution","pick","pick","pick"]
+ * ["MinDeleteNoMoreThanThree","pick","pick","pick"]
  * [[[[1,1,5,5]]],[],[],[]]
  * Output: [null,[4,1],[1,1],[5,4]]
  * Example 2:
  * <p>
  * Input:
- * ["Solution","pick","pick","pick","pick","pick"]
+ * ["MinDeleteNoMoreThanThree","pick","pick","pick","pick","pick"]
  * [[[[-2,-7,3,-1],[3,-6,10,10]]],[],[],[],[],[]]
  * Output: [null,[9,-6],[-1,-3],[-1,-2],[-1,-4],[-2,-1]]
  */

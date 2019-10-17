@@ -32,6 +32,8 @@ package leetcode;
 
 /**
  * Group of Zero
+ * time O(N)
+ * space O(1)
  */
 public class MaximizeDistancetoClosestPerson3 {
     public int maxDistToClosest(int[] seats) {

@@ -3,7 +3,7 @@ package leetcode;
  * Rotate the image by 90 degrees (clockwise).
  * Follow up:Could you do this in-place?
  */
-/* Naive Solution
+/* Naive MinDeleteNoMoreThanThree
  * In the following solution, a new 2-dimension array is created to store the rotated matrix, 
  * and the result is assigned to the matrix at the end.
  */

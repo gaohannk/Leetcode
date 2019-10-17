@@ -3,7 +3,7 @@ package leetcode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-/* Solution 2 DFS
+/* MinDeleteNoMoreThanThree 2 DFS
  */
 public class CloneGraph2 {
 	class UndirectedGraphNode {

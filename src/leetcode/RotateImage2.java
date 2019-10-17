@@ -3,7 +3,7 @@ package leetcode;
  * Rotate the image by 90 degrees (clockwise).
  * Follow up:Could you do this in-place?
  */
-/* In-place Solution
+/* In-place MinDeleteNoMoreThanThree
  * By using the relation "matrix[i][j] = matrix[n-1-j][i]", we can loop through the matrix.
  */
 public class RotateImage2 {

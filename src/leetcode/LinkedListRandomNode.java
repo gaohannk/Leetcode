@@ -11,7 +11,7 @@ Example:
 ListNode head = new ListNode(1);
 head.next = new ListNode(2);
 head.next.next = new ListNode(3);
-Solution solution = new Solution(head);
+MinDeleteNoMoreThanThree solution = new MinDeleteNoMoreThanThree(head);
 
 // getRandom() should return either 1, 2, or 3 randomly. Each element should have equal probability of returning.
 solution.getRandom();
@@ -51,8 +51,8 @@ public class LinkedListRandomNode {
 			return tmp == null ? (list == null ? 0 : list.val) : tmp.val;
 		}
 		/**
-		 * Your Solution object will be instantiated and called as such:
-		 * Solution obj = new Solution(head); int param_1 = obj.getRandom();
+		 * Your MinDeleteNoMoreThanThree object will be instantiated and called as such:
+		 * MinDeleteNoMoreThanThree obj = new MinDeleteNoMoreThanThree(head); int param_1 = obj.getRandom();
 		 */
 	}
 }

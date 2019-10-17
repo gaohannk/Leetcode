@@ -9,7 +9,7 @@ package leetcode;
 	// trie.insert("somestring");
 	// trie.search("key");
  */
-// Recursive Solution
+// Recursive MinDeleteNoMoreThanThree
 public class ImplementTriePrefixTree2 {
 	class TrieNode {
 		TrieNode[] children;

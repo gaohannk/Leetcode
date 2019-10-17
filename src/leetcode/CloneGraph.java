@@ -22,7 +22,7 @@ import java.util.List;
  *     / \
  *     \_/
  */
-/* Solution 1 BFS
+/* MinDeleteNoMoreThanThree 1 BFS
  */
 public class CloneGraph {
 	class UndirectedGraphNode {

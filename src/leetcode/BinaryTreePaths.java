@@ -15,7 +15,7 @@ import java.util.List;
  * All root-to-leaf paths are:
  * ["1->2->5", "1->3"]
  */
-// Best Solution
+// Best MinDeleteNoMoreThanThree
 public class BinaryTreePaths {
 	public List<String> binaryTreePaths(TreeNode root) {
 		List<String> res = new LinkedList<String>();

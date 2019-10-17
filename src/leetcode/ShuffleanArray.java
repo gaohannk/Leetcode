@@ -9,7 +9,7 @@ Example:
 
 // Init an array with set 1, 2, and 3.
 int[] nums = {1,2,3};
-Solution solution = new Solution(nums);
+MinDeleteNoMoreThanThree solution = new MinDeleteNoMoreThanThree(nums);
 
 // Shuffle the array [1,2,3] and return its result. Any permutation of [1,2,3] must equally likely to be returned.
 solution.shuffle();
@@ -55,8 +55,8 @@ public class ShuffleanArray {
 	}
 
 	/**
-	 * Your Solution object will be instantiated and called as such: Solution
-	 * obj = new Solution(nums); int[] param_1 = obj.reset(); int[] param_2 =
+	 * Your MinDeleteNoMoreThanThree object will be instantiated and called as such: MinDeleteNoMoreThanThree
+	 * obj = new MinDeleteNoMoreThanThree(nums); int[] param_1 = obj.reset(); int[] param_2 =
 	 * obj.shuffle();
 	 */
 }

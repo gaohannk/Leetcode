@@ -29,34 +29,42 @@ package leetcode;
  * 1 <= seats.length <= 20000
  * seats contains only 0s or 1s, at least one 0, and at least one 1.
  */
+
+import java.util.Arrays;
+
 /**
- * Next Array Solution
+ * Next Array MinDeleteNoMoreThanThree
+ * time O(N)
+ * space O(N)
  */
 public class MaximizeDistancetoClosestPerson {
     public static int maxDistToClosest(int[] seats) {
-        int[] next = new int[seats.length];
-        int cur = -1;
-        // Update next seat position
-        for (int i = seats.length - 1; i >= 0; i--) {
-            if (seats[i] == 1) {
-                cur = i;
-            }
-            next[i] = cur;
+        int N = seats.length;
+        int[] left = new int[N], right = new int[N];
+        Arrays.fill(left, N);
+        Arrays.fill(right, N);
+
+        for (int i = 0; i < N; ++i) {
+            if (seats[i] == 1)
+                left[i] = 0;
+            else if (i > 0)
+                left[i] = left[i - 1] + 1;
         }
 
-        int res = 0;
-        cur = -1;
-        for (int i = 0; i < seats.length; i++) {
+        for (int i = N - 1; i >= 0; --i) {
             if (seats[i] == 1)
-                cur = i;
-            if (next[i] == -1) // right no 1
-                res = Math.max(res, i - cur);
-            if (cur == -1) // left no 1
-                res = Math.max(res, next[i]);
-            else
-                res = Math.max(res, Math.min(i - cur, next[i] - i));
+                right[i] = 0;
+            else if (i < N - 1)
+                right[i] = right[i + 1] + 1;
         }
-        return res;
+
+        int ans = 0;
+        for (int i = 0; i < N; ++i) {
+            if (seats[i] == 0) {
+                ans = Math.max(ans, Math.min(left[i], right[i]));
+            }
+        }
+        return ans;
     }
 
     public static void main(String[] args) {
