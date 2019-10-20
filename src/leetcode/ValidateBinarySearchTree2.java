@@ -1,5 +1,7 @@
 package leetcode;
 
+import leetcode.t.TreeNode;
+
 import java.util.ArrayList;
 
 /* Given a binary tree, determine if it is a valid binary search tree (BST).

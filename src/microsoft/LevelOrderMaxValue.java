@@ -1,6 +1,6 @@
 package microsoft;
 
-import leetcode.TreeNode;
+import leetcode.t.TreeNode;
 
 import java.util.*;
 
