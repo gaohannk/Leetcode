@@ -45,7 +45,7 @@ import java.util.TreeMap;
  * 1 <= timestamp <= 10^7
  * TimeMap.set and TimeMap.get functions will be called a total of 120000 times (combined) per test case.
  */
-public class TimeBasedKeyValueStore {
+public class TimeBasedKeyValueStore2 {
     class TimeMap {
 
         Map<String, TreeMap<Integer, String>> map;
@@ -59,7 +59,7 @@ public class TimeBasedKeyValueStore {
 
         public void set(String key, String value, int timestamp) {
             if (!map.containsKey(key)) {
-                map.put(key, new TreeMap(Collections.reverseOrder()));
+                map.put(key, new TreeMap());
             }
             map.get(key).put(timestamp, value);
         }
@@ -70,6 +70,17 @@ public class TimeBasedKeyValueStore {
                     if (time <= timestamp) {
                         return map.get(key).get(time);
                     }
+                }
+            }
+            return "";
+        }
+
+        public String get2(String key, int timestamp) {
+            if (map.containsKey(key)) {
+                // Using floorKey method
+                Integer time = map.get(key).floorKey(timestamp);
+                if (time != null) {
+                    return map.get(key).get(time);
                 }
             }
             return "";

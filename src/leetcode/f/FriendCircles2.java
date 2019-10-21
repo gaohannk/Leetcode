@@ -1,5 +1,8 @@
 package leetcode.f;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * There are N students in a class. Some of them are friends, while some are not. Their friendship is transitive in nature. For example, if A is a direct friend of B, and B is a direct friend of C, then A is an indirect friend of C. And we defined a friend circle is a group of students who are direct or indirect friends.
  * <p>
@@ -26,25 +29,33 @@ package leetcode.f;
  * M[i][i] = 1 for all students.
  * If M[i][j] = 1, then M[j][i] = 1.
  */
-public class FriendCircles {
+public class FriendCircles2 {
     public int findCircleNum(int[][] M) {
         int[] visited = new int[M.length];
-        int res = 0;
+        int count = 0;
+
         for (int i = 0; i < M.length; i++) {
             if (visited[i] == 0) {
-                dfs(M, visited, i);
-                res++;
+                Queue<Integer> queue = new LinkedList<>();
+                queue.add(i);
+                count += bfs(M, visited, queue);
             }
         }
-        return res;
+        return count;
     }
 
-    public void dfs(int[][] M, int[] visited, int curVisit) {
-        for (int j = 0; j < M.length; j++) {
-            if (M[curVisit][j] == 1 && visited[j] == 0) {
-                visited[j] = 1;
-                dfs(M, visited, j);
+    public int bfs(int[][] M, int[] visited, Queue<Integer> queue) {
+        int count = 0;
+        while (!queue.isEmpty()) {
+            int cur = queue.remove();
+            visited[cur] = 1;
+            for (int j = 0; j < M.length; j++) {
+                if (M[cur][j] == 1 && visited[j] == 0) {
+                    queue.add(j);
+                }
             }
         }
+        count++;
+        return count;
     }
 }

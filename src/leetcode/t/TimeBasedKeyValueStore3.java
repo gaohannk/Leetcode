@@ -1,9 +1,6 @@
 package leetcode.t;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Create a timebased key-value store class TimeMap, that supports two operations.
@@ -45,10 +42,21 @@ import java.util.TreeMap;
  * 1 <= timestamp <= 10^7
  * TimeMap.set and TimeMap.get functions will be called a total of 120000 times (combined) per test case.
  */
-public class TimeBasedKeyValueStore {
+public class TimeBasedKeyValueStore3 {
     class TimeMap {
+        private class Pair {
+            List<String> vals;
+            List<Integer> timestamps;
 
-        Map<String, TreeMap<Integer, String>> map;
+            public Pair(int timestamp, String value) {
+                vals = new ArrayList<>();
+                timestamps = new ArrayList<>();
+                vals.add(value);
+                timestamps.add(timestamp);
+            }
+        }
+
+        private HashMap<String, Pair> map;
 
         /**
          * Initialize your data structure here.
@@ -58,21 +66,40 @@ public class TimeBasedKeyValueStore {
         }
 
         public void set(String key, String value, int timestamp) {
-            if (!map.containsKey(key)) {
-                map.put(key, new TreeMap(Collections.reverseOrder()));
+            Pair p = map.get(key);
+            if (p == null) {
+                p = new Pair(timestamp, value);
+                map.put(key, p);
             }
-            map.get(key).put(timestamp, value);
+            p.timestamps.add(timestamp);
+            p.vals.add(value);
         }
 
         public String get(String key, int timestamp) {
-            if (map.containsKey(key)) {
-                for (int time : map.get(key).keySet()) {
-                    if (time <= timestamp) {
-                        return map.get(key).get(time);
-                    }
+            Pair p = map.get(key);
+            if (p == null)
+                return "";
+            int pos = search(p.timestamps, timestamp);
+            if (pos == -1)
+                return "";
+            return p.vals.get(pos);
+        }
+
+        private int search(List<Integer> ts, int t) {
+            int lo = 0;
+            int hi = ts.size();
+            while (lo < hi) {
+                int mid = lo + (hi - lo) / 2;
+                if (ts.get(mid) <= t) {
+                    lo = mid + 1;
+                } else {
+                    hi = mid;
                 }
             }
-            return "";
+            if (lo == 0)
+                return -1;
+            else
+                return lo - 1;
         }
     }
 }
