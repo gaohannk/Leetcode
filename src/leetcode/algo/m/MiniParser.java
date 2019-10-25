@@ -1,6 +1,6 @@
 package leetcode.algo.m;
 
-import leetcode.algo.n.NestedInteger;
+import leetcode.common.NestedInteger;
 
 import java.util.Stack;
 

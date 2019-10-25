@@ -1,5 +1,7 @@
 package leetcode.algo.n;
 
+import leetcode.common.NestedInteger;
+
 import java.util.List;
 
 /**
@@ -13,44 +15,24 @@ import java.util.List;
 // TODO verify answer
 public class NestedListWeightSum2 {
 
-	public int depthSum(List<NestedInteger> nestedList) {
-		if (nestedList == null || nestedList.isEmpty())
-			return 0;
-		int sum = 0;
-		for (NestedInteger integer : nestedList) {
-			sum += calSum(integer, 1);
-		}
-		return sum;
-	}
+    public int depthSum(List<NestedInteger> nestedList) {
+        if (nestedList == null || nestedList.isEmpty())
+            return 0;
+        int sum = 0;
+        for (NestedInteger integer : nestedList) {
+            sum += calSum(integer, 1);
+        }
+        return sum;
+    }
 
-	public int calSum(NestedInteger integer, int depth) {
-		int sum = 0;
-		if (integer.isInteger())
-			sum += integer.getInteger().intValue();
-		for (NestedInteger in : integer.getList()) {
-			sum += calSum(in, depth + 1);
-		}
-		return sum;
-	}
-
-	/**
-	 * This is the interface that represents nested lists. You should not
-	 * implement it, or speculate about its implementation.
-	 */
-	public interface NestedInteger {
-		// Returns true if this NestedInteger holds a single integer, rather
-		// than a nested list
-		public boolean isInteger();
-
-		// Returns the single integer that this NestedInteger holds, if it holds
-		// a single integer
-		// Returns null if this NestedInteger holds a nested list
-		public Integer getInteger();
-
-		// Returns the nested list that this NestedInteger holds, if it holds a
-		// nested list
-		// Returns null if this NestedInteger holds a single integer
-		public List<NestedInteger> getList();
-	}
+    public int calSum(NestedInteger integer, int depth) {
+        int sum = 0;
+        if (integer.isInteger())
+            sum += integer.getInteger().intValue();
+        for (NestedInteger in : integer.getList()) {
+            sum += calSum(in, depth + 1);
+        }
+        return sum;
+    }
 
 }

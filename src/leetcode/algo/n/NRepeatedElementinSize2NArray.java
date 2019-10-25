@@ -1,4 +1,7 @@
-package leetcode.algo;
+package leetcode.algo.n;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * In a array A of size 2N, there are N+1 unique elements, and exactly one of these elements is repeated N times.
@@ -27,12 +30,17 @@ package leetcode.algo;
  * 0 <= A[i] < 10000
  * A.length is even
  */
-public class NRepeatedElementinSize2NArray2 {
+public class NRepeatedElementinSize2NArray {
     public int repeatedNTimes(int[] A) {
-        for (int k = 1; k <= 3; ++k)
-            for (int i = 0; i < A.length - k; ++i)
-                if (A[i] == A[i + k])
-                    return A[i];
+        Map<Integer, Integer> count = new HashMap();
+        for (int x : A) {
+            count.put(x, count.getOrDefault(x, 0) + 1);
+        }
+
+        for (int k : count.keySet()) {
+            if (count.get(k) > 1)
+                return k;
+        }
 
         return -1;
     }
