@@ -1,4 +1,5 @@
 package leetcode.algo.c;
+
 /**
  * Give a string s, count the number of non-empty (contiguous) substrings that have the same number of 0's and 1's, and all the 0's and all the 1's in these substrings are grouped consecutively.
  * <p>
@@ -21,33 +22,22 @@ package leetcode.algo.c;
  * s.length will be between 1 and 50,000.
  * s will only consist of "0" or "1" characters.
  */
-public class CountBinarySubstrings {
+// Linear Solution
+public class CountBinarySubstrings2 {
     public int countBinarySubstrings(String s) {
-        int i = 1;
         int res = 0;
         int pre = 0, cur = 1;
-        if (s.length() == 1)
-            return 0;
-        while (i < s.length()) {
-            int k;
-            for (k = i; k < s.length(); k++) {
-                if (s.charAt(k) == s.charAt(k - 1)) {
-                    cur++;
-                } else {
-                    break;
-                }
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != s.charAt(i - 1)) {
+                res += Math.min(pre, cur);
+                pre = cur;
+                cur = 1;
+            } else {
+                cur++;
             }
-            res += Math.min(pre, cur);
-            pre = cur;
-            cur = 1;
-            i = k;
-            i++;
-        }
-        // Special case 001101 last is only 1 times
-        if (s.charAt(s.length() - 1) != s.charAt(s.length() - 2)) {
-            res += Math.min(pre, cur);
         }
 
+        res += Math.min(pre, cur);
         return res;
     }
 }
