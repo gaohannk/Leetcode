@@ -1,6 +1,7 @@
 package leetcode.algo.m;
 
 import leetcode.common.NestedInteger;
+import leetcode.common.NestedIntegerImpl;
 
 import java.util.Stack;
 
@@ -59,7 +60,7 @@ public class MiniParser {
 	 */
 	public class Solution {
 		public NestedInteger deserialize(String s) {
-			NestedInteger ni = new NestedInteger();
+			NestedInteger ni = new NestedIntegerImpl();
 			// corner case
 			if (s.length() == 0)
 				return ni;
@@ -90,7 +91,7 @@ public class MiniParser {
 			for (int i = 0; i < ss.length; i++) {
 				if (ss[i].charAt(0) != '[') {
 					// case integer like "123"
-					ni.add(new NestedInteger((int) Integer.parseInt(ss[i])));
+					ni.add(new NestedIntegerImpl((int) Integer.parseInt(ss[i])));
 				} else {
 					// case list like "[...]"
 					ni.add(deserialize(ss[i]));
