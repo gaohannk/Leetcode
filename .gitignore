@@ -5,6 +5,7 @@
 bin/*
 .idea/*
 .settings/*
+./out
 
 # Log file
 *.log
