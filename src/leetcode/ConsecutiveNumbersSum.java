@@ -20,7 +20,7 @@ package leetcode;
  * Explanation: 15 = 15 = 8 + 7 = 4 + 5 + 6 = 1 + 2 + 3 + 4 + 5
  * Note: 1 <= N <= 10 ^ 9.
  */
-//TLE
+//TLE Boute Force
 public class ConsecutiveNumbersSum {
     public int consecutiveNumbersSum(int N) {
         int res = 0;

@@ -1,3 +1,5 @@
+package leetcode;
+
 /**
  * Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
  * <p>
@@ -9,32 +11,38 @@
  * Output: True
  * Explanation: You could delete the character 'c'.
  */
-public class ValidPalindromeII2
-{
+/**
+ * Time O(n)
+ * Space O(n)
+ */
+public class ValidPalindromeII2 {
 
-    public boolean validPalindrome(String s)
-    {
+    public boolean validPalindrome(String s) {
         return helper(s, 0, s.length() - 1, false);
     }
 
-    private boolean helper(String s, int i, int j, boolean jump)
-    {
-        if (i > j)
-        {
+    private boolean helper(String s, int i, int j, boolean jump) {
+        if (i > j) {
             return true;
         }
-        if (s.charAt(i) == s.charAt(j))
-        {
+        if (s.charAt(i) == s.charAt(j)) {
             return helper(s, i + 1, j - 1, jump);
-        }
-        else if (jump)
-        {
+        } else if (jump) {
             return false;
-        }
-        else
-        {
+        } else {
             return helper(s, i + 1, j, true) || helper(s, i, j - 1, true);
         }
+    }
+
+
+    private boolean helper2(String s, int i, int j, boolean jump) {
+        if (i > j) {
+            return true;
+        }
+        if(jump && s.charAt(i) != s.charAt(j)){
+            return false;
+        }
+        return helper(s, i + 1, j, true) || helper(s, i, j - 1, true);
     }
 
 }

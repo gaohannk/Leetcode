@@ -11,14 +11,14 @@ package leetcode;
  * this is O(N^2) approach and will get TLE by the OJ
  */
 public class JumpGameII {
-	public static int jump(int[] A) {
-		if (A.length < 2)
+	public static int jump(int[] nums) {
+		if (nums.length < 2)
 			return 0;
-		int[] dist = new int[A.length];
-		dist[A.length - 1] = 0;
-		for (int i = A.length - 2; i >= 0; i--) {
-			int minDist = A.length-1;
-			for (int j = 1; j <= A[i] && i + j < A.length; j++) {
+		int[] dist = new int[nums.length];
+		dist[nums.length - 1] = 0;
+		for (int i = nums.length - 2; i >= 0; i--) {
+			int minDist = nums.length-1;
+			for (int j = 1; j <= nums[i] && i + j < nums.length; j++) {
 				int nextIdx = i + j;
 				int candidate = dist[nextIdx] + 1;
 				if (candidate < minDist) {

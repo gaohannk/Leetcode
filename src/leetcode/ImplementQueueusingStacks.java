@@ -28,8 +28,9 @@ public class ImplementQueueusingStacks {
 				temp.add(stack.pop());
 			}
 			temp.pop();
-			while (!temp.isEmpty())
+			while (!temp.isEmpty()) {
 				stack.add(temp.pop());
+			}
 		}
 
 		// Get the front element.

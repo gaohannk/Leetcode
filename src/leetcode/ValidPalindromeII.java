@@ -1,3 +1,5 @@
+package leetcode;
+
 /**
  * Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
  * <p>
@@ -8,6 +10,11 @@
  * Input: "abca"
  * Output: True
  * Explanation: You could delete the character 'c'.
+ */
+
+/**
+ * Time O(n^2)
+ * Space O(n)
  */
 public class ValidPalindromeII
 {

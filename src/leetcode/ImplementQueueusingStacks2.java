@@ -16,7 +16,7 @@ public class ImplementQueueusingStacks2 {
 	class MyQueue {
 		Stack<Integer> s1 = new Stack<Integer>();
 		Stack<Integer> s2 = new Stack<Integer>();
-
+// S1 old -> new S2 new -> old
 		private int front;
 
 		public void push(int x) {

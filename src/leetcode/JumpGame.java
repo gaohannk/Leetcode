@@ -12,8 +12,7 @@ public class JumpGame {
 	public boolean canJump(int[] A) {
 		int farest = 0;
 		for (int i = 0; i <= farest; i++) {
-			if (A[i] + i > farest)
-				farest = A[i] + i;
+			farest = A[i] + i > farest? A[i] + i: farest;
 			if (farest >= A.length - 1)
 				return true;
 		}
