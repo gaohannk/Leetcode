@@ -20,5 +20,9 @@ public interface NestedInteger {
     // nested list
     // Returns null if this NestedInteger holds a single integer
     public List<NestedInteger> getList();
+
+    void setInteger(int parseInt);
+
+    void add(NestedInteger nestedInteger);
 }
 
