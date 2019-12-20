@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.v;
 
 /**
  * Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
@@ -16,7 +16,7 @@ package leetcode.algo;
  * Time O(n^2)
  * Space O(n)
  */
-public class ValidPalindromeII
+public class ValidPalindromeII4
 {
     public boolean isPalindrome(CharSequence s)
     {

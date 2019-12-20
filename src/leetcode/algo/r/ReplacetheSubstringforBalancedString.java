@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.algo.r;
 
 import java.util.Arrays;
 

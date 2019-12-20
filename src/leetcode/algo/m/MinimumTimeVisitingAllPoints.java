@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.algo.m;
 
 /**
  * On a plane there are n points with integer coordinates points[i] = [xi, yi]. Your task is to find the minimum time in seconds to visit all points.

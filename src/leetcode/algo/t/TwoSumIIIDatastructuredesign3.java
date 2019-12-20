@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.t;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +20,7 @@ import java.util.Map;
  * find(3) -> true
  * find(6) -> false
  */
-public class TwoSumIIIDatastructuredesign {
+public class TwoSumIIIDatastructuredesign3 {
     class TwoSum {
 
         Map<Integer, Integer> map = new HashMap<>();
