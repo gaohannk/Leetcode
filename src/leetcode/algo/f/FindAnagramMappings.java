@@ -21,10 +21,10 @@ package leetcode.algo.f;
  */
 public class FindAnagramMappings {
     public int[] anagramMappings(int[] A, int[] B) {
-        int length = A.length;
-        int[] res = new int[length];
-        for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length; j++) {
+        int n = A.length;
+        int[] res = new int[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 if (A[i] == B[j]) {
                     res[i] = j;
                     break;

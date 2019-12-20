@@ -1,11 +1,11 @@
 package leetcode.algo.b;
 
 /**
- * Given a set of keywords words and a string S, make all appearances of all keywords in S bold. Any letters between <b> and </b> tags become bold.
+ * Given a set of keywords words and a string S, make all appearances of all keywords in S bold. Any letters between and tags become bold.
  * <p>
  * The returned string should use the least number of tags possible, and of course the tags should form a valid combination.
  * <p>
- * For example, given that words = ["ab", "bc"] and S = "aabcd", we should return "a<b>abc</b>d". Note that returning "a<b>a<b>b</b>c</b>d" would use more tags, so it is incorrect.
+ * For example, given that words = [“ab”, “bc”] and S = “aabcd”, we should return “aabcd”. Note that returning “aabcd” would use more tags, so it is incorrect.
  * <p>
  * Note:
  * <p>
