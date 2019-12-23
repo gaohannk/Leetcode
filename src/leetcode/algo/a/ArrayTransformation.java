@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.algo.a;
 
 public class ArrayTransformation {
 }

@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.d;
 
 // Same with Solution 3 without construct graph
 public class DeleteTreeNodes4 {
