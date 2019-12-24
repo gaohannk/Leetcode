@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.algo.t;
 
 import java.util.*;
 

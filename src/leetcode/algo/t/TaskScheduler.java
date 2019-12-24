@@ -1,25 +1,62 @@
 package leetcode.algo.t;
 
-/**
- * Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks. Tasks could be done without original order. Each task could be done in one interval. For each interval, CPU could finish one task or just be idle.
- *
- * However, there is a non-negative cooling interval n that means between two same tasks, there must be at least n intervals that CPU are doing different tasks or just be idle.
- *
- * You need to return the least number of intervals the CPU will take to finish all the given tasks.
- *
- *
- *
- * Example:
- *
- * Input: tasks = ["A","A","A","B","B","B"], n = 2
- * Output: 8
- * Explanation: A -> B -> idle -> A -> B -> idle -> A -> B.
- *
- *
- * Note:
- *
- * The number of tasks is in the range [1, 10000].
- * The integer n is in the range [0, 100].
- */
+import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 public class TaskScheduler {
+	public static int leastInterval(char[] tasks, int n) {
+		Queue<Data> queue = new PriorityQueue<>();
+		Map<Character, Integer> freqMap = new HashMap<>();
+
+		for (int i = 0; i < tasks.length; i++) {
+			freqMap.put(tasks[i], freqMap.getOrDefault(tasks[i], 0) + 1);
+		}
+		for (char c : freqMap.keySet()) {
+			queue.add(new Data(c, 0));
+		}
+		int time = 0;
+		while (!queue.isEmpty()) {
+			Data task = queue.peek();
+			// available for schedule
+			if (task.time <= time) {
+				if (freqMap.get(task.task) != 1) {
+					// next available time
+					queue.add(new Data(task.task, task.time + n + 1));
+					// update next time for task
+					freqMap.put(task.task, freqMap.get(task.task) - 1);
+				}
+				queue.poll();
+
+			}
+			time++;
+		}
+		return time;
+	}
+
+	private static class Data implements Comparable<Data> {
+		int time;
+		char task;
+
+		Data(char task, int time) {
+			this.time = time;
+			this.task = task;
+		}
+
+		public String toString() {
+			return "[time=" + time + " task=" + task + "]";
+		}
+
+		@Override
+		public int compareTo(Data o) {
+			return this.time - o.time;
+		}
+	}
+
+	public static void main(String[] args) {
+		char[] tasks = {'A', 'A', 'A', 'B', 'B', 'B'};
+		int n = 2;
+		System.out.println(leastInterval(tasks, n));
+	}
 }
