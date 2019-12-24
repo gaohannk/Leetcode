@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.s;
 
 import java.util.List;
 
@@ -23,12 +23,12 @@ public class SerializeandDeserializeNaryTree {
 
 		// Encodes a tree to a single string.
 		public String serialize(Node root) {
-
+			return null;
 		}
 
 		// Decodes your encoded data to tree.
 		public Node deserialize(String data) {
-
+			return null;
 		}
 	}
 }

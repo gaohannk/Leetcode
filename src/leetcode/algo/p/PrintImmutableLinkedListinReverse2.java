@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.algo.p;
 
 import leetcode.common.ImmutableListNode;
 

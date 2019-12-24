@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.algo.g;
 
 /**
  * Represent the state as DP[pos][mod]: maximum possible sum starting in the position "pos" in the array where the current sum modulo 3 is equal to mod.
