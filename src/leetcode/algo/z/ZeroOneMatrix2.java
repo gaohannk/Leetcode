@@ -1,6 +1,9 @@
 package leetcode.algo.z;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * Given a matrix consists of 0 and 1, find the distance of the nearest 0 for each cell.
@@ -31,36 +34,42 @@ import java.util.Arrays;
  * There are at least one 0 in the given matrix.
  * The cells are adjacent in only four directions: up, down, left and right
  */
+// Start from value is 0, BFS
 public class ZeroOneMatrix2 {
-//    public static int[][] updateMatrix(int[][] matrix) {
-//        int rows = matrix.length;
-//        if (rows == 0)
-//            return matrix;
-//        int cols = matrix[0].length;
-//        int[][] dist = new int[rows][cols];
-//        Arrays.fill(dist, Integer.MAX_VALUE);
-//        queue<pair<int, int>> q;
-//        for (int i = 0; i < rows; i++)
-//            for (int j = 0; j < cols; j++)
-//                if (matrix[i][j] == 0) {
-//                    dist[i][j] = 0;
-//                    q.push({i, j}); //Put all 0s in the queue.
-//                }
-//
-//        int dir[][] = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-//        while (!q.empty()) {
-//            pair<int, int> curr = q.front();
-//            q.pop();
-//            for (int i = 0; i < 4; i++) {
-//                int new_r = curr.first + dir[i][0], new_c = curr.second + dir[i][1];
-//                if (new_r >= 0 && new_c >= 0 && new_r < rows && new_c < cols) {
-//                    if (dist[new_r][new_c] > dist[curr.first][curr.second] + 1) {
-//                        dist[new_r][new_c] = dist[curr.first][curr.second] + 1;
-//                        q.push({new_r, new_c});
-//                    }
-//                }
-//            }
-//        }
-//        return dist;
-//    }
+    public int[][] updateMatrix(int[][] matrix) {
+        int[][] output = new int[matrix.length][matrix[0].length];
+        boolean visited[][] = new boolean[matrix.length][matrix[0].length];
+        Queue<int[]> queue = new LinkedList<>();
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] == 0) {
+                    queue.offer(new int[]{i, j});
+                    visited[i][j] = true;
+                }
+            }
+        }
+        while (!queue.isEmpty()) {
+            int[] cell = queue.poll();
+            for (int[] neighbor : getNeighbors(cell, visited)) {
+                visited[neighbor[0]][neighbor[1]] = true;
+                output[neighbor[0]][neighbor[1]] = output[cell[0]][cell[1]] + 1;
+                queue.offer(neighbor);
+            }
+        }
+        return output;
+    }
+
+    List<int[]> getNeighbors(int[] cell, boolean visited[][]) {
+
+        List<int[]> list = new LinkedList<>();
+        if (cell[0] != 0 && !visited[cell[0] - 1][cell[1]])
+            list.add(new int[]{cell[0] - 1, cell[1]});
+        if (cell[0] != visited.length - 1 && !visited[cell[0] + 1][cell[1]])
+            list.add(new int[]{cell[0] + 1, cell[1]});
+        if (cell[1] != 0 && !visited[cell[0]][cell[1] - 1])
+            list.add(new int[]{cell[0], cell[1] - 1});
+        if (cell[1] != visited[0].length - 1 && !visited[cell[0]][cell[1] + 1])
+            list.add(new int[]{cell[0], cell[1] + 1});
+        return list;
+    }
 }

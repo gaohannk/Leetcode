@@ -10,33 +10,23 @@ import java.util.Stack;
  * <p>
  * Note: The length of temperatures will be in the range [1, 30000]. Each temperature will be an integer in the range [30, 100].
  */
-// TLE
+
 public class DailyTemperatures {
     public static int[] dailyTemperatures(int[] T) {
-        Stack<Integer> stack = new Stack<>();
-        stack.push(T[T.length - 1]);
-        int[] res = new int[T.length];
-        for (int i = T.length - 2; i >= 0; i--) {
-            int count = 0;
-            Stack<Integer> temp = new Stack<>();
-            while (!stack.isEmpty() && stack.peek() < T[i]) {
-                temp.push(stack.pop());
-                count++;
+        int[] ans = new int[T.length];
+        int[] nextAtTemprature = new int[101];
+        Arrays.fill(nextAtTemprature, Integer.MAX_VALUE);
+        for (int i = T.length - 1; i >= 0; --i) {
+            int minWarmTime = Integer.MAX_VALUE;
+            for (int t = T[i] + 1; t <= 100; ++t) {
+                if (nextAtTemprature[t] < minWarmTime)
+                    minWarmTime = nextAtTemprature[t];
             }
-
-            if (!stack.isEmpty()) {
-                res[i] = count + 1;
-            } else {
-                // The right most one
-                res[i] = 0;
-            }
-            while (!temp.isEmpty()) {
-                stack.push(temp.pop());
-            }
-            stack.push(T[i]);
-
+            if (minWarmTime < Integer.MAX_VALUE)
+                ans[i] = minWarmTime - i;
+            nextAtTemprature[T[i]] = i;
         }
-        return res;
+        return ans;
     }
 
     public static void main(String[] args) {

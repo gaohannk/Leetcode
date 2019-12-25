@@ -10,30 +10,29 @@ import java.util.Stack;
  * <p>
  * Note: The length of temperatures will be in the range [1, 30000]. Each temperature will be an integer in the range [30, 100].
  */
-// TODO
+
+/**
+ * When i = 7, stack = [7 (73)]. ans[i] = 0.
+ * When i = 6, stack = [6 (76)]. ans[i] = 0.
+ * When i = 5, stack = [5 (72), 6 (76)]. ans[i] = 1.
+ * When i = 4, stack = [4 (69), 5 (72), 6 (76)]. ans[i] = 1.
+ * When i = 3, stack = [3 (71), 5 (72), 6 (76)]. ans[i] = 2.
+ * When i = 2, stack = [2 (75), 6 (76)]. ans[i] = 4.
+ * When i = 1, stack = [1 (74), 2 (75), 6 (76)]. ans[i] = 1.
+ * When i = 0, stack = [0 (73), 1 (74), 2 (75), 6 (76)]. ans[i] = 1.
+ */
 public class DailyTemperatures2 {
     public static int[] dailyTemperatures(int[] T) {
+        // Store the index of element
         Stack<Integer> stack = new Stack<>();
-        stack.push(T[T.length - 1]);
-        int[] res = new int[T.length];
-        for (int i = T.length - 2; i >= 0; i--) {
-            int count = 0;
-            Stack<Integer> temp = new Stack<>();
-            while (!stack.isEmpty() && stack.peek() < T[i]) {
-                temp.push(stack.pop());
-                count++;
-            }
 
-            if (!stack.isEmpty()) {
-                res[i] = count + 1;
-            } else {
-                // The right most one
-                res[i] = 0;
+        int[] res = new int[T.length];
+        for (int i = T.length - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && T[i] >= T[stack.peek()]) {
+                stack.pop();
             }
-            while (!temp.isEmpty()) {
-                stack.push(temp.pop());
-            }
-            stack.push(T[i]);
+            res[i] = stack.isEmpty() ? 0 : stack.peek() - i;
+            stack.push(i);
 
         }
         return res;
@@ -42,5 +41,10 @@ public class DailyTemperatures2 {
     public static void main(String[] args) {
         int[] T = new int[]{73, 74, 75, 71, 69, 72, 76, 73};
         Arrays.stream(dailyTemperatures(T)).forEach(x -> System.out.print(x + ","));
+
+        // 76
+        // 72 76
+        // 69 72 76
+        // 71 72 76
     }
 }

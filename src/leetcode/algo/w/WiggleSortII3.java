@@ -1,7 +1,6 @@
 package leetcode.algo.w;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,30 +13,25 @@ import java.util.List;
  * Follow Up:
  * Can you do it in O(n) time and/or in-place with O(1) extra space?
  */
-// O(nlogn)
-public class WiggleSortII2 {
+// O(nlogn) Two pointer
+public class WiggleSortII3 {
 
     public static void wiggleSort(int[] nums) {
-        int newNum[] = Arrays.copyOf(nums, nums.length);
-        Arrays.sort(newNum);
-        List<Integer> left = new LinkedList<>(), right = new LinkedList<>();
-
-        for (int i = 0; i < (newNum.length + 1) / 2; i++) {
-            left.add(newNum[i]);
-        }
-        for (int i = (newNum.length + 1) / 2; i < newNum.length; i++) {
-            right.add(newNum[i]);
-        }
-
-        int p1 = 0, p2 = 0;
-        for (int i = newNum.length - 1; i >= 0; i--) {
-            if (i % 2 == 0) {
-                nums[i] = left.get(p1++);
+        int sortedNums[] = Arrays.copyOf(nums, nums.length);
+        Arrays.sort(sortedNums);
+        int len = nums.length;
+        int mid = (len + 1) / 2;
+        int front = 0;
+        int i = len - 1;
+        while (i >= 0) {
+            if (i % 2 == 1) {
+                nums[i] = sortedNums[mid++];
             } else {
-                nums[i] = right.get(p2++);
+                nums[i] = sortedNums[front++];
             }
-
+            i--;
         }
+
     }
 
     public static void main(String[] args) {
