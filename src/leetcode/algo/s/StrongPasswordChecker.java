@@ -22,16 +22,22 @@ public class StrongPasswordChecker {
         boolean lower = false, upper = false, digit = false;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if (c >= 'a' && c <= 'z') lower = true;
-            if (c >= 'A' && c <= 'Z') upper = true;
-            if (c >= '0' && c <= '9') digit = true;
-            if (i > 0 && s.charAt(i) == s.charAt(i - 1)) count++;
+            if (c >= 'a' && c <= 'z')
+                lower = true;
+            if (c >= 'A' && c <= 'Z')
+                upper = true;
+            if (c >= '0' && c <= '9')
+                digit = true;
+            if (i > 0 && s.charAt(i) == s.charAt(i - 1))
+                count++;
             else {
-                if (count >= 3) increaseOne(count);
+                if (count >= 3)
+                    increaseOne(count);
                 count = 1;
             }
         }
-        if (count >= 3) increaseOne(count);
+        if (count >= 3)
+            increaseOne(count);
 
         //Missing letter problem
         if (!lower) missing++;
@@ -44,42 +50,51 @@ public class StrongPasswordChecker {
             delete();
         for (int key : repeat.keySet())
             replace(key);
-        if (missing > 0) ops += missing;
+        if (missing > 0)
+            ops += missing;
         return ops;
     }
 
     private void insert() {
         ops++;
         if (missing > 0) missing--;
-        if (repeat.size() == 0) return;
+        if (repeat.size() == 0)
+            return;
         Integer key = repeat.firstKey();
         decreaseOne(key);
-        if (key > 4) increaseOne(key - 2);
+        if (key > 4) {
+            increaseOne(key - 2);
+        }
     }
 
     private void delete() {
         ops++;
-        if (repeat.size() == 0) return;
+        if (repeat.size() == 0)
+            return;
         Integer key = repeat.firstKey();
         decreaseOne(key);
-        if (key > 3) increaseOne(key - 1);
+        if (key > 3) {
+            increaseOne(key - 1);
+        }
     }
 
     private void replace(Integer key) {
         int count = repeat.get(key) * (key / 3);
-        if (missing > 0) missing -= count;
+        if (missing > 0)
+            missing -= count;
         ops += count;
     }
 
     private void increaseOne(int key) {
-        if (!repeat.containsKey(key)) repeat.put(key, 0);
-        repeat.put(key, repeat.get(key) + 1);
+        repeat.put(key, repeat.getOrDefault(key, 0) + 1);
     }
 
     private void decreaseOne(int key) {
         if (repeat.containsKey(key)) {
             repeat.put(key, repeat.get(key) - 1);
-            if (repeat.get(key) == 0) repeat.remove(key);
+            if (repeat.get(key) == 0) {
+                repeat.remove(key);
+            }
         }
     }
 }

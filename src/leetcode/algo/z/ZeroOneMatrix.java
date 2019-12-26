@@ -42,8 +42,8 @@ public class ZeroOneMatrix {
             return matrix;
         int cols = matrix[0].length;
         int[][] res =new int[rows][cols];
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
                 if (matrix[i][j] != 0) {
                     Queue<int[]> xq = new LinkedList<>();
                     int level = 1;

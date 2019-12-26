@@ -37,11 +37,13 @@ import java.util.Queue;
 // Start from value is 0, BFS
 public class ZeroOneMatrix2 {
     public int[][] updateMatrix(int[][] matrix) {
-        int[][] output = new int[matrix.length][matrix[0].length];
-        boolean visited[][] = new boolean[matrix.length][matrix[0].length];
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int[][] output = new int[row][col];
+        boolean visited[][] = new boolean[row][col];
         Queue<int[]> queue = new LinkedList<>();
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
                 if (matrix[i][j] == 0) {
                     queue.offer(new int[]{i, j});
                     visited[i][j] = true;
@@ -60,16 +62,18 @@ public class ZeroOneMatrix2 {
     }
 
     List<int[]> getNeighbors(int[] cell, boolean visited[][]) {
-
+        int rows = visited.length;
+        int cols = visited[0].length;
         List<int[]> list = new LinkedList<>();
-        if (cell[0] != 0 && !visited[cell[0] - 1][cell[1]])
-            list.add(new int[]{cell[0] - 1, cell[1]});
-        if (cell[0] != visited.length - 1 && !visited[cell[0] + 1][cell[1]])
-            list.add(new int[]{cell[0] + 1, cell[1]});
-        if (cell[1] != 0 && !visited[cell[0]][cell[1] - 1])
-            list.add(new int[]{cell[0], cell[1] - 1});
-        if (cell[1] != visited[0].length - 1 && !visited[cell[0]][cell[1] + 1])
-            list.add(new int[]{cell[0], cell[1] + 1});
+        int dir[][] = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        for (int k = 0; k < 4; k++) {
+            int new_r = cell[0] + dir[k][0], new_c = cell[1] + dir[k][1];
+            if (new_r >= 0 && new_c >= 0 && new_r < rows && new_c < cols) {
+                if (!visited[new_r][new_c]) {
+                    list.add(new int[]{new_r, new_c});
+                }
+            }
+        }
         return list;
     }
 }
