@@ -28,22 +28,22 @@ public class SmallestSubtreewithalltheDeepestNodes2 {
             return new TreeNodeWithDist(R.node, R.dist + 1);
         return new TreeNodeWithDist(node, L.dist + 1);
     }
-}
 
-/**
- * The result of a subtree is:
- * TreeNodeWithDist.node: the largest depth node that is equal to or
- * an ancestor of all the deepest nodes of this subtree.
- * TreeNodeWithDist.dist: the number of nodes in the path from the root
- * of this subtree, to the deepest node in this subtree.
- */
-class TreeNodeWithDist {
-    TreeNode node;
-    int dist;
+    /**
+     * The result of a subtree is:
+     * TreeNodeWithDist.node: the largest depth node that is equal to or
+     * an ancestor of all the deepest nodes of this subtree.
+     * TreeNodeWithDist.dist: the number of nodes in the path from the root
+     * of this subtree, to the deepest node in this subtree.
+     */
+    class TreeNodeWithDist {
+        TreeNode node;
+        int dist;
 
-    TreeNodeWithDist(TreeNode n, int d) {
-        node = n;
-        dist = d;
+        TreeNodeWithDist(TreeNode n, int d) {
+            node = n;
+            dist = d;
+        }
     }
 }
 

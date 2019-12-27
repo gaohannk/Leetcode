@@ -24,37 +24,27 @@ package leetcode.algo.s;
  */
 public class SimilarRGBColor2 {
     public String similarRGB(String color) {
-        int max = 0;
-        String res = "";
-        int red = Integer.parseInt(color.substring(1, 3), 16);
-        int green = Integer.parseInt(color.substring(3, 5), 16);
-        int black = Integer.parseInt(color.substring(5, 7), 16);
-        for (int r = 0; r < 16; r++) {
-            for (int g = 0; g < 16; g++) {
-                for (int b = 0; b < 16; b++) {
-                    int diff = (red - getColorValue(r)) ^ 2 + (green - getColorValue(g)) ^ 2 + (black - getColorValue(b)) ^ 2;
-                    if (diff > max) {
-                        max = diff;
-                        res = buildString(r, g, b);
-                    }
+        String[] hexes = {"00", "11", "22", "33", "44", "55", "66", "77",
+                "88", "99", "aa", "bb", "cc", "dd", "ee", "ff"};
+
+        int[] pairs = new int[3];
+        pairs[0] = Integer.parseInt("" + color.charAt(1) + color.charAt(2), 16);
+        pairs[1] = Integer.parseInt("" + color.charAt(3) + color.charAt(4), 16);
+        pairs[2] = Integer.parseInt("" + color.charAt(5) + color.charAt(6), 16);
+
+        StringBuilder sb = new StringBuilder("#");
+        for (int pair : pairs) {
+            String minStr = hexes[0];
+            int min = Integer.MAX_VALUE;
+            for (int i = 0; i < hexes.length; i++) {
+                int val = Integer.parseInt(hexes[i], 16);
+                if (Math.abs(pair - val) < min) {
+                    min = Math.abs(pair - val);
+                    minStr = hexes[i];
                 }
             }
+            sb.append(minStr);
         }
-        return res;
-    }
-
-    private String buildString(int r, int g, int b) {
-        char rr = (char) (r < 10 ? r : (r - 10 + 'a'));
-        char gg = (char) (g < 10 ? g : (g - 10 + 'a'));
-        char bb = (char) (b < 10 ? b : (b - 10 + 'a'));
-        StringBuilder sb = new StringBuilder();
-        sb.append("#");
-        return sb.append(rr).append(rr).append(gg).append(gg).append(bb).append(bb).toString();
-    }
-
-    public int getColorValue(int r) {
-        char c = (char) (r < 10 ? r : (r - 10 + 'a'));
-        int value = Integer.parseInt("" + c + c, 16);
-        return value;
+        return sb.toString();
     }
 }

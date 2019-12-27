@@ -13,17 +13,12 @@ import java.util.List;
  * ]
  * If there is no valid move, return an empty list [].
  */
-public class FlipGame {
+public class FlipGame2 {
     public List<String> generatePossibleNextMoves(String s) {
-        List<String> res = new ArrayList<String>();
-        char chs[] = s.toCharArray();
-        for (int i = 0; i < s.length() - 1; i++) {
-            if (chs[i] == chs[i + 1] && chs[i] == '+') {
-                chs[i] = chs[i + 1] = '-';
-                res.add(String.valueOf(chs));
-                chs[i] = chs[i + 1] = '+';
-            }
+        List<String> result = new ArrayList<>();
+        for (int idx = s.indexOf("++"); idx != -1; idx = s.indexOf("++", idx + 1)) {
+            result.add(s.substring(0, idx) + "--" + s.substring(idx + 2));
         }
-        return res;
+        return result;
     }
 }
