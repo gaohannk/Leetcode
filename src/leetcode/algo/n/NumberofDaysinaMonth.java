@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.algo.n;
 
 public class NumberofDaysinaMonth {
     public int numberOfDays(int Y, int M) {

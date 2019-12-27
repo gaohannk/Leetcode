@@ -36,7 +36,8 @@ public class OneEditDistance2 {
 				j++;
 			}
 		}
-		return !firsttime || (firsttime && n - m == 1); // notice short circuit
+		 // n is one more letter than m
+		return (firsttime && n - m == 1); // notice short circuit
 	}
 
 	public static void main(String[] args) {

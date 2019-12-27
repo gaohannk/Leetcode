@@ -2,52 +2,51 @@ package leetcode.algo.r;
 
 import leetcode.common.ListNode;
 
-import java.util.LinkedList;
-//TLE
+import java.util.Stack;
+
 public class RemoveZeroSumConsecutiveNodesfromLinkedList {
     public ListNode removeZeroSumSublists(ListNode head) {
-        LinkedList<Integer> list = new LinkedList<>();
-        while (head != null) {
-            if(head.val!=0) {
-                list.add(head.val);
+        Stack<Integer> stack = new Stack<>();
+        stack.add(head.val);
+        while (head.next != null) {
+            int val = head.val;
+            if (val == 0) {
+                head = head.next;
+                continue;
             }
-            head = head.next;
-        }
-
-
-        while (true) {
-            int maxLen = -1;
+            Stack<Integer> temp = new Stack<>();
+            int sum = val;
             boolean flag = false;
-            int left = -1, right =-1;
-            for (int i = 0; i < list.size(); i++) {
-                int sum = 0;
-                for (int j = i; j < list.size(); j++) {
-                    sum += list.get(j);
-                    if (sum == 0 && j - i > maxLen) {
-                        flag = true;
-                        left = i;
-                        right = j;
-                        maxLen = right - left;
-
-                    }
+            while (!stack.isEmpty()) {
+                sum += stack.peek();
+                if (sum == 0) {
+                    stack.pop();
+                    temp.clear();
+                    head = head.next;
+                    flag = true;
+                    break;
+                } else {
+                    temp.add(stack.pop());
                 }
             }
-            if (flag) {
-                int len = right - left + 1;
-                while (len > 1) {
-                    len--;
-                    list.remove(left);
+            if (!flag) {
+                while (!temp.isEmpty()) {
+                    stack.push(temp.pop());
                 }
-            } else {
-                break;
+                stack.push(val);
+                head = head.next;
             }
         }
-        ListNode newHead = new ListNode(0);
-        ListNode iter = newHead;
-        for (int val : list) {
-            iter.next = new ListNode(val);
+        Stack<Integer> temp = new Stack<>();
+        while (!stack.isEmpty()) {
+            temp.push(stack.pop());
+        }
+        ListNode res = new ListNode(0);
+        ListNode iter = res;
+        while (!temp.isEmpty()) {
+            iter.next = new ListNode(temp.pop());
             iter = iter.next;
         }
-        return newHead.next;
+        return res.next;
     }
 }

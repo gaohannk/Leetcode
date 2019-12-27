@@ -1,11 +1,10 @@
-package leetcode.algo;
+package leetcode.algo.t;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.locks.Lock;
 
-public class TrafficLightControlledIntersectiona {
+public class TrafficLightControlledIntersection {
     class TrafficLight {
 
         private int curRoadId;
@@ -45,7 +44,7 @@ public class TrafficLightControlledIntersectiona {
         }
 
         private int otherRoad(int road) {
-            return road == 1 ? 2 : 1
+            return road == 1 ? 2 : 1;
         }
     }
 }
