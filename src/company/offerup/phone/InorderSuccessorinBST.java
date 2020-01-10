@@ -1,17 +1,11 @@
-package leetcode.algo.i;
+package company.offerup.phone;
 
 import leetcode.common.TreeNode;
 
 import java.util.Stack;
 
-/* Given a binary search tree and a node in it, find the in-order successor of that node in the BST.
- * Note: If the given node has no in-order successor in the tree, return null.
- */
-/* Time Complexity - O(n)， Space Complexity - O(n)
- *
- */
+// stack
 public class InorderSuccessorinBST {
-
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
         if (root == null || p == null) {
             return null;
@@ -33,5 +27,4 @@ public class InorderSuccessorinBST {
         }
         return null;
     }
-
 }

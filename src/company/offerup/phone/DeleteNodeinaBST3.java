@@ -1,4 +1,4 @@
-package leetcode.algo.d;
+package company.offerup.phone;
 
 import leetcode.common.TreeNode;
 
@@ -40,7 +40,7 @@ import leetcode.common.TreeNode;
  * \   \
  * 4   7
  */
-public class DeleteNodeinaBST {
+public class DeleteNodeinaBST3 {
     // deletenode always return the root of the tree
     public TreeNode deleteNode(TreeNode root, int key) {
         if (root == null)
