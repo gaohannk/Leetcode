@@ -26,6 +26,12 @@ public class UnionFind {
     }
 
     public int getCount() {
-        return parent.length;
+        int num = 0;
+        for (int i = 0; i < parent.length; i++) {
+            if (i == parent[i]) {
+                num++;
+            }
+        }
+        return num;
     }
 }

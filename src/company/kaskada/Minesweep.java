@@ -1,5 +1,6 @@
 package company.kaskada;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -29,10 +30,10 @@ import java.util.Random;
  */
 public class Minesweep {
 
-    int[] dirX = new int[]{1, 0, -1, 0, 1, 1, -1, -1};
-    int[] dirY = new int[]{0, 1, 0, -1, -1, -1, 1, 1};
+    static int[] dirX = new int[]{1, 0, -1, 0, 1, 1, -1, -1};
+    static int[] dirY = new int[]{0, 1, 0, -1, -1, 1, -1, 1};
 
-    public int[][] minesweeper(int row, int col, int number) {
+    public static int[][] minesweeper(int row, int col, int number) {
         // row col number is invalid: negative
         // number ==0 , return fast
         // number > row * col ; invalid
@@ -41,16 +42,35 @@ public class Minesweep {
 
         Random rand = new Random();
         // place the mine in grid
-        while (number > 0) {
-            int x = rand.nextInt(row); // return integer from range 0 to row
-            int y = rand.nextInt(col);
+//        while (number > 0) {
+//            int x = rand.nextInt(row); // return integer from range 0 to row
+//            int y = rand.nextInt(col);
+//
+//            if (matrix[x][y] != 9) {
+//                matrix[x][y] = 9;
+//                number--;
+//            } else {
+//                continue;
+//            }
+//        }
 
-            if (matrix[x][y] != 9) {
-                matrix[x][y] = 9;
-                number--;
-            } else {
-                continue;
+        int n = row * col;
+        int[] array = new int[n];
+        for (int i = 0; i < n; i++) {
+            array[i] = i;
+        }
+        for (int i = number + 1; i < n; i++) {
+            int r = rand.nextInt(i);
+            if (r < number) {
+                int temp = array[r];
+                array[r] = array[i];
+                array[i] = temp;
             }
+        }
+        for (int i = 0; i < number; i++) {
+            int x = array[i] / col;
+            int y = array[i] % col;
+            matrix[x][y] = 9;
         }
 
         for (int i = 0; i < row; i++) {
@@ -67,14 +87,14 @@ public class Minesweep {
     /**
      * Get adjacent number of mines
      */
-    public int getCount(int[][] matrix, int i, int j) {
+    public static int getCount(int[][] matrix, int i, int j) {
         int row = matrix.length;
         int col = matrix[0].length;
 
         int count = 0;
         for (int k = 0; k < 8; k++) {
             // check boundary
-            if (i + dirX[k] >= row || i + dirX[k] < 0 || j + dirY[k] >= row || j + dirY[k] < 0) {
+            if (i + dirX[k] >= row || i + dirX[k] < 0 || j + dirY[k] >= col || j + dirY[k] < 0) {
                 continue;
             }
             if (matrix[i + dirX[k]][j + dirY[k]] == 9) {
@@ -82,5 +102,18 @@ public class Minesweep {
             }
         }
         return count;
+    }
+
+    public static void main(String[] args) {
+        int row = 5;
+        int col = 5;
+        int target = 10;
+        int[][] res = minesweeper(row, col, target);
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print(res[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }

@@ -20,14 +20,14 @@ You can assume that no duplicate edges will appear in edges. Since all edges are
 */
 public class NumberofConnectedComponentsinanUndirectedGraph {
 
-	public int countComponents(int n, int[][] edges) {
-		UnionFind uf = new UnionFind(n);
-		for (int i = 0; i < edges[0].length; i++) {
-			if (!uf.isConnected(edges[i][0], edges[i][1])) {
-				uf.union(edges[i][0], edges[i][1]);
-			}
-		}
-		return uf.getCount();
-	}
+    public int countComponents(int n, int[][] edges) {
+        UnionFind uf = new UnionFind(n);
+        for (int i = 0; i < edges.length; i++) {
+            if (!uf.isConnected(edges[i][0], edges[i][1])) {
+                uf.union(edges[i][0], edges[i][1]);
+            }
+        }
+        return uf.getCount();
+    }
 
 }
