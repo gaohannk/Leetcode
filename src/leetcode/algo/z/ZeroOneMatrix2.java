@@ -37,43 +37,49 @@ import java.util.Queue;
 // Start from value is 0, BFS
 public class ZeroOneMatrix2 {
     public int[][] updateMatrix(int[][] matrix) {
-        int row = matrix.length;
-        int col = matrix[0].length;
-        int[][] output = new int[row][col];
-        boolean visited[][] = new boolean[row][col];
-        Queue<int[]> queue = new LinkedList<>();
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                if (matrix[i][j] == 0) {
-                    queue.offer(new int[]{i, j});
-                    visited[i][j] = true;
-                }
-            }
-        }
-        while (!queue.isEmpty()) {
-            int[] cell = queue.poll();
-            for (int[] neighbor : getNeighbors(cell, visited)) {
-                visited[neighbor[0]][neighbor[1]] = true;
-                output[neighbor[0]][neighbor[1]] = output[cell[0]][cell[1]] + 1;
-                queue.offer(neighbor);
-            }
-        }
-        return output;
-    }
+        int m = matrix.length;
+        if (m == 0) return matrix;
+        int n = matrix[0].length;
 
-    List<int[]> getNeighbors(int[] cell, boolean visited[][]) {
-        int rows = visited.length;
-        int cols = visited[0].length;
-        List<int[]> list = new LinkedList<>();
-        int dir[][] = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        for (int k = 0; k < 4; k++) {
-            int new_r = cell[0] + dir[k][0], new_c = cell[1] + dir[k][1];
-            if (new_r >= 0 && new_c >= 0 && new_r < rows && new_c < cols) {
-                if (!visited[new_r][new_c]) {
-                    list.add(new int[]{new_r, new_c});
+        int[][] res = new int[m][n];
+        Queue<int[]> queue = new LinkedList<>(); // cells which has already been optimized
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    queue.add(new int[]{i, j});
+                } else {
+                    res[i][j] = Integer.MAX_VALUE;
                 }
             }
         }
-        return list;
+
+        int[][] dirs = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        while (!queue.isEmpty()) {
+            int[] pair = queue.poll();
+
+            for (int i = 0; i < 4; i++) {
+                int r = pair[0] + dirs[i][0];
+                int c = pair[1] + dirs[i][1];
+                if (r >= 0 && r < m && c >= 0 && c < n) {
+                    if (res[r][c] > res[pair[0]][pair[1]] + 1) { // check if neighbor is optimized or not
+                        res[r][c] = res[pair[0]][pair[1]] + 1;
+                        queue.add(new int[]{r, c});
+                    }
+                }
+            }
+        }
+        return res;
     }
+}
+
+/*
+We manage a queue of cell which has already been optimized
+At the first glance, it will be a queue of all cells whose value is 0.
+
+Then we loop until queue empty.
+For each optimized cell, we check its neighbors to see if they are optimized or not
+If they has not been optimized yet, we optimized & add it into the queue.
+
+We should do BFS on '0' instead of '1' because if we do BFS on 1, we will need multiple BFS
+*/
 }

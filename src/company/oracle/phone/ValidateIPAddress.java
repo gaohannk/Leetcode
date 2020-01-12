@@ -1,4 +1,4 @@
-package leetcode.algo.v;
+package company.oracle.phone;
 
 /**
  * In this problem, your job to write a function to check whether a input string is a valid IPv4 address or IPv6 address or neither.
