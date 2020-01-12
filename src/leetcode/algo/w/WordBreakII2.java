@@ -1,8 +1,6 @@
 package leetcode.algo.w;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /* Given a string s and a dictionary of words dict, add spaces in s to construct a sentence where each word is a valid dictionary word.
  * Return all such possible sentences.
@@ -12,53 +10,34 @@ import java.util.Set;
 
 public class WordBreakII2 {
 
-    public static ArrayList<String> wordBreak(String s, Set<String> dict) {
-        ArrayList<String> res = new ArrayList<String>();
-        if (s == null || s.length() == 0 || dict == null)
-            return res;
-        if (wordBreakcheck(s, dict)) // Prune
-            helper(s, dict, 0, "", res);
-        return res;
+    static Map<Integer, List<String>> map = new HashMap<>();
+
+    public static List<String> wordBreak(String s, List<String> wordDict) {
+        return helper(s, wordDict, 0);
     }
 
-    private static void helper(String s, Set<String> dict, int start, String item, ArrayList<String> res) {
-        if (start >= s.length()) {
-            res.add(item);
-            return;
+    public static List<String> helper(String s, List<String> wordDict, int start) {
+        if (map.containsKey(start)) {
+            return map.get(start);
         }
-
-        StringBuilder str = new StringBuilder();
-        for (int i = start; i < s.length(); i++) {
-            str.append(s.charAt(i));
-            if (dict.contains(str.toString())) {
-                String newItem = new String();
-                if (item.length() > 0)
-                    newItem = item + " " + str.toString();
-                else
-                    newItem = str.toString();
-                helper(s, dict, i + 1, newItem, res);
-            }
+        LinkedList<String> res = new LinkedList<>();
+        if (start == s.length()) {
+            res.add("");
         }
-    }
-
-    public static boolean wordBreakcheck(String s, Set<String> dict) {
-        boolean[] t = new boolean[s.length() + 1];
-        t[0] = true; // set first to be true, why?
-        // Because we need initial state
-        for (int i = 0; i <= s.length(); i++) {
-            // should continue from match position
-            for (int j = i; j >= 0; j--) {
-                if (t[j] && dict.contains(s.substring(j, i))) {
-                    t[i] = true;
-                    break;
+        for (int end = start + 1; end <= s.length(); end++) {
+            if (wordDict.contains(s.substring(start, end))) {
+                List<String> list = helper(s, wordDict, end);
+                for (String l : list) {
+                    res.add(s.substring(start, end) + (l.equals("") ? "" : " ") + l);
                 }
             }
         }
-        return t[s.length()];
+        map.put(start, res);
+        return res;
     }
 
     public static void main(String[] args) {
-        HashSet<String> dict = new HashSet<>();
+        List<String> dict = new LinkedList<>();
         dict.add("aaaa");
         dict.add("aaa");
         // dict.add("and");

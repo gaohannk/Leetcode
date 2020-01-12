@@ -13,62 +13,32 @@ import java.util.Set;
 
 public class WordBreakII {
 
-    public static List<String> wordBreak(String s, Set<String> dict) {
-        if (s == null || s.length() == 0 || dict == null) {
-            return null;
-        }
-
-        List<String> res = new LinkedList<>();
-        List<String> path = new LinkedList<>();
-        boolean canBreak[] = new boolean[s.length() + 1];
-
-        for (int i = 0; i < s.length() + 1; i++) {
-            canBreak[i] = true;
-        }
-
-        dfs(s, dict, path, res, 0, canBreak);
-        return res;
-    }
-
-    public static void dfs(String s, Set<String> dict, List<String> path, List<String> ret, int index, boolean canBreak[]) {
-        if (index == s.length()) {
-            // 结束了。index到了末尾
-            StringBuilder sb = new StringBuilder();
-            for (String str : path) {
-                sb.append(str + " ");
+    public static List<String> wordBreak(String s, List<String> wordDict) {
+        LinkedList<String>[] dp = new LinkedList[s.length() + 1];
+        LinkedList<String> initial = new LinkedList<>();
+        initial.add("");
+        dp[0] = initial;
+        for (int i = 1; i <= s.length(); i++) {
+            LinkedList<String> list = new LinkedList<>();
+            for (int j = 0; j < i; j++) {
+                if (dp[j].size() > 0 && wordDict.contains(s.substring(j, i))) {
+                    for (String l : dp[j]) {
+                        list.add(l + (l.equals("") ? "" : " ") + s.substring(j, i));
+                    }
+                }
             }
-            // remove the last " "
-            sb.deleteCharAt(sb.length() - 1);
-            ret.add(sb.toString());
-            return;
+            dp[i] = list;
         }
-
-        // if can't break, we exit directly.
-        if (!canBreak[index])
-            return;
-
-        for (int i = index; i < s.length(); i++) {
-            // 注意这些索引的取值。左字符串的长度从0到len
-            String left = s.substring(index, i + 1);
-            if (!dict.contains(left) || !canBreak[i + 1]) {
-                continue;
-            }
-            path.add(left);
-
-            int beforeChange = ret.size();
-            dfs(s, dict, path, ret, i + 1, canBreak);
-            // 注意这些剪枝的代码. 关键在于此以减少复杂度
-            if (ret.size() == beforeChange) {
-                canBreak[i + 1] = false;
-            }
-            path.remove(path.size() - 1);
-        }
+        return dp[s.length()];
     }
 
     public static void main(String[] args) {
-        HashSet<String> dict = new HashSet<>();
+        List<String> dict = new LinkedList<>();
         dict.add("aaaa");
         dict.add("aaa");
+        // dict.add("and");
+        // dict.add("sand");
+        // dict.add("dog");
         String s = "aaaaaaa";
         System.out.println(wordBreak(s, dict));
     }
