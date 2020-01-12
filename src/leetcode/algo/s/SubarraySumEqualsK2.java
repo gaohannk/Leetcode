@@ -10,7 +10,8 @@ package leetcode.algo.s;
  * The range of numbers in the array is [-1000, 1000] and the range of the integer k is [-1e7, 1e7].
  */
 /**
- * O(n^2)
+ *  Time O(n^2)
+ *  Space O(1)
  */
 public class SubarraySumEqualsK2 {
     public int subarraySum(int[] nums, int k) {

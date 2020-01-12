@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.a;
 
 public class AccountsMerge {
 }

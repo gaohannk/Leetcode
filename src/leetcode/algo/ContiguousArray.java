@@ -1,5 +1,4 @@
-package leetcode.algo.c;
-
+package leetcode.algo;
 /**
  * Given a binary array, find the maximum length of a contiguous subarray with equal number of 0 and 1.
 
@@ -14,4 +13,7 @@ package leetcode.algo.c;
  Note: The length of the given binary array will not exceed 50,000.
  */
 public class ContiguousArray {
+    public int findMaxLength(int[] nums) {
+        return 0;
+    }
 }

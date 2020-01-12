@@ -10,7 +10,10 @@ package leetcode.algo.s;
  * The range of numbers in the array is [-1000, 1000] and the range of the integer k is [-1e7, 1e7].
  */
 /**
- * O(n^2)
+ *  sum[i]sum[i] is used to store the cumulative sum of numsnums array upto the element corresponding to the (i-1)^{th}
+ *   index. Thus, to determine the sum of elements for the subarray nums[i:j]nums[i:j], we can directly use sum[j+1] - sum[i]
+ * Time O(n^2)
+ * Space O(n)
  */
 public class SubarraySumEqualsK {
     public int subarraySum(int[] nums, int k) {
