@@ -82,4 +82,3 @@ If they has not been optimized yet, we optimized & add it into the queue.
 
 We should do BFS on '0' instead of '1' because if we do BFS on 1, we will need multiple BFS
 */
-}

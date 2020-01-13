@@ -1,6 +1,6 @@
 package company.offerup.oa;
 
-public class MamimumSubarray {
+public class MaximumSubarray {
     public int maxSubArray(int[] nums) {
         if (nums.length == 1)
             return nums[0];
