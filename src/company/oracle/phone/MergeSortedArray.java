@@ -1,4 +1,4 @@
-package leetcode.algo.m;
+package company.oracle.phone;
 
 /* Given two sorted integer arrays A and B, merge B into A as one sorted array.
  * Note:
