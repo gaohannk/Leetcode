@@ -1,6 +1,6 @@
 package leetcode.algo.m;
 
-/* Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei), 
+/* Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei),
  * find the minimum number of conference rooms required.
  * For example,
  * Given [[0, 30],[5, 10],[15, 20]],
@@ -9,6 +9,7 @@ package leetcode.algo.m;
 /* The basic idea is for each room, we count how many rooms are overlapped with it.
    O(n^2)
  */
+
 import leetcode.algo.i.Interval;
 
 import java.util.Arrays;
@@ -33,8 +34,8 @@ public class MeetingRoomsII3 {
                 if (intervals[j].start < intervals[i].end) {
                     count++;
                 }
-                max = Math.max(max, count);
             }
+            max = Math.max(max, count);
         }
         return max;
     }
