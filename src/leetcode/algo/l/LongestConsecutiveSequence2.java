@@ -1,6 +1,7 @@
 package leetcode.algo.l;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /* Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
  * For example,
@@ -9,30 +10,26 @@ import java.util.HashSet;
  * Your algorithm should run in O(n) complexity.
  */
 public class LongestConsecutiveSequence2 {
-	public int longestConsecutive(int[] num) {
-		HashSet<Integer> set = new HashSet<Integer>();
-		for (int i = 0; i < num.length; i++)
-			set.add(num[i]);
-
+	public int longestConsecutive(int[] nums) {
+		if (nums.length == 0) {
+			return 0;
+		}
 		int res = 1;
-		int count = 1;
-		for (int i : num) {
-			set.remove(i);
-			int left = i - 1;
-			while (set.contains(left)) {
-				set.remove(left);
-				count++;
-				left--;
+		Set<Integer> set = new HashSet<>();
+		for (int i = 0; i < nums.length; i++) {
+			set.add(nums[i]);
+		}
+		for (int i = 0; i < nums.length; i++) {
+			if (!set.contains(nums[i] - 1)) {
+				int count = 1;
+				int cur = nums[i] + 1;
+				while (set.contains(cur)) {
+					cur++;
+					count++;
+				}
+				res = Math.max(res, count);
+
 			}
-			int right = i + 1;
-			while (set.contains(right)) {
-				set.remove(right);
-				right++;
-				count++;
-			}
-			if (count > res)
-				res = count;
-			count = 1;
 		}
 		return res;
 	}

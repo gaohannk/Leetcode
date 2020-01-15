@@ -3,7 +3,7 @@ package leetcode.algo.m;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+// 0(n^2)
 public class MinimumIndexSumofTwoLists {
     public String[] findRestaurant(String[] list1, String[] list2) {
         HashMap<Integer, List<String>> map = new HashMap<>();
@@ -16,11 +16,11 @@ public class MinimumIndexSumofTwoLists {
                 }
             }
         }
-        int min_index_sum = Integer.MAX_VALUE;
-        for (int key : map.keySet()) {
-            min_index_sum = Math.min(min_index_sum, key);
+        int minSum = Integer.MAX_VALUE;
+        for (int sum : map.keySet()) {
+            minSum = Math.min(minSum, sum);
         }
-        String[] res = new String[map.get(min_index_sum).size()];
-        return map.get(min_index_sum).toArray(res);
+        String[] res = new String[map.get(minSum).size()];
+        return map.get(minSum).toArray(res);
     }
 }

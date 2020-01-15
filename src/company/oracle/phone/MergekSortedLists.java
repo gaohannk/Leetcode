@@ -1,4 +1,4 @@
-package company.oracle;
+package company.oracle.phone;
 
 import leetcode.common.ListNode;
 
