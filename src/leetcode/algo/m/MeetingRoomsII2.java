@@ -1,6 +1,6 @@
 package leetcode.algo.m;
 
-/* Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei), 
+/* Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei),
  * find the minimum number of conference rooms required.
  * For example,
  * Given [[0, 30],[5, 10],[15, 20]],
@@ -12,48 +12,40 @@ import leetcode.algo.i.Interval;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class MeetingRoomsII2 {
-
-
-    public int minMeetingRooms(Interval[] intervals) {
-        if (intervals == null || intervals.length == 0)
+    public int minMeetingRooms(int[][] intervals) {
+        if (intervals.length == 0) {
             return 0;
-
-        // Sort the intervals by start time
-        Arrays.sort(intervals, new Comparator<Interval>() {
-            public int compare(Interval a, Interval b) {
-                return a.start - b.start;
+        }
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[0] - o2[0];
             }
         });
 
-        // Use a min heap to track the minimum end time of merged intervals
-        PriorityQueue<Interval> heap = new PriorityQueue<Interval>(intervals.length, new Comparator<Interval>() {
-            public int compare(Interval a, Interval b) {
-                return a.end - b.end;
+        Queue<int[]> queue = new PriorityQueue<>(new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[1] - o2[1];
             }
         });
 
-        // start with the first meeting, put it to a meeting room
-        heap.offer(intervals[0]);
-
-        for (int i = 1; i < intervals.length; i++) {
-            // get the meeting room that finishes earliest
-            Interval interval = heap.poll();
-
-            if (intervals[i].start >= interval.end) {
-                // if the current meeting starts right after
-                // there's no need for a new room, merge the interval
-                interval.end = intervals[i].end;
-            } else {
-                // otherwise, this meeting needs a new room
-                heap.offer(intervals[i]);
-            }
-
-            // don't forget to put the meeting room back
-            heap.offer(interval);
+        for (int i = 0; i < intervals.length; i++) {
+            queue.offer(intervals[i]);
         }
 
-        return heap.size();
+        int count = 1;
+        for (int i = 1; i < intervals.length; i++) {
+            int[] meeting = intervals[i];
+            if (meeting[0] < queue.peek()[1]) {
+                count++;
+            } else {
+                queue.poll();
+            }
+        }
+        return count;
     }
 }

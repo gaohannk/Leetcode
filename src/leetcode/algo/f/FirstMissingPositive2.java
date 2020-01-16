@@ -1,4 +1,5 @@
 package leetcode.algo.f;
+
 /* Given an unsorted integer array, find the first missing positive integer.
  * For example,
  * Given [1,2,0] return 3,
@@ -9,20 +10,21 @@ package leetcode.algo.f;
  * 整个过程需要遍历两次数组，复杂度为O(n)。
  */
 public class FirstMissingPositive2 {
-	public int firstMissingPositive(int[] A) {
-		int i = 0;
-		while (i < A.length) {
-			if (A[i] != (i + 1) && A[i] >= 1 && A[i] <= A.length && A[A[i] - 1] != A[i]) {
-				// 注意：交换的元素索引中包含交换的值
-				int temp = A[i];
-				A[i] = A[temp - 1];
-				A[temp - 1] = temp;		
-			}else
-				i++;
-		}
-		for (i = 0; i < A.length; ++i)
-			if (A[i] != (i + 1))
-				return i + 1;
-		return A.length + 1;
-	}
+    public int firstMissingPositive(int[] A) {
+        int i = 0;
+        while (i < A.length) {
+            if (A[i] != (i + 1) && A[i] >= 1 && A[i] <= A.length && A[A[i] - 1] != A[i]) {
+                // 注意：交换的元素索引中包含交换的值
+                int temp = A[i];
+                A[i] = A[temp - 1];
+                A[temp - 1] = temp;
+            } else {
+                i++;
+            }
+        }
+        for (i = 0; i < A.length; ++i)
+            if (A[i] != (i + 1))
+                return i + 1;
+        return A.length + 1;
+    }
 }

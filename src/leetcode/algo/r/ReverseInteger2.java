@@ -3,12 +3,12 @@ package leetcode.algo.r;
 public class ReverseInteger2 {
 	public int reverse(int x) {
 		StringBuilder num = new StringBuilder();
-		int val = 0;
+		int val;
 
 		if (x > 0) {
 			num = num.append(x).reverse();
 			try {
-				val = (int) Integer.parseInt(num.toString());
+				val = Integer.parseInt(num.toString());
 			} catch (NumberFormatException e) {
 				return 0;
 			}
@@ -20,7 +20,7 @@ public class ReverseInteger2 {
 			x = -x;
 			num = num.append(x).reverse();
 			try {
-				val = (int) Integer.parseInt(num.toString());
+				val = Integer.parseInt(num.toString());
 			} catch (NumberFormatException e) {
 				return 0;
 			}
