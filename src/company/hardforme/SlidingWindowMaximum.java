@@ -1,4 +1,4 @@
-package leetcode.algo.s;
+package company.hardforme;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

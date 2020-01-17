@@ -16,6 +16,7 @@ import java.util.Arrays;
  * 2）不连续，count=1，重新计数，重新计数前要保留并更新结果。
  * 3）重复，continue
  */
+// O(nlogn)
 public class LongestConsecutiveSequence {
 	public int longestConsecutive(int[] nums) {
 		if (nums.length == 0) {

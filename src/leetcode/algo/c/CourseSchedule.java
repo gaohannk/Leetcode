@@ -12,7 +12,7 @@ package leetcode.algo.c;
  * Note:
  * The input prerequisites is a graph represented by a list of edges, not adjacency matrices. Read more about how a graph is represented.
  */
-//DFS
+//DFS using one set with different status
 public class CourseSchedule {
 	public boolean canFinish(int numCourses, int[][] prerequisites) {
 		// 0 for white, unvisited
@@ -21,7 +21,7 @@ public class CourseSchedule {
 		int[] status = new int[numCourses];
 		for (int i = 0; i < numCourses; i++) {
 			if (status[i] == 0) {
-				if (!DFS(i, prerequisites, status)) {
+				if (DFS(i, prerequisites, status)) {
 					return false;
 				}
 			}
@@ -31,18 +31,18 @@ public class CourseSchedule {
 
 	private boolean DFS(int curr, int[][] prerequisites, int[] status) {
 		if (status[curr] == 1) {
-			return false;
+			return true; // has cycle
 		}
 		status[curr] = 1;
 		for (int[] p : prerequisites) {
 			if (p[0] == curr && status[p[1]] != 2) {
-				if (!DFS(p[1], prerequisites, status)) {
-					return false;
+				if (DFS(p[1], prerequisites, status)) {
+					return true;
 				}
 			}
 		}
 		status[curr] = 2;
-		return true;
+		return false;
 	}
 
 }

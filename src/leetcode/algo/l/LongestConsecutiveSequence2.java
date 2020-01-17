@@ -9,6 +9,8 @@ import java.util.Set;
  * The longest consecutive elements sequence is [1, 2, 3, 4]. Return its length: 4.
  * Your algorithm should run in O(n) complexity.
  */
+
+// O(n)
 public class LongestConsecutiveSequence2 {
 	public int longestConsecutive(int[] nums) {
 		if (nums.length == 0) {

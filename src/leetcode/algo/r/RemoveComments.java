@@ -8,9 +8,9 @@ import java.util.List;
  */
 
 /**
- * Time Complexity: O(S)O(S), where SS is the total length of the source code.
+ * Time Complexity: O(S), where S is the total length of the source code.
  * <p>
- * Space Complexity: O(S)O(S), the space used by recording the source code into ans.
+ * Space Complexity: O(S), the space used by recording the source code into ans.
  */
 public class RemoveComments {
     public List<String> removeComments(String[] source) {
