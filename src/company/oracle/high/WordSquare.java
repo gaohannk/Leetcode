@@ -1,48 +1,70 @@
 package company.oracle.high;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
-// TLE
+
 public class WordSquare {
-    public static List<List<String>> wordSquares(String[] words) {
-        List<List<String>> res = new LinkedList<>();
+    int N = 0;
+    String[] words = null;
+    Map<String, List<String>> prefixHashTable = null;
+
+    public List<List<String>> wordSquares(String[] words) {
+        this.words = words;
+        this.N = words[0].length();
+
+        List<List<String>> results = new LinkedList<>();
+        buildPrefixHashTable(words);
 
         for (String word : words) {
-            int i = 0;
-            List<String> list = new LinkedList<>();
-            list.add(word);
-            helper(words, list, res, i + 1, word.length());
+            LinkedList<String> wordSquares = new LinkedList<>();
+            wordSquares.addLast(word);
+            helper(1, wordSquares, results);
         }
-        return res;
+        return results;
     }
 
-    private static void helper(String[] words, List<String> list, List<List<String>> res, int i, int len) {
-        if (i == len) {
-            res.add(new LinkedList<>(list));
+    protected void helper(int step, LinkedList<String> wordSquares,
+                          List<List<String>> results) {
+        if (step == N) {
+            results.add((List<String>) wordSquares.clone());
             return;
         }
-        String prefix = getPrefix(list, i);
+
+        StringBuilder prefix = new StringBuilder();
+        for (String word : wordSquares) {
+            prefix.append(word.charAt(step));
+        }
+
+        for (String candidate : getWordsWithPrefix(prefix.toString())) {
+            wordSquares.addLast(candidate);
+            helper(step + 1, wordSquares, results);
+            wordSquares.removeLast();
+        }
+    }
+
+    protected void buildPrefixHashTable(String[] words) {
+        prefixHashTable = new HashMap<>();
+
         for (String word : words) {
-            if (word.startsWith(prefix)) {
-                list.add(word);
-                helper(words, list, res, i + 1, len);
-                list.remove(list.size() - 1);
+            for (int i = 1; i < this.N; ++i) {
+                String prefix = word.substring(0, i);
+                List<String> wordList = this.prefixHashTable.get(prefix);
+                if (wordList == null) {
+                    wordList = new LinkedList<>();
+                    wordList.add(word);
+                    this.prefixHashTable.put(prefix, wordList);
+                } else {
+                    wordList.add(word);
+                }
             }
         }
     }
 
-    private static String getPrefix(List<String> list, int i) {
-        String prefix = "";
-        for (int k = 0; k < list.size(); k++) {
-            prefix += list.get(k).charAt(i);
-        }
-        return prefix;
+    protected List<String> getWordsWithPrefix(String prefix) {
+        List<String> wordList = this.prefixHashTable.get(prefix);
+        return wordList != null ? wordList : new LinkedList<>();
     }
-
-    public static void main(String[] args) {
-        String[] words = {"area", "lead", "wall", "lady", "ball"};
-        System.out.println(wordSquares(words));
-    }
-
 }

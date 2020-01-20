@@ -25,7 +25,7 @@ public class LowestCommonAncestorofaBinaryTree {
         boolean right = inSubTree(root.left, q);
         if (left != right)
             return root;
-        else if (left)
+        else if (left && !right)
             return lowestCommonAncestor(root.left, p, q);
         return lowestCommonAncestor(root.right, p, q);
     }

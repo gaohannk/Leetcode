@@ -62,5 +62,4 @@ public class WordSquare2 {
         String[] words = {"area", "lead", "wall", "lady", "ball"};
         System.out.println(wordSquares(words));
     }
-
 }

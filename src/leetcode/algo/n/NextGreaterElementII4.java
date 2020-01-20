@@ -1,7 +1,6 @@
 package leetcode.algo.n;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -15,27 +14,38 @@ import java.util.Stack;
  * The second 1's next greater number needs to search circularly, which is also 2.
  * Note: The length of given array won't exceed 10000.
  */
-public class NextGreaterElementII {
-    public int[] nextGreaterElements(int[] nums) {
-        int[] res = new int[nums.length];
-        Arrays.fill(res, -1);
+
+// O(n^2)
+public class NextGreaterElementII4 {
+    public static int[] nextGreaterElements(int[] nums) {
+        if (nums.length == 0) {
+            return new int[0];
+        }
         Stack<Integer> stack = new Stack<>();
+        stack.push(nums[0]);
         Stack<Integer> index = new Stack<>();
+        index.push(0);
+        int res[] = new int[nums.length];
+        Arrays.fill(res, -1);
+
         for (int i = 1; i < 2 * nums.length; i++) {
-            if (nums[i % nums.length] > nums[(i - 1) % nums.length]) {
-                res[(i - 1) % nums.length] = nums[i % nums.length];
-                while (!stack.isEmpty()) {
-                    if (stack.peek() < nums[i % nums.length]) {
-                        stack.pop();
-                        res[index.pop()] = nums[i % nums.length];
-                    } else
-                        break;
-                }
-            } else {
-                stack.push(nums[(i - 1) % nums.length]);
-                index.push((i - 1) % nums.length);
+            while (!stack.isEmpty() && stack.peek() < nums[i % nums.length]) {
+                stack.pop();
+                res[index.pop() % nums.length] = nums[i % nums.length];
             }
+            stack.push(nums[i % nums.length]);
+            index.push(i);
         }
         return res;
+    }
+
+    public static void main(String[] args) {
+//        int[] nums = {1, 2, 3, 4, 5};
+        int[] nums = {1, 2, 3, 5, 2, 0};
+
+        int[] res = nextGreaterElements(nums);
+        for (int i = 0; i < res.length; i++) {
+            System.out.print(res[i] + " ");
+        }
     }
 }

@@ -2,7 +2,7 @@ package leetcode.algo.b;
 
 import leetcode.common.TreeNode;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /* Given a binary tree, print it vertically. The following example illustrates vertical order traversal.
 
@@ -23,37 +23,59 @@ The output of print this tree vertically will be:
 9
 */
 /* 这里垂直访问的意思是，每一列给它一个列号，左孩子比父节点的列号减1，右孩子比父节点的加1.列号相同的打印在同一行。
- * 
+ *
  */
 public class BinaryTreeVerticalOrderTraversal {
 
-	public void printVerticalOrder(TreeNode root) {
-		ArrayList<ArrayList<Integer>> list = new ArrayList<ArrayList<Integer>>();
-		int leftlen = 0;
-		while (root != null) {
-			root = root.left;
-			leftlen++;
-		}
-		helper(list, root, 0, leftlen);
-		for (int i = 0; i < list.size(); i++) {
-			ArrayList<Integer> l = list.get(i);
-			for (int j = 0; j < l.size(); j++) {
-				System.out.print(l.get(j) + " ");
-			}
-			System.out.println();
-		}
-	}
+    public List<List<Integer>> verticalOrder(TreeNode root) {
+        if (root == null) {
+            return new LinkedList<>();
+        }
 
-	private void helper(ArrayList<ArrayList<Integer>> list, TreeNode root, int index, int leftlen) {
-		if (root == null)
-			return;
-		if (list.get(index + leftlen) != null) {
-			list.get(index + leftlen).add(root.val);
-		} else {
-			list.add(new ArrayList<>(root.val));
-		}
-		helper(list, root.left, index - 1, leftlen);
-		helper(list, root.right, index + 1, leftlen);
-	}
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        List<List<Integer>> res = new LinkedList<>();
 
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        Queue<Integer> distQueue = new LinkedList<>();
+        distQueue.add(0);
+
+        int max = Integer.MIN_VALUE;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size > 0) {
+                TreeNode current = queue.poll();
+
+                int dist = distQueue.poll();
+
+                // Keep track of the maximum distance away from root
+                max = Math.max(max, Math.abs(dist));
+
+
+                List<Integer> currentList = map.getOrDefault(dist, new LinkedList<Integer>());
+                currentList.add(current.val);
+                map.put(dist, currentList);
+
+                if (current.left != null) {
+                    queue.add(current.left);
+                    distQueue.add(dist - 1);
+                }
+
+                if (current.right != null) {
+                    queue.add(current.right);
+                    distQueue.add(dist + 1);
+                }
+                size--;
+            }
+        }
+
+        // left to right, from maximum -ve distance from root to maximum +ve distance from root
+        for (int i = -max; i <= max; i++) {
+            if (map.containsKey(i)) {
+                res.add(map.get(i));
+            }
+        }
+        return res;
+    }
 }

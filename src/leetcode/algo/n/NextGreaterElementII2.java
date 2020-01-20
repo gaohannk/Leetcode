@@ -15,25 +15,21 @@ import java.util.Stack;
  * The second 1's next greater number needs to search circularly, which is also 2.
  * Note: The length of given array won't exceed 10000.
  */
-public class NextGreaterElementII {
+
+// O(n^2)
+public class NextGreaterElementII2 {
     public int[] nextGreaterElements(int[] nums) {
         int[] res = new int[nums.length];
-        Arrays.fill(res, -1);
-        Stack<Integer> stack = new Stack<>();
-        Stack<Integer> index = new Stack<>();
-        for (int i = 1; i < 2 * nums.length; i++) {
-            if (nums[i % nums.length] > nums[(i - 1) % nums.length]) {
-                res[(i - 1) % nums.length] = nums[i % nums.length];
-                while (!stack.isEmpty()) {
-                    if (stack.peek() < nums[i % nums.length]) {
-                        stack.pop();
-                        res[index.pop()] = nums[i % nums.length];
-                    } else
-                        break;
+        int[] doublenums = new int[nums.length * 2];
+        System.arraycopy(nums, 0, doublenums, 0, nums.length);
+        System.arraycopy(nums, 0, doublenums, nums.length, nums.length);
+        for (int i = 0; i < nums.length; i++) {
+            res[i] = -1;
+            for (int j = i + 1; j < doublenums.length; j++) {
+                if (doublenums[j] > doublenums[i]) {
+                    res[i] = doublenums[j];
+                    break;
                 }
-            } else {
-                stack.push(nums[(i - 1) % nums.length]);
-                index.push((i - 1) % nums.length);
             }
         }
         return res;
