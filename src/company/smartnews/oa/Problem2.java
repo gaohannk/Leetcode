@@ -10,13 +10,13 @@ public class Problem2 {
         for (int i = 0; i < s.length(); i++) {
             chars[s.charAt(i) - 'a']++;
         }
-        Set<Integer> freqSet = new HashSet<>();
         for (int i = 0; i < chars.length; i++) {
             if (chars[i] != 0) {
                 count.put(chars[i], count.getOrDefault(chars[i], 0) + 1);
             }
         }
         int res = 0;
+        System.out.println(count);
         Queue<Integer> queue = new PriorityQueue<>(Comparator.reverseOrder());
         queue.addAll(count.keySet());
 
@@ -24,6 +24,9 @@ public class Problem2 {
             int freq = queue.poll();
             if (count.get(freq) != 1) {
                 res += count.get(freq) - 1;
+                if(freq -1 == 0){
+                    break;
+                }
                 count.put(freq - 1, count.getOrDefault(freq - 1, 0) + count.get(freq) - 1);
                 if (!queue.isEmpty() && queue.peek() == freq - 1) {
                     continue;
@@ -36,12 +39,12 @@ public class Problem2 {
     }
 
     public static void main(String[] args) {
-        System.out.println(minimumDelete("aaaaaabbbbbccccc")); // 655
-        System.out.println(minimumDelete("aaaaabbbbbccccc")); // 555
-        System.out.println(minimumDelete("aaaaaaabbbbbccccc")); // 755
-        System.out.println(minimumDelete("aabbcd")); // 2211
-        System.out.println(minimumDelete("aabbccd")); // 2221
-        System.out.println(minimumDelete("aaaaaa")); //5
-        System.out.println(minimumDelete("aaaaaaddddddbbbbcccc")); //6644
+        System.out.println(minimumDelete("example")); // 655
+//        System.out.println(minimumDelete("aaaaabbbbbccccc")); // 555
+//        System.out.println(minimumDelete("aaaaaaabbbbbccccc")); // 755
+//        System.out.println(minimumDelete("aabbcd")); // 2211
+//        System.out.println(minimumDelete("aabbccd")); // 2221
+//        System.out.println(minimumDelete("aaaaaa")); //5
+//        System.out.println(minimumDelete("aaaaaaddddddbbbbcccc")); //6644
     }
 }

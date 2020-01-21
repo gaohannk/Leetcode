@@ -12,8 +12,8 @@ public class ProductofArrayExceptSelf {
 		int product = 1;
 		int res[] = new int[nums.length];
 		for (int i = 0; i < nums.length; i++) {
+			// 0 exist in array
 			if (nums[i] == 0) {
-				int index = i;
 				product = 1;
 				for (int j = 0; j < nums.length; j++) {
 					if (j != i)
