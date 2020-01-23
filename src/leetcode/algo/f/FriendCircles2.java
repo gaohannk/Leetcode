@@ -33,29 +33,22 @@ public class FriendCircles2 {
     public int findCircleNum(int[][] M) {
         int[] visited = new int[M.length];
         int count = 0;
-
         for (int i = 0; i < M.length; i++) {
+            Queue<Integer> queue = new LinkedList<>();
             if (visited[i] == 0) {
-                Queue<Integer> queue = new LinkedList<>();
                 queue.add(i);
-                count += bfs(M, visited, queue);
-            }
-        }
-        return count;
-    }
-
-    public int bfs(int[][] M, int[] visited, Queue<Integer> queue) {
-        int count = 0;
-        while (!queue.isEmpty()) {
-            int cur = queue.remove();
-            visited[cur] = 1;
-            for (int j = 0; j < M.length; j++) {
-                if (M[cur][j] == 1 && visited[j] == 0) {
-                    queue.add(j);
+                while (!queue.isEmpty()) {
+                    int cur = queue.remove();
+                    visited[cur] = 1;
+                    for (int j = 0; j < M.length; j++) {
+                        if (M[cur][j] == 1 && visited[j] == 0) {
+                            queue.add(j);
+                        }
+                    }
                 }
+                count++;
             }
         }
-        count++;
         return count;
     }
 }

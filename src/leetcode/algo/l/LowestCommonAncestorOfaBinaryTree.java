@@ -16,15 +16,25 @@ import leetcode.common.TreeNode;
  * 7   4
  * For example, the lowest common ancestor (LCA) of nodes 5 and 1 is 3. Another example is LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.
  */
-public class LowestCommonAncestorofaBinaryTree2 {
+// O(nlog(n))
+public class LowestCommonAncestorOfaBinaryTree {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || root == p || root == q)
             return root;
-        TreeNode left = lowestCommonAncestor(root.left, p, q);
-        TreeNode right = lowestCommonAncestor(root.right, p, q);
-        if (left != null && right != null)
+        boolean left = inSubTree(root.left, p);
+        boolean right = inSubTree(root.right, q);
+        if (left != right)
             return root;
-        return left != null ? left : right;
+        else if (left && !right)
+            return lowestCommonAncestor(root.left, p, q);
+        return lowestCommonAncestor(root.right, p, q);
     }
 
+    private boolean inSubTree(TreeNode root, TreeNode node) {
+        if (root == null)
+            return false;
+        if (root == node)
+            return true;
+        return inSubTree(root.left, node) || inSubTree(root.right, node);
+    }
 }
