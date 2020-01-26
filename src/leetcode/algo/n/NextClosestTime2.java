@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.n;
 
 import java.util.HashSet;
 import java.util.Set;

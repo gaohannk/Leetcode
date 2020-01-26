@@ -52,7 +52,6 @@ public class BinaryTreeVerticalOrderTraversal {
                 // Keep track of the maximum distance away from root
                 max = Math.max(max, Math.abs(dist));
 
-
                 List<Integer> currentList = map.getOrDefault(dist, new LinkedList<Integer>());
                 currentList.add(current.val);
                 map.put(dist, currentList);

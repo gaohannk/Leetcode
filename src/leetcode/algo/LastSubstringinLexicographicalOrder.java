@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.algo;
 
 /**
  * Let me try to prove why it safely move from i to i + k + 1. For example, for "cabcabx" the matching pattern is 'cab', at 'x' two candidates are mismatching. since 'x' > 'c',

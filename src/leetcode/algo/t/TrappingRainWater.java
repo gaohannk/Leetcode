@@ -11,23 +11,26 @@ package leetcode.algo.t;
  * Space: O(n)
  */
 public class TrappingRainWater {
-	public int trap(int[] A) {
-		int max = 0;
-		int[] max_left = new int[A.length];
-		int[] max_right = new int[A.length];
-		int contain = 0;
-		for (int i = 0; i < A.length; i++) {
-			if (max < A[i])
-				max = A[i];
-			max_left[i] = max <A[i]? A[i]:max;
+	public int trap(int[] height) {
+		int len = height.length;
+		if (height == null || len == 0) {
+			return 0;
 		}
-		max = 0;
-		for (int i = A.length - 1; i >= 0; i--) {
-			if (max < A[i])
-				max = A[i];
-			max_right[i] = max;
-			contain += Math.min(max_left[i], max_right[i]) - A[i];
+
+		int[] maxLeft = new int[len];
+		int[] maxRight = new int[len];
+		maxLeft[0] = height[0];
+		maxRight[len - 1] = height[len - 1];
+		for (int i = 1; i < len; i++) {
+			maxLeft[i] = Math.max(height[i], maxLeft[i - 1]);
 		}
-		return contain;
+		for (int i = len - 2; i >= 0; i--) {
+			maxRight[i] = Math.max(height[i], maxRight[i + 1]);
+		}
+		int sum = 0;
+		for (int i = 1; i < len - 1; i++) {
+			sum += Math.min(maxLeft[i], maxRight[i]) - height[i];
+		}
+		return sum;
 	}
 }

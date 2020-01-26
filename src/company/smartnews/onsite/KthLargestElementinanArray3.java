@@ -1,4 +1,4 @@
-package leetcode.algo.k;
+package company.smartnews.onsite;
 
 /* Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
  * For example,
@@ -10,21 +10,24 @@ package leetcode.algo.k;
 // Quick sort
 public class KthLargestElementinanArray3 {
     public static int findKthLargest(int[] nums, int k) {
-        return findKthLargestHelper(nums, 0, nums.length - 1, k);
+        return quickselect(nums, 0, nums.length - 1, k);
     }
 
-    private static int findKthLargestHelper(int[] nums, int start, int end, int k) {
+    private static int quickselect(int[] nums, int start, int end, int k) {
         int pivotIndex = partition(nums, start, end);
         if (pivotIndex < k - 1)
-            return findKthLargestHelper(nums, pivotIndex + 1, end, k);
+            return quickselect(nums, pivotIndex + 1, end, k);
         else if (pivotIndex > k - 1)
-            return findKthLargestHelper(nums, start, pivotIndex - 1, k);
+            return quickselect(nums, start, pivotIndex - 1, k);
         return nums[k - 1];
     }
-
+    /*
+        Returns the k-th largest element of list within left..right.
+        */
     private static int partition(int[] nums, int start, int end) {
         int pivotIndex = (int) (start + Math.random() * (end - start + 1));
         int pivotValue = nums[pivotIndex];
+
         swap(nums, pivotIndex, end);
         int front = start;
         for (int i = start; i < end; i++) {

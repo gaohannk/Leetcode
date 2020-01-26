@@ -3,6 +3,9 @@ package company.flexe.onsite;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * LeetCode 722
+ */
 public class RemoveComments {
     public List<String> removeComments(String[] source) {
         List<String> res = new LinkedList<>();

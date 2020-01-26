@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.r;
 
 import java.util.Iterator;
 import java.util.LinkedList;

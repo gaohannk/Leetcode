@@ -11,11 +11,9 @@ public class PathSum3 {
 		if (root == null)
 			return false;
 		sum += root.val;
+		// must reach leaf nodes
 		if (root.left == null && root.right == null) {
-			if (sum == target)
-				return true;
-			else
-				return false;
+			return sum == target;
 		}
 		return hasPathSum(root.left, sum, target) || hasPathSum(root.right, sum, target);
 	}

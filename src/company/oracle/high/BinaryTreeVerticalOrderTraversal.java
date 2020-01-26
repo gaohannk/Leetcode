@@ -2,63 +2,53 @@ package company.oracle.high;
 
 import leetcode.common.TreeNode;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class BinaryTreeVerticalOrderTraversal {
-    static int leftMostIndex = 0;
-    static int rightMostIndex = 0;
-
     public static List<List<Integer>> verticalOrder(TreeNode root) {
-        List<List<Integer>> res = new LinkedList<>();
         if (root == null) {
-            return res;
+            return new LinkedList<>();
         }
+
+        Map<Integer, List<Integer>> map = new TreeMap<>();
+        List<List<Integer>> res = new LinkedList<>();
+
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
-        Queue<Integer> columnIndex = new LinkedList<>();
-        columnIndex.add(0);
-        findLeftMostIndex(root, 0);
-        for (int i = 0; i < rightMostIndex - leftMostIndex + 1; i++) {
-            res.add(new LinkedList<>());
-        }
+        Queue<Integer> distQueue = new LinkedList<>();
+        distQueue.add(0);
+
+        int max = Integer.MIN_VALUE;
+
         while (!queue.isEmpty()) {
-            Queue<TreeNode> nextLayer = new LinkedList<>();
-            Queue<Integer> nextColumnIndex = new LinkedList<>();
+            int size = queue.size();
+            while (size > 0) {
+                TreeNode current = queue.poll();
 
-            while (!queue.isEmpty()) {
-                TreeNode cur = queue.poll();
-                int curIndex = columnIndex.poll();
+                int dist = distQueue.poll();
 
-                res.get(curIndex - leftMostIndex).add(cur.val);
-                if (cur.left != null) {
-                    nextLayer.add(cur.left);
-                    nextColumnIndex.add(curIndex - 1);
+                List<Integer> currentList = map.getOrDefault(dist, new LinkedList<Integer>());
+                currentList.add(current.val);
+                map.put(dist, currentList);
+
+                if (current.left != null) {
+                    queue.add(current.left);
+                    distQueue.add(dist - 1);
                 }
-                if (cur.right != null) {
-                    nextLayer.add(cur.right);
-                    nextColumnIndex.add(curIndex + 1);
+
+                if (current.right != null) {
+                    queue.add(current.right);
+                    distQueue.add(dist + 1);
                 }
+                size--;
             }
-            queue = nextLayer;
-            columnIndex = nextColumnIndex;
+        }
+
+        // left to right, from maximum -ve distance from root to maximum +ve distance from root
+        for (int i : map.keySet()) {
+            res.add(map.get(i));
         }
         return res;
-    }
-
-    private static void findLeftMostIndex(TreeNode root, int col) {
-        if (root == null) {
-            return;
-        }
-        if (leftMostIndex > col) {
-            leftMostIndex = col;
-        }
-        if (rightMostIndex < col) {
-            rightMostIndex = col;
-        }
-        findLeftMostIndex(root.left, col - 1);
-        findLeftMostIndex(root.right, col + 1);
     }
 
     public static void main(String[] args) {

@@ -17,7 +17,7 @@ public class MergeIntervals {
 
 			Collections.sort(intervals, new Comparator<Interval>() {
 				public int compare(Interval a, Interval b) {
-					return a.start > b.start ? 1 : (a.start == b.start ? 0 : -1);
+					return Integer.compare(a.start, b.start);
 				}
 			});
 

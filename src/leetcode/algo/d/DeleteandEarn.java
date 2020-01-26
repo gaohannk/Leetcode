@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.d;
 
 // TODO understand
 public class DeleteandEarn {

@@ -41,8 +41,9 @@ public class PathSumII {
 
 			if (node.left == null && node.right == null) {
 				if (accSum == sum) {
-					res.add(getPath(path));
+					res.add(getValFromNode(path));
 				}
+				// back to original state
 				path.remove(path.size() - 1);
 				while (!nodes.isEmpty() && !path.isEmpty() && path.peekLast().right != nodes.peek())
 					path.remove(path.size() - 1);
@@ -61,7 +62,7 @@ public class PathSumII {
 		return res;
 	}
 
-	public ArrayList<Integer> getPath(LinkedList<TreeNode> s) {
+	public ArrayList<Integer> getValFromNode(LinkedList<TreeNode> s) {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		for (TreeNode node : s) {
 			res.add(node.val);

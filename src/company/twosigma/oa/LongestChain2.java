@@ -25,28 +25,28 @@ import java.util.*;
 // 1048 DP
 public class LongestChain2 {
 
-    public int findLongestChain(String[] words) {
+    public int longestStrChain(String[] words) {
+
         if (words == null || words.length == 0) return 0;
-        int longestChain = 0;
-        Arrays.sort(words, new Comparator<String>() {
-            public int compare(String str1, String str2) {
-                return str1.length() - str2.length();
+        int res = 0;
+        Arrays.sort(words, (a, b) -> a.length() - b.length());  // Sort the words based on their lengths
+        HashMap<String, Integer> map = new HashMap();       //Stores each word and length of its max chain.
+
+        for (String w : words) {                             //From shortest word to longest word
+            if (map.containsKey(w)) {
+                continue;                //Already processed
             }
-        });
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        for (String word : words) {
-            if (map.containsKey(word)) continue;
-            map.put(word, 1);
-            for (int i = 0; i < word.length(); i++) {
-                StringBuilder sb = new StringBuilder(word);
-                sb.deleteCharAt(i);
-                String after = sb.toString();
-                if (map.containsKey(after) && map.get(after) + 1 > map.get(word)) {
-                    map.put(word, map.get(after) + 1);
+            map.put(w, 1);                                  //Each word is atleast 1 chain long
+            for (int i = 0; i < w.length(); i++) {               //Form next word removing 1 char each time for each w
+                StringBuilder sb = new StringBuilder(w);
+                String next = sb.deleteCharAt(i).toString();
+                if (map.containsKey(next) && map.get(next) + 1 > map.get(w)){
+                    map.put(w, map.get(next) + 1);            //If the new chain is longer, update the map
+
                 }
             }
-            if (map.get(word) > longestChain) longestChain = map.get(word);
+            res = Math.max(res, map.get(w));                //Store max length of all chains
         }
-        return longestChain;
+        return res;
     }
 }

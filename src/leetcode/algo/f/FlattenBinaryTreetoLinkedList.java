@@ -31,14 +31,14 @@ public class FlattenBinaryTreetoLinkedList {
 		if (root != null) {
 			while (root.left != null || root.right != null) {
 				if (root.left != null) {
+					// iter to find right most and connect
 					TreeNode rightmost = root.left;
-					TreeNode right = root.left;
-					TreeNode temp = root.right;
 					while (rightmost.right != null) {
 						rightmost = rightmost.right;
 					}
-					rightmost.right = temp;
-					root.right = right;
+					rightmost.right = root.right;
+
+					root.right = root.left;
 					root.left = null;
 					root = root.right;
 				} else

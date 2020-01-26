@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.l;
 
 public class LongestWordinDictionarythroughDeleting {
 }

@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.c;
 /**
  * Given a binary array, find the maximum length of a contiguous subarray with equal number of 0 and 1.
 

@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.s;
 
 public class SwapAdjacentinLRString {
     public boolean canTransform(String start, String end) {

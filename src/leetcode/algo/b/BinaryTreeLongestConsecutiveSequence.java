@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.b;
 
 import leetcode.common.TreeNode;
 
