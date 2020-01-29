@@ -25,33 +25,34 @@ import java.util.Map;
  */
 public class ShortestWordDistanceII {
 	class WordDistance {
-		private Map<String, List<Integer>> map = new HashMap<String, List<Integer>>();
-		  
-	    public WordDistance(String[] words) {
+		HashMap<String, ArrayList<Integer>> map;
+
+		public WordDistance(String[] words) {
+			map = new HashMap<String, ArrayList<Integer>>();
+
+			// Prepare a mapping from a word to all it's locations (indices).
 			for (int i = 0; i < words.length; i++) {
-				String word = words[i];
-				if (map.containsKey(word)) {
-					List<Integer> pos = map.get(word);
-					pos.add(i);
-					map.put(word, pos);
-				} else {
-					List<Integer> pos = new ArrayList<Integer>();
-					pos.add(i);
-					map.put(word, pos);
-				}
+				ArrayList<Integer> loc = map.getOrDefault(words[i], new ArrayList<Integer>());
+				loc.add(i);
+				map.put(words[i], loc);
 			}
-	    }
+		}
 
 		public int shortest(String word1, String word2) {
-			int min = Integer.MAX_VALUE;
-			List<Integer> posA = map.get(word1);
-			List<Integer> posB = map.get(word2);
-			for (int i : posA) {
-				for (int j : posB) {
-					min = Math.min(min, Math.abs(i - j));
+			ArrayList<Integer> id1 = map.get(word1);
+			ArrayList<Integer> id2 = map.get(word2);
+			int l1 = 0, l2 = 0, minDiff = Integer.MAX_VALUE;
+
+			while (l1 < id1.size() && l2 < id2.size()) {
+				minDiff = Math.min(minDiff, Math.abs(id1.get(l1) - id2.get(l2)));
+				if (id1.get(l1) < id2.get(l2)) {
+					l1++;
+				} else {
+					l2++;
 				}
 			}
-			return min;
+
+			return minDiff;
 		}
 	}
 }

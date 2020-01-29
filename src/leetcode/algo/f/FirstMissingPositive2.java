@@ -22,9 +22,11 @@ public class FirstMissingPositive2 {
                 i++;
             }
         }
-        for (i = 0; i < A.length; ++i)
-            if (A[i] != (i + 1))
+        for (i = 0; i < A.length; ++i) {
+            if (A[i] != (i + 1)) {
                 return i + 1;
+            }
+        }
         return A.length + 1;
     }
 }

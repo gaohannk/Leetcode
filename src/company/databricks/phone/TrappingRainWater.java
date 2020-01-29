@@ -2,10 +2,10 @@ package company.databricks.phone;
 
 public class TrappingRainWater {
     public int trap(int[] height) {
-        int len = height.length;
-        if (height == null || len == 0) {
+        if (height == null || height.length == 0) {
             return 0;
         }
+        int len = height.length;
 
         int[] maxLeft = new int[len];
         int[] maxRight = new int[len];

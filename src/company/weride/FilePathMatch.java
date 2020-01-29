@@ -12,5 +12,5 @@ package company.weride;
  extract_path(path) list.     ->     extract_path('/') would return 'file1.data', '/dir1', 'dir2', 'dir3'
  is_the_same(name1, name2) bool
  */
-public class Problem1 {
+public class FilePathMatch {
 }
