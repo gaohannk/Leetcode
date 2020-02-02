@@ -21,23 +21,23 @@ Game over. 8 is the number I picked.
 You end up paying $5 + $7 + $9 = $21.
 Given a particular n ≥ 1, find out how much money you need to have to guarantee a win.
 */
+
 // 	Brute Force
 // cost(1,n)=i+max(cost(1,i−1),cost(i+1,n))
-public class GuessNumberHigherorLowerII {
-    public static int getMoneyAmount(int n) {
-        return helper(1, n);
+public class GuessNumberHigherorLowerII2 {
+    public static int helper(int low, int high) {
+        if (low >= high)
+            return 0;
+        int minres = Integer.MAX_VALUE;
+        for (int i = (low + high) / 2; i <= high; i++) {
+            int res = i + Math.max(helper(i + 1, high), helper(low, i - 1));
+            minres = Math.min(res, minres);
+        }
+        return minres;
     }
 
-    public static int helper(int start, int end) {
-        if (start >= end) {
-            return 0;
-        }
-        int min = Integer.MAX_VALUE;
-        for (int i = start; i <= end; i++) {
-            int res = i + Math.max(helper(start, i - 1), helper(i + 1, end));
-            min = Math.min(res, min);
-        }
-		return min;
+    public static int getMoneyAmount(int n) {
+        return helper(1, n);
     }
 
     public static void main(String[] args) {

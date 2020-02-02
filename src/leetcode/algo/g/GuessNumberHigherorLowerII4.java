@@ -21,26 +21,32 @@ Game over. 8 is the number I picked.
 You end up paying $5 + $7 + $9 = $21.
 Given a particular n ≥ 1, find out how much money you need to have to guarantee a win.
 */
-// 	Brute Force
-// cost(1,n)=i+max(cost(1,i−1),cost(i+1,n))
-public class GuessNumberHigherorLowerII {
-    public static int getMoneyAmount(int n) {
-        return helper(1, n);
-    }
+/*
+ dp[p][q]= k			k=target
+ 		 = k +dp[k+1][q]  k<target
+		 = k +dp[q][k-1]  k>target
+ p<=k<=q
+ dp[0][n-1]
+*/
+public class GuessNumberHigherorLowerII4 {
+	public static int getMoneyAmount(int n) {
+		int[][] dp = new int[n + 1][n + 1];
 
-    public static int helper(int start, int end) {
-        if (start >= end) {
-            return 0;
-        }
-        int min = Integer.MAX_VALUE;
-        for (int i = start; i <= end; i++) {
-            int res = i + Math.max(helper(start, i - 1), helper(i + 1, end));
-            min = Math.min(res, min);
-        }
-		return min;
-    }
+		for (int len = 2; len <= n; len++) {
+			for (int start = 1; start <= n - len + 1; start++) {
+				int minres = Integer.MAX_VALUE;
+				for (int piv = start + (len - 1) / 2; piv < start + len - 1; piv++) {
+					int res = piv + Math.max(dp[start][piv - 1], dp[piv + 1][start + len - 1]);
+					minres = Math.min(res, minres);
+				}
+				dp[start][start + len - 1] = minres;
 
-    public static void main(String[] args) {
-        System.out.println(getMoneyAmount(20));
-    }
+			}
+
+		}
+		return dp[1][n];
+	}
+	public static void main(String[] args) {
+		System.out.println(getMoneyAmount(20));
+	}
 }

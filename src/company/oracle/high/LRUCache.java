@@ -63,7 +63,7 @@ public class LRUCache {
 
     public void put(int key, int value) {
         if (nodeMap.get(key) != null) {
-            // uppdate value
+            // update value
             nodeMap.get(key).val = value;
             moveToHead(nodeMap.get(key));
 

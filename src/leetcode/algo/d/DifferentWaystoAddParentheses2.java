@@ -20,36 +20,31 @@ import java.util.List;
  * (((2*3)-4)*5) = 10
  * Output: [-34, -14, -10, -10, 10]
  */
-public class DifferentWaystoAddParentheses {
+// No DP
+public class DifferentWaystoAddParentheses2 {
     public List<Integer> diffWaysToCompute(String input) {
-        String num[] = input.split("[+,-,*]");
-        char operators[] = input.replaceAll("[0-9]", "").toCharArray();
-        List<Integer>[][] dp = new LinkedList[num.length][num.length];
-        return helper(num, operators, 0, num.length - 1, dp);
+        String num[]= input.split("[*,+,-]");
+        char operators[]= input.replaceAll("[0-9]","").toCharArray();
+        return helper(num, operators, 0, num.length - 1);
     }
 
-    private List<Integer> helper(String[] num, char[] operators, int start, int end, List<Integer>[][] dp) {
-        if (dp[start][end] != null)
-            return dp[start][end];
-
-        if (end == start) {
+    private List<Integer> helper(String[] num, char[] operators, int i, int j) {
+        if (j == i) {
             List<Integer> ans = new ArrayList<Integer>();
-            ans.add(Integer.parseInt(num[start]));
+            ans.add(Integer.parseInt(num[i]));
             return ans;
         }
 
-        List<Integer> ans = new LinkedList<>();
+        List<Integer> ans = new ArrayList<Integer>();
 
-        for (int k = start; k < end; k++) {
-            for (int x : helper(num, operators, start, k, dp)) {
-                for (int y : helper(num, operators, k + 1, end, dp)) {
+        for (int k = i; k < j; k++) {
+            for (int x : helper(num, operators, i, k)) {
+                for (int y : helper(num, operators, k + 1, j)) {
                     ans.add(mathOperations(x, y, operators[k]));
                 }
             }
         }
-
-        dp[start][end] = ans;
-        return dp[start][end];
+        return ans;
     }
 
     public int mathOperations(int x, int y, char c) {

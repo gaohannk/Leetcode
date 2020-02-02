@@ -15,4 +15,8 @@ public class DoubleLinkedListNode {
         this.next = null;
         this.pre = null;
     }
+
+    public DoubleLinkedListNode(int val) {
+        this.val = val;
+    }
 }

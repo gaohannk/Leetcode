@@ -1,4 +1,4 @@
-package leetcode.algo.d;
+package company.smartnews.onsite;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

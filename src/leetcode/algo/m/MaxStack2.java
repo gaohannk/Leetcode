@@ -1,9 +1,7 @@
 package leetcode.algo.m;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.concurrent.DelayQueue;
 
 /**
  * Design a max stack that supports push, pop, top, peekMax and popMax.
@@ -81,11 +79,11 @@ class MaxStack2 {
 
 
     TreeMap<Integer, List<Node>> map;
-    LinkedList<Node> dll;
+    Deque<Node> dll;
 
     public MaxStack2() {
         map = new TreeMap();
-        dll = new LinkedList<>();
+        dll = new ArrayDeque<>();
     }
 
     public void push(int x) {
@@ -97,9 +95,9 @@ class MaxStack2 {
 
     public int pop() {
         int val = dll.pop().val;
-        List<Node> L = map.get(val);
-        L.remove(L.size() - 1);
-        if (L.isEmpty())
+        List<Node> list = map.get(val);
+        list.remove(list.size() - 1);
+        if (list.isEmpty())
             map.remove(val);
         return val;
     }
@@ -114,10 +112,10 @@ class MaxStack2 {
 
     public int popMax() {
         int max = peekMax();
-        List<Node> L = map.get(max);
-        Node node = L.remove(L.size() - 1);
+        List<Node> list = map.get(max);
+        Node node = list.remove(list.size() - 1);
         dll.remove(node);
-        if (L.isEmpty())
+        if (list.isEmpty())
             map.remove(max);
         return max;
     }

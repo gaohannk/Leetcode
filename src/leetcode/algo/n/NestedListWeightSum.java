@@ -17,16 +17,16 @@ public class NestedListWeightSum {
 	public int depthSum(List<NestedInteger> nestedList) {
 		if (nestedList == null || nestedList.isEmpty())
 			return 0;
-		return calSum(nestedList, 1);
+		return helper(nestedList, 1);
 	}
 
-	public int calSum(List<NestedInteger> list, int depth) {
+	public int helper(List<NestedInteger> list, int depth) {
 		int sum = 0;
 		for (NestedInteger integer:list) {
 			if (integer.isInteger())
 				sum += depth * integer.getInteger().intValue();
 			else
-				sum += calSum(integer.getList(), depth + 1);
+				sum += helper(integer.getList(), depth + 1);
 		}
 		return sum;
 	}

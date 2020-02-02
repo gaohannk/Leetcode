@@ -1,4 +1,4 @@
-package leetcode.algo.f;
+package company.linkedin;
 
 import java.util.ArrayList;
 import java.util.List;
