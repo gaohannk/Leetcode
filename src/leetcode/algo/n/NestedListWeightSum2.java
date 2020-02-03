@@ -12,27 +12,24 @@ import java.util.List;
  * 2: Given the list [1,[4,[6]]], return 27. (one 1 at depth 1, one 4 at depth
  * 2, and one 6 at depth 3; 1 + 42 + 63 = 27)
  */
-// TODO verify answer
+
 public class NestedListWeightSum2 {
 
-    public int depthSum(List<NestedInteger> nestedList) {
-        if (nestedList == null || nestedList.isEmpty())
-            return 0;
-        int sum = 0;
-        for (NestedInteger integer : nestedList) {
-            sum += calSum(integer, 1);
-        }
-        return sum;
-    }
+	public int depthSum(List<NestedInteger> nestedList) {
+		if (nestedList == null || nestedList.isEmpty())
+			return 0;
+		int res[] = new int[1];
+		int depth = 1;
+		dfs(nestedList, res, depth);
+		return res[0];
+	}
 
-    public int calSum(NestedInteger integer, int depth) {
-        int sum = 0;
-        if (integer.isInteger())
-            sum += integer.getInteger().intValue();
-        for (NestedInteger in : integer.getList()) {
-            sum += calSum(in, depth + 1);
-        }
-        return sum;
-    }
-
+	public void dfs(List<NestedInteger> integer, int[] res, int depth) {
+		for (NestedInteger in : integer) {
+			if (in.isInteger())
+				res[0] += in.getInteger().intValue();
+			else
+				dfs(in.getList(), res, depth + 1);
+		}
+	}
 }

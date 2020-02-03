@@ -12,31 +12,18 @@ package leetcode.algo.g;
  * Could you solve it in-place? Remember that the board needs to be updated at the same time: You cannot update some cells first and then use their updated values to update other cells.In this question, we represent the board using a 2D array. In principle, the board is infinite, which would cause problems when the active area encroaches the border of the array. How would you address these problems?
  */
 public class GameofLife {
+	static int[][] direct = new int[][]{{-1, 0}, {0, 1}, {0, -1}, {1, 0}, {-1, -1}, {1, 1}, {-1, 1}, {1, -1}};
+
 	public void gameOfLife(int[][] board) {
+		if(board == null){
+			return;
+		}
 		int row = board.length;
 		int col = board[0].length;
-		if (row == 0 && col == 0)
-			return;
-		boolean ischange[][] = new boolean[row][col];
+		boolean[][] ischange = new boolean[row][col];
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
-				int live = 0;
-				if (i - 1 >= 0 && j - 1 >= 0 && board[i - 1][j - 1] == 1)
-					live++;
-				if (i - 1 >= 0 && board[i - 1][j] == 1)
-					live++;
-				if (i - 1 >= 0 && j + 1 < col && board[i - 1][j + 1] == 1)
-					live++;
-				if (j - 1 >= 0 && board[i][j - 1] == 1)
-					live++;
-				if (j + 1 < col && board[i][j + 1] == 1)
-					live++;
-				if (i + 1 < row && j - 1 >= 0 && board[i + 1][j - 1] == 1)
-					live++;
-				if (i + 1 < row && board[i + 1][j] == 1)
-					live++;
-				if (i + 1 < row && j + 1 < col && board[i + 1][j + 1] == 1)
-					live++;
+				int live = getArroundLive(board, row, col, i, j);
 				if (board[i][j] == 1 && (live < 2 || live > 3))
 					ischange[i][j] = true;
 				if (board[i][j] == 0 && live == 3)
@@ -49,5 +36,20 @@ public class GameofLife {
 					board[i][j] = board[i][j] == 1 ? 0 : 1;
 			}
 		}
+	}
+
+	private int getArroundLive(int[][] board, int row, int col, int x, int y) {
+		int live = 0;
+		for (int i = 0; i < 8; i++) {
+			int nx = x + direct[i][0];
+			int ny = y + direct[i][1];
+			if (nx < 0 || ny < 0 || nx >= row || ny >= col) {
+				continue;
+			}
+			if (board[nx][ny] == 1) {
+				live++;
+			}
+		}
+		return live;
 	}
 }

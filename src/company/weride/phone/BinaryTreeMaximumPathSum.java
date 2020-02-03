@@ -1,4 +1,4 @@
-package leetcode.algo.b;
+package company.weride.phone;
 
 import leetcode.common.TreeNode;
 
