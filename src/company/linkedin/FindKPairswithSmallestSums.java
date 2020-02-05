@@ -41,7 +41,7 @@ public class FindKPairswithSmallestSums {
 
 		for(int i = 0; i < Math.min(k, nums1.length); i++) {
 			// For every numbers in nums1, its best partner(yields min sum) always starts from nums2[0] since arrays are all sorted;
-			// Fix index for nums2
+			// Fix index for nums2. init: index = 0
 			pq.add(new int[]{0, nums1[i], nums2[0]});
 		}
 		for(int i = 0; i < k && !pq.isEmpty(); i++) {

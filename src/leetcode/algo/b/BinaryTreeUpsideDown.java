@@ -18,6 +18,13 @@ import leetcode.common.TreeNode;
  *   / \
  *   3 1
  */
+
+/**
+ * recursively reverse the left subtree
+ * change pointers between root, root.right and root.left
+ * clear the children pointers of root node
+ * return the new root of the reversed subtree
+ */
 public class BinaryTreeUpsideDown {
     public TreeNode upsideDownBinaryTree(TreeNode root) {
         if (root == null || root.left == null && root.right == null) {

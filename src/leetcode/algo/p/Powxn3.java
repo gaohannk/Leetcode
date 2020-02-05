@@ -3,7 +3,7 @@ package leetcode.algo.p;
 /* Implement pow(x, n).
  */
 public class Powxn3 {
-	public double pow(double x, int n) {
+	public double myPow(double x, int n) {
 		if (n == 0)
 			return 1.;
 		if (x == 0)

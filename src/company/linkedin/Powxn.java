@@ -1,4 +1,4 @@
-package leetcode.algo.p;
+package company.linkedin;
 /* Implement pow(x, n).
  */
 public class Powxn {

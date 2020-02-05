@@ -1,6 +1,5 @@
-package leetcode.algo.n;
+package company.uber;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
