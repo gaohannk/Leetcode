@@ -50,6 +50,5 @@ public class NumberofIslands {
             helper(matrix, checker, i + 1, j);
         if (i - 1 >= 0 && matrix[i - 1][j] == '1')
             helper(matrix, checker, i - 1, j);
-        return;
     }
 }

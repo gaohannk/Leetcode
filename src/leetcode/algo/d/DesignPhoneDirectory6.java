@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.d;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -8,7 +8,7 @@ import java.util.Set;
  * when a number k is issued, move pointer pos = next[k] to the next available position. set next[k]=-1 and
  * when a number is recycled, sipmly move pointer from pos to the recycled number, and change the recycled number's "next" point to pos.
  */
-public class DesignPhoneDirectory3 {
+public class DesignPhoneDirectory6 {
     class PhoneDirectory {
         private int max;
         private Set<Integer> used;
