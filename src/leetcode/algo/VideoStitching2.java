@@ -1,8 +1,8 @@
 package leetcode.algo;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.PriorityQueue;
 
 /**
  * You are given a series of video clips from a sporting event that lasted T seconds.  These video clips can be overlapping with each other and have varied lengths.
@@ -48,51 +48,25 @@ import java.util.Comparator;
  * 0 <= clips[i][0], clips[i][1] <= 100
  * 0 <= T <= 100
  */
-// My version
-public class VideoStitching {
+public class VideoStitching2 {
     public int videoStitching(int[][] clips, int T) {
-        Arrays.sort(clips, (o1, o2) -> {
-            if (o1[0] == o2[0]) {
-                return o2[1] - o1[1];
-            }
-            return o1[0] - o2[0];
-        });
-
-
-        if (clips[0][0] > 0) {
-            return -1;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        for (int[] clip : clips) {
+            pq.offer(clip);
         }
-        int res = 1;
-        int i = 0;
-        int end = clips[0][1];
-        while (i < clips.length) {
-            // check current end
-            int maxEnd = clips[i][1];
-            if (maxEnd >= T) {
-                return res;
-            }
-            i++;
-            // find next maxEnd
-            boolean flag = false;
-            while (i < clips.length) {
-                if (clips[i][0] > end) {
-                    break;
-                }
-                flag = true;
-                maxEnd = Math.max(maxEnd, clips[i][1]);
-                i++;
-            }
-            // !flag : i+1 start is large than cur start, has gap between i and i+1
-            // maxEnd < end:
-            if (!flag || maxEnd < end) {
+        int res = 0;
+        int end = 0;
+        while (!pq.isEmpty() && end < T) {
+            // next start has gap with furthest end as far
+            if (pq.peek()[0] > end) {
                 return -1;
             }
-            res++;
-            if (maxEnd >= T) {
-                return res;
+            int nextEnd = 0;
+            while (!pq.isEmpty() && pq.peek()[0] <= end) {
+                nextEnd = Math.max(nextEnd, pq.poll()[1]);
             }
-
-            end = maxEnd;
+            end = nextEnd;
+            res++;
         }
         return end >= T ? res : -1;
     }

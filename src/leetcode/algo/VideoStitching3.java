@@ -1,8 +1,8 @@
 package leetcode.algo;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.PriorityQueue;
 
 /**
  * You are given a series of video clips from a sporting event that lasted T seconds.  These video clips can be overlapping with each other and have varied lengths.
@@ -48,52 +48,27 @@ import java.util.Comparator;
  * 0 <= clips[i][0], clips[i][1] <= 100
  * 0 <= T <= 100
  */
-// My version
-public class VideoStitching {
+public class VideoStitching3 {
     public int videoStitching(int[][] clips, int T) {
-        Arrays.sort(clips, (o1, o2) -> {
-            if (o1[0] == o2[0]) {
-                return o2[1] - o1[1];
-            }
-            return o1[0] - o2[0];
-        });
+        Arrays.sort(clips, Comparator.comparingInt(a -> a[0])); //sort by clip start time
 
-
-        if (clips[0][0] > 0) {
-            return -1;
-        }
-        int res = 1;
-        int i = 0;
-        int end = clips[0][1];
-        while (i < clips.length) {
-            // check current end
-            int maxEnd = clips[i][1];
-            if (maxEnd >= T) {
-                return res;
-            }
-            i++;
-            // find next maxEnd
-            boolean flag = false;
-            while (i < clips.length) {
-                if (clips[i][0] > end) {
-                    break;
+        int res = 0;
+        //imagine an clip [-1, 0] exists but we dont res it
+        int reach = -1; //the end time of the previously selected clip
+        //the max end time when can reach by using clips whose start time <= reach
+        int nextReach = 0;
+        for (int i = 0; i < clips.length && nextReach < T; i++) {
+            int[] clip = clips[i];
+            if (clip[0] > reach) {
+                if (clip[0] > nextReach) {
+                    return -1;
                 }
-                flag = true;
-                maxEnd = Math.max(maxEnd, clips[i][1]);
-                i++;
-            }
-            // !flag : i+1 start is large than cur start, has gap between i and i+1
-            // maxEnd < end:
-            if (!flag || maxEnd < end) {
-                return -1;
-            }
-            res++;
-            if (maxEnd >= T) {
-                return res;
+                reach = nextReach;
+                res++;
             }
 
-            end = maxEnd;
+            nextReach = Math.max(nextReach, clip[1]);
         }
-        return end >= T ? res : -1;
+        return nextReach < T ? -1 : res;
     }
 }

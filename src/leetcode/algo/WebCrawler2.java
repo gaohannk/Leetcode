@@ -2,6 +2,8 @@ package leetcode.algo;
 
 import leetcode.common.HtmlParser;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -76,30 +78,32 @@ import java.util.*;
  * See:  https://en.wikipedia.org/wiki/Hostname#Restrictions_on_valid_hostnames
  * You may assume there're no duplicates in url library.
  */
-public class WebCrawler {
+// Use URL
+public class WebCrawler2 {
+
     public List<String> crawl(String startUrl, HtmlParser htmlParser) {
-        int idx = startUrl.indexOf("/", 7);
-        String hostname =  idx == -1 ? startUrl : startUrl.substring(0, idx);
-
-        Queue<String> queue = new LinkedList<>();
-        queue.offer(startUrl);
-        Set<String> set = new HashSet<>();
-        set.add(startUrl);
-
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                String curr = queue.poll();
-                for (String url : htmlParser.getUrls(curr)) {
-                    System.out.println(url);
-                    if (url.contains(hostname) && !set.contains(url)) {
-                        queue.add(url);
-                        set.add(url);
-                    }
-                }
-            }
+        List<String> res = new LinkedList<>();
+        Set<String> seen = new HashSet<>();
+        // If empty Url. Nothing to do further.
+        if (startUrl == null || startUrl.length() == 0 || seen.contains(startUrl)) {
+            return res;
         }
 
-        return new LinkedList<>(set);
+        try {
+            final URL thisUrl = new URL(startUrl);
+            res.add(startUrl);
+            seen.add(startUrl);
+            for (final String nextUrlStr : htmlParser.getUrls(startUrl)) {
+                final URL nextUrl = new URL(nextUrlStr);
+                // Only BFS on the same Host.
+                if (thisUrl.getHost() != null && thisUrl.getHost().equals(nextUrl.getHost())) {
+                    crawl(nextUrlStr, htmlParser);
+                }
+            }
+        } catch (final MalformedURLException e) {
+            System.out.println("startUrl bad:" + startUrl);
+        }
+
+        return res;
     }
 }

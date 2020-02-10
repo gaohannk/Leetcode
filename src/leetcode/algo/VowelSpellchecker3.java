@@ -1,8 +1,6 @@
 package leetcode.algo;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Given a wordlist, we want to implement a spellchecker that converts a query word into a correct word.
@@ -41,50 +39,59 @@ import java.util.Set;
  * 1 <= queries[i].length <= 7
  * All strings in wordlist and queries consist only of english letters.
  */
-public class VowelSpellchecker {
-    public static final String vowel = "aeiou";
+public class VowelSpellchecker3 {
 
-    public static String[] spellchecker(String[] wordlist, String[] queries) {
-        Set<String> set = new HashSet<>(Arrays.asList(wordlist));
+    Set<String> words_perfect;
+    Map<String, String> words_cap;
+    Map<String, String> words_vow;
 
-        String[] res = new String[queries.length];
+    public String[] spellchecker(String[] wordlist, String[] queries) {
+        words_perfect = new HashSet();
+        words_cap = new HashMap();
+        words_vow = new HashMap();
 
-        Arrays.fill(res, "");
+        for (String word: wordlist) {
+            words_perfect.add(word);
 
-        for (int i = 0; i < queries.length; i++) {
-            String query = queries[i];
-            if (set.contains(query)) {
-                res[i] = query;
-                continue;
-            }
-            for (String word : wordlist) {
-                if (word.toLowerCase().equals(query.toLowerCase())) {
-                    res[i] = word;
-                    break;
-                }
-                if (isNonVowelMatch(word, query)) {
-                    res[i] = word;
-                    break;
-                }
-            }
+            String wordlow = word.toLowerCase();
+            words_cap.putIfAbsent(wordlow, word);
+
+            String wordlowDV = devowel(wordlow);
+            words_vow.putIfAbsent(wordlowDV, word);
         }
-        return res;
+
+        String[] ans = new String[queries.length];
+        int t = 0;
+        for (String query: queries) {
+            ans[t++] = solve(query);
+        }
+        return ans;
     }
 
-    private static boolean isNonVowelMatch(String word, String query) {
+    public String solve(String query) {
+        if (words_perfect.contains(query))
+            return query;
 
-        String newWord = word.replaceAll("[aeiou]", "#").toLowerCase();
-        String newQuery = query.replaceAll("[aeiou]", "#").toLowerCase();
-        if (newWord.length() != newQuery.length()) {
-            return false;
+        String queryL = query.toLowerCase();
+        if (words_cap.containsKey(queryL))
+            return words_cap.get(queryL);
+
+        String queryLV = devowel(queryL);
+        if (words_vow.containsKey(queryLV))
+            return words_vow.get(queryLV);
+
+        return "";
+    }
+
+    public String devowel(String word) {
+        StringBuilder ans = new StringBuilder();
+        for (char c: word.toCharArray()) {
+            ans.append(isVowel(c) ? '*' : c);
         }
+        return ans.toString();
+    }
 
-        for (int i = 0; i < newWord.length(); i++) {
-            if(newWord.charAt(i) != newQuery.charAt(i)){
-                return false;
-            }
-
-        }
-        return true;
+    public boolean isVowel(char c) {
+        return (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u');
     }
 }

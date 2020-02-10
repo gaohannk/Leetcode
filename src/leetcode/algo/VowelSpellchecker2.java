@@ -1,8 +1,6 @@
 package leetcode.algo;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Given a wordlist, we want to implement a spellchecker that converts a query word into a correct word.
@@ -41,50 +39,40 @@ import java.util.Set;
  * 1 <= queries[i].length <= 7
  * All strings in wordlist and queries consist only of english letters.
  */
-public class VowelSpellchecker {
-    public static final String vowel = "aeiou";
-
-    public static String[] spellchecker(String[] wordlist, String[] queries) {
+public class VowelSpellchecker2 {
+    public String[] spellchecker(String[] wordlist, String[] queries) {
+        Map<String, String> dic = new HashMap<>();
         Set<String> set = new HashSet<>(Arrays.asList(wordlist));
-
         String[] res = new String[queries.length];
-
-        Arrays.fill(res, "");
+        for (int k = wordlist.length - 1; k >= 0; k--) {
+            String word = wordlist[k];
+            dic.put(word.toLowerCase(), word);
+            dic.put(devowel(word), word);
+        }
 
         for (int i = 0; i < queries.length; i++) {
             String query = queries[i];
+            // set with query first
+            res[i] = query;
             if (set.contains(query)) {
-                res[i] = query;
                 continue;
             }
-            for (String word : wordlist) {
-                if (word.toLowerCase().equals(query.toLowerCase())) {
-                    res[i] = word;
-                    break;
-                }
-                if (isNonVowelMatch(word, query)) {
-                    res[i] = word;
-                    break;
-                }
+            res[i] = dic.getOrDefault(query.toLowerCase(), "");
+            if (res[i] == "") {
+                res[i] = dic.getOrDefault(devowel(query), "");
             }
         }
         return res;
     }
 
-    private static boolean isNonVowelMatch(String word, String query) {
-
-        String newWord = word.replaceAll("[aeiou]", "#").toLowerCase();
-        String newQuery = query.replaceAll("[aeiou]", "#").toLowerCase();
-        if (newWord.length() != newQuery.length()) {
-            return false;
-        }
-
-        for (int i = 0; i < newWord.length(); i++) {
-            if(newWord.charAt(i) != newQuery.charAt(i)){
-                return false;
+    private String devowel(String word) {
+        char[] chars = word.toLowerCase().toCharArray();
+        for (int j = 0; j < chars.length; j++) {
+            char c = chars[j];
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                chars[j] = '!';
             }
-
         }
-        return true;
+        return new String(chars);
     }
 }
