@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.m;
 
 import java.util.*;
 
@@ -33,35 +33,47 @@ import java.util.*;
  * pop() -> returns 4.
  * The stack becomes [5,7].
  */
-
-public class MaximumFrequencyStack2 {
+// TLE
+public class MaximumFrequencyStack {
     class FreqStack {
-        // key: freq value: Stack of value
-        Map<Integer, Integer> freq;
-        Map<Integer, Stack<Integer>> group;
-        int maxfreq;
+        // key: integer value: freq
+        Map<Integer, Integer> map;
+        List<Integer> list;
 
         public FreqStack() {
-            freq = new HashMap();
-            group = new HashMap();
-            maxfreq = 0;
+            this.map = new HashMap<>();
+            this.list = new LinkedList<>();
         }
 
         public void push(int x) {
-            int f = freq.getOrDefault(x, 0) + 1;
-            freq.put(x, f);
-            if (f > maxfreq)
-                maxfreq = f;
-
-            group.computeIfAbsent(f, z-> new Stack()).push(x);
+            map.put(x, map.getOrDefault(x, 0) + 1);
+            list.add(x);
         }
 
         public int pop() {
-            int x = group.get(maxfreq).pop();
-            freq.put(x, freq.get(x) - 1);
-            if (group.get(maxfreq).size() == 0)
-                maxfreq--;
-            return x;
+            int max = 0;
+            Set<Integer> set = new HashSet<>();
+            for (int key : map.keySet()) {
+                if (max < map.get(key)) {
+                    max = map.get(key);
+                    set.clear();
+                    set.add(key);
+                } else if (max == map.get(key)) {
+                    set.add(key);
+                }
+            }
+            for (int i = list.size() - 1; i >= 0; i--) {
+                int ele = list.get(i);
+                if (set.contains(ele)) {
+                    if (map.get(ele) == 1) {
+                        map.remove(ele);
+                    } else {
+                        map.put(ele, map.get(ele) - 1);
+                    }
+                    return list.remove(i);
+                }
+            }
+            return -1;
         }
     }
 }

@@ -1,6 +1,9 @@
-package leetcode.algo;
+package leetcode.algo.m;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+import java.util.TreeMap;
 
 /**
  * Implement FreqStack, a class which simulates the operation of a stack-like data structure.
@@ -33,47 +36,36 @@ import java.util.*;
  * pop() -> returns 4.
  * The stack becomes [5,7].
  */
-// TLE
-public class MaximumFrequencyStack {
+// Using Treemap
+public class MaximumFrequencyStack3 {
     class FreqStack {
-        // key: integer value: freq
-        Map<Integer, Integer> map;
-        List<Integer> list;
+        // key: freq value: Stack of value
+        TreeMap<Integer, Stack<Integer>> freqValueMap;
+        Map<Integer, Integer> valueFreqMap;
 
         public FreqStack() {
-            this.map = new HashMap<>();
-            this.list = new LinkedList<>();
+            this.freqValueMap = new TreeMap<>();
+            this.valueFreqMap = new HashMap<>();
         }
 
         public void push(int x) {
-            map.put(x, map.getOrDefault(x, 0) + 1);
-            list.add(x);
+            valueFreqMap.put(x, valueFreqMap.getOrDefault(x, 0) + 1);
+            int f = valueFreqMap.get(x);
+            if (freqValueMap.get(f) == null) {
+                freqValueMap.put(f, new Stack<>());
+            }
+            freqValueMap.get(f).push(x);
         }
 
         public int pop() {
-            int max = 0;
-            Set<Integer> set = new HashSet<>();
-            for (int key : map.keySet()) {
-                if (max < map.get(key)) {
-                    max = map.get(key);
-                    set.clear();
-                    set.add(key);
-                } else if (max == map.get(key)) {
-                    set.add(key);
-                }
+            int max = freqValueMap.lastKey();
+            int ret = freqValueMap.get(max).pop();
+            if (freqValueMap.get(max).isEmpty()) {
+                freqValueMap.remove(max);
             }
-            for (int i = list.size() - 1; i >= 0; i--) {
-                int ele = list.get(i);
-                if (set.contains(ele)) {
-                    if (map.get(ele) == 1) {
-                        map.remove(ele);
-                    } else {
-                        map.put(ele, map.get(ele) - 1);
-                    }
-                    return list.remove(i);
-                }
-            }
-            return -1;
+            valueFreqMap.put(ret, valueFreqMap.get(ret) - 1);
+
+            return ret;
         }
     }
 }

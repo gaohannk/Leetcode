@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.m;
 
 public class Maximum69Number {
     public int maximum69Number(int num) {

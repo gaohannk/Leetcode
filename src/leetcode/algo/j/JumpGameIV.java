@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.j;
 
 /**
  * Given an array of integers arr, you are initially positioned at the first index of the array.

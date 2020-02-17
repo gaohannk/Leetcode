@@ -1,9 +1,6 @@
-package leetcode.algo;
+package leetcode.algo.m;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Implement FreqStack, a class which simulates the operation of a stack-like data structure.
@@ -36,36 +33,35 @@ import java.util.TreeMap;
  * pop() -> returns 4.
  * The stack becomes [5,7].
  */
-// Using Treemap
-public class MaximumFrequencyStack3 {
+
+public class MaximumFrequencyStack2 {
     class FreqStack {
         // key: freq value: Stack of value
-        TreeMap<Integer, Stack<Integer>> freqValueMap;
-        Map<Integer, Integer> valueFreqMap;
+        Map<Integer, Integer> freq;
+        Map<Integer, Stack<Integer>> group;
+        int maxfreq;
 
         public FreqStack() {
-            this.freqValueMap = new TreeMap<>();
-            this.valueFreqMap = new HashMap<>();
+            freq = new HashMap();
+            group = new HashMap();
+            maxfreq = 0;
         }
 
         public void push(int x) {
-            valueFreqMap.put(x, valueFreqMap.getOrDefault(x, 0) + 1);
-            int f = valueFreqMap.get(x);
-            if (freqValueMap.get(f) == null) {
-                freqValueMap.put(f, new Stack<>());
-            }
-            freqValueMap.get(f).push(x);
+            int f = freq.getOrDefault(x, 0) + 1;
+            freq.put(x, f);
+            if (f > maxfreq)
+                maxfreq = f;
+
+            group.computeIfAbsent(f, z-> new Stack()).push(x);
         }
 
         public int pop() {
-            int max = freqValueMap.lastKey();
-            int ret = freqValueMap.get(max).pop();
-            if (freqValueMap.get(max).isEmpty()) {
-                freqValueMap.remove(max);
-            }
-            valueFreqMap.put(ret, valueFreqMap.get(ret) - 1);
-
-            return ret;
+            int x = group.get(maxfreq).pop();
+            freq.put(x, freq.get(x) - 1);
+            if (group.get(maxfreq).size() == 0)
+                maxfreq--;
+            return x;
         }
     }
 }

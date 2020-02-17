@@ -1,4 +1,4 @@
-package leetcode.algo;
+package leetcode.algo.n;
 
 public class NewTwentyOneGame {
     public double new21Game(int N, int K, int W) {
