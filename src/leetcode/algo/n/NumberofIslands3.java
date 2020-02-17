@@ -10,12 +10,12 @@ public class NumberofIslands3 {
         int row = grid.length;
         int col = grid[0].length;
         int res = 0;
-        boolean[][] checker = new boolean[row][col];
+        boolean[][] visited = new boolean[row][col];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                if (grid[i][j] != '0' && checker[i][j] == false) {
-                    checker[i][j] = true;
-                    bfs(checker, grid, i, j);
+                if (grid[i][j] != '0' && visited[i][j] == false) {
+                    visited[i][j] = true;
+                    bfs(visited, grid, i, j);
                     res++;
                 }
             }
@@ -23,7 +23,7 @@ public class NumberofIslands3 {
         return res;
     }
 
-    private void bfs(boolean[][] checker, char[][] grid, int startX, int startY) {
+    private void bfs(boolean[][] visited, char[][] grid, int startX, int startY) {
         Queue<Integer> qx = new LinkedList<>();
         Queue<Integer> qy = new LinkedList<>();
         qx.offer(startX);
@@ -38,25 +38,25 @@ public class NumberofIslands3 {
             while (!qx.isEmpty() && !qy.isEmpty()) {
                 int i = qx.poll();
                 int j = qy.poll();
-                if (j + 1 < col && grid[i][j + 1] == '1' && !checker[i][j + 1]) {
+                if (j + 1 < col && grid[i][j + 1] == '1' && !visited[i][j + 1]) {
                     nextX.add(i);
                     nextY.add(j + 1);
-                    checker[i][j + 1] = true;
+                    visited[i][j + 1] = true;
                 }
-                if (j - 1 >= 0 && grid[i][j - 1] == '1' && !checker[i][j - 1]) {
+                if (j - 1 >= 0 && grid[i][j - 1] == '1' && !visited[i][j - 1]) {
                     nextX.add(i);
                     nextY.add(j - 1);
-                    checker[i][j - 1] = true;
+                    visited[i][j - 1] = true;
                 }
-                if (i + 1 < row && grid[i + 1][j] == '1' && !checker[i + 1][j]) {
+                if (i + 1 < row && grid[i + 1][j] == '1' && !visited[i + 1][j]) {
                     nextX.add(i + 1);
                     nextY.add(j);
-                    checker[i + 1][j] = true;
+                    visited[i + 1][j] = true;
                 }
-                if (i - 1 >= 0 && grid[i - 1][j] == '1' && !checker[i - 1][j]) {
+                if (i - 1 >= 0 && grid[i - 1][j] == '1' && !visited[i - 1][j]) {
                     nextX.add(i - 1);
                     nextY.add(j);
-                    checker[i - 1][j] = true;
+                    visited[i - 1][j] = true;
                 }
             }
             qx = nextX;

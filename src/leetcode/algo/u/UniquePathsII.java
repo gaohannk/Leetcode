@@ -1,4 +1,5 @@
 package leetcode.algo.u;
+
 /* Follow up for "Unique Paths":
  * Now consider if some obstacles are added to the grids. How many unique paths would there be?
  * An obstacle and empty space is marked as 1 and 0 respectively in the grid.
@@ -14,37 +15,37 @@ package leetcode.algo.u;
  * dp[m][n] = 0 if the cell at the position (m, n) is occupied by an obstacle
  */
 public class UniquePathsII {
-	public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-		int m = obstacleGrid.length;
-		int n = obstacleGrid[0].length;
-		int[][] res = new int[m][n];
-		if (obstacleGrid[m - 1][n - 1] == 1)
-			return 0;
-		int i,j;
-		for (i = 0; i < m; i++) {
-			if (obstacleGrid[i][0] == 1)
-				break;
-			res[i][0] = 1;
-		}
-		for (; i < m; i++) 
-			res[i][0] = 0;
-		for (j = 0; j < n; j++) {
-			if (obstacleGrid[0][j] == 1)
-				break;
-			res[0][j] = 1;
-		}
-		for (; j < n; j++) 
-			res[0][j] = 0;
-		// add values
-		for (i = 1; i < m; i++) {
-			for (j = 1; j < n; j++) {
-				if (obstacleGrid[i - 1][j] == 1)
-					res[i - 1][j] = 0;
-				if (obstacleGrid[i][j - 1] == 1)
-					res[i][j - 1] = 0;
-				res[i][j] = res[i - 1][j] + res[i][j - 1];
-			}
-		}
-		return res[m - 1][n - 1];
-	}
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int row = obstacleGrid.length;
+        int col = obstacleGrid[0].length;
+        int[][] dp = new int[row][col];
+        if (obstacleGrid[row - 1][col - 1] == 1) {
+            return 0;
+        }
+
+        int i, j;
+        for (i = 0; i < row; i++) {
+            if (obstacleGrid[i][0] == 1)
+                break;
+            dp[i][0] = 1;
+        }
+        for (; i < row; i++) {
+            dp[i][0] = 0;
+        }
+        for (j = 0; j < col; j++) {
+            if (obstacleGrid[0][j] == 1)
+                break;
+            dp[0][j] = 1;
+        }
+        for (; j < col; j++) {
+            dp[0][j] = 0;
+        }
+
+        for (i = 1; i < row; i++) {
+            for (j = 1; j < col; j++) {
+                dp[i][j] = obstacleGrid[i][j] == 1 ? 0 : dp[i - 1][j] + dp[i][j - 1];
+            }
+        }
+        return dp[row - 1][col - 1];
+    }
 }

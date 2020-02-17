@@ -36,19 +36,19 @@ public class NumberofIslands {
         return res;
     }
 
-    private static void helper(char[][] matrix, boolean[][] checker, int i, int j) {
+    private static void helper(char[][] matrix, boolean[][] visited, int i, int j) {
         int row = matrix.length;
         int col = matrix[0].length;
-        if (checker[i][j] == true || matrix[i][j] == '0')
+        if (visited[i][j] == true || matrix[i][j] == '0')
             return;
-        checker[i][j] = true;
+        visited[i][j] = true;
         if (j + 1 < col && matrix[i][j + 1] == '1')
-            helper(matrix, checker, i, j + 1);
+            helper(matrix, visited, i, j + 1);
         if (j - 1 >= 0 && matrix[i][j - 1] == '1')
-            helper(matrix, checker, i, j - 1);
+            helper(matrix, visited, i, j - 1);
         if (i + 1 < row && matrix[i + 1][j] == '1')
-            helper(matrix, checker, i + 1, j);
+            helper(matrix, visited, i + 1, j);
         if (i - 1 >= 0 && matrix[i - 1][j] == '1')
-            helper(matrix, checker, i - 1, j);
+            helper(matrix, visited, i - 1, j);
     }
 }

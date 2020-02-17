@@ -12,6 +12,7 @@ import java.util.Stack;
  * Depending on your language, stack may not be supported natively. You may simulate a stack by using a list or deque (double-ended queue), as long as you use only standard operations of a stack.
  * You may assume that all operations are valid (for example, no pop or peek operations will be called on an empty queue).
  */
+// Two stack
 public class ImplementQueueusingStacks2 {
 	class MyQueue {
 		Stack<Integer> s1 = new Stack<Integer>();
@@ -20,13 +21,16 @@ public class ImplementQueueusingStacks2 {
 		private int front;
 
 		public void push(int x) {
-			if (s1.empty())
+			if (s1.empty()) {
 				front = x;
-			while (!s1.isEmpty())
+			}
+			while (!s1.isEmpty()) {
 				s2.push(s1.pop());
+			}
 			s2.push(x);
-			while (!s2.isEmpty())
+			while (!s2.isEmpty()) {
 				s1.push(s2.pop());
+			}
 		}
 
 		// Removes the element from the front of queue.

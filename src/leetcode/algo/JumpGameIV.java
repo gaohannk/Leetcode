@@ -46,6 +46,6 @@ package leetcode.algo;
  */
 public class JumpGameIV {
     public int minJumps(int[] arr) {
-
+        return 0;
     }
 }

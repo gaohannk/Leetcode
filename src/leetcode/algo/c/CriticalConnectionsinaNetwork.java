@@ -44,29 +44,33 @@ public class CriticalConnectionsinaNetwork {
         Arrays.fill(discovery, -1);
         Integer discoveryTime = 0; // To avoid the global variable
 
-        for (int i = 0; i < n; i++)
-            if (discovery[i] == -1)
+        for (int i = 0; i < n; i++) {
+            if (discovery[i] == -1) {
                 dfs(graph, i, i, lowLink, discovery, result, discoveryTime);
+            }
+        }
 
         return result;
     }
 
-    private void dfs(List<List<Integer>> graph, int from, int parent,
-                     int[] lowLink, int[] discovery, List<List<Integer>> result, Integer discoveryTime) {
-        discovery[from] = lowLink[from] = ++discoveryTime; // discovery
+    private void dfs(List<List<Integer>> graph, int from, int parent, int[] low, int[] discovery, List<List<Integer>> result, Integer discoveryTime) {
+        discovery[from] = low[from] = ++discoveryTime; // discovery
 
         for (int to : graph.get(from)) {
-            if (to == parent) continue; // due to undirected graph
+            if (to == parent) {
+                continue; // due to undirected graph
+            }
 
             if (discovery[to] == -1) { // if the to node is undiscovered
-                dfs(graph, to, from, lowLink, discovery, result, discoveryTime);
-                lowLink[from] = Math.min(lowLink[from], lowLink[to]); // crucial - on backtracking, set the low link value
+                dfs(graph, to, from, low, discovery, result, discoveryTime);
+                low[from] = Math.min(low[from], low[to]); // crucial - on backtracking, set the low link value
 
-                if (lowLink[to] > discovery[from]) {
+                if (low[to] > discovery[from]) {
                     result.add(Arrays.asList(from, to));
                 }
-            } else
-                lowLink[from] = Math.min(lowLink[from], discovery[to]); // Low link is influenced by the discovery time
+            } else {
+                low[from] = Math.min(low[from], discovery[to]); // Low link is influenced by the discovery time
+            }
         }
     }
 
@@ -74,8 +78,9 @@ public class CriticalConnectionsinaNetwork {
     private List<List<Integer>> constructGraph(int n, List<List<Integer>> connections) {
 
         List<List<Integer>> graph = new ArrayList<>();
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             graph.add(new ArrayList<>());
+        }
 
         for (List<Integer> edge : connections) {
             graph.get(edge.get(0)).add(edge.get(1));

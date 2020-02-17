@@ -1,7 +1,5 @@
 package company.oracle.high;
 
-import leetcode.common.TrieNode;
-
 import java.util.LinkedList;
 import java.util.List;
 

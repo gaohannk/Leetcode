@@ -16,6 +16,7 @@ public class EvaluateReversePolishNotation {
     public int evalRPN(String[] tokens) {
         Stack<Integer> stack = new Stack<>();
         for (String token : tokens) {
+
             if (OPERATORS.contains(token)) {
                 int y = stack.pop();
                 int x = stack.pop();
