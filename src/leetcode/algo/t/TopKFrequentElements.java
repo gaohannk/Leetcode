@@ -18,8 +18,7 @@ public class TopKFrequentElements {
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		List<Integer> res = new LinkedList<>();
 		for (int i = 0; i < nums.length; i++) {
-			int count = map.getOrDefault(nums[i], 0);
-			map.put(nums[i], count + 1);
+			map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
 		}
 
 		PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>(k, (a, b) -> a.getValue() - b.getValue());

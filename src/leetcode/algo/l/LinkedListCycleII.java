@@ -20,6 +20,8 @@ import leetcode.common.ListNode;
  * => This means if slow pointer runs (Cycle - S) more, it will reaches C. So at this time, if there's another point2 running from head
  * => After C distance, point2 will meet slow pointer at C, where is the beginning of the cycle.
  */
+
+// T: O(n) S: O(1)
 public class LinkedListCycleII {
     public ListNode detectCycle(ListNode head) {
         ListNode fast = head, slow = head;

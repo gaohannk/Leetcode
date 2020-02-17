@@ -1,7 +1,9 @@
 package company.verily.phone;
 
 /**
- * Imagine a person travels from city A to city B by train. There are N stations between city A and B. He may get off the train at any of the station, but he would not get off in neighboring stations.   He can not travel backward neither. How many different ways he can travel?
+ * Imagine a person travels from city A to city B by train. There are N stations between city A and B.
+ * He may get off the train at any of the station, but he would not get off in neighboring stations.
+ * He can not travel backward neither. How many different ways he can travel?
  */
 public class TravelWays {
     public int solution(int N) {

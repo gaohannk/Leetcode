@@ -4,6 +4,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Triangle {
+    /**
+     * duplicate
+     * @param input
+     * @return
+     */
     public static List<int[]> findTriangle(int[][] input) {
         List<int[]> res = new LinkedList<>();
 
@@ -18,6 +23,11 @@ public class Triangle {
         return res;
     }
 
+    /**
+     * No duplicate
+     * @param input
+     * @return
+     */
     public static List<int[]> findTriangle2(int[][] input) {
         List<int[]> res = new LinkedList<>();
 
@@ -55,7 +65,7 @@ public class Triangle {
         List<int[]> res = findTriangle(input);
         List<int[]> res2 = findTriangle2(input);
 
-        for (int[] a : res) {
+        for (int[] a : res2) {
             System.out.print(a[0] + " ");
             System.out.print(a[1] + " ");
             System.out.println(a[2] + " ");

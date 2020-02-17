@@ -11,6 +11,7 @@ import java.util.HashSet;
 /* step 1: move fast and slow pointers as in Cycle I
  * step 2: move fast to the head and let the two pointers move at the same speed and they meet where the cycle starts
  */
+// T: O(n) S: O(n)
 public class LinkedListCycleII2 {
     public ListNode detectCycle(ListNode head) {
         if (head == null || head.next == null) //check if the linklist is null or just 1 element

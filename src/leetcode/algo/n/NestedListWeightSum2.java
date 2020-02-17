@@ -27,7 +27,7 @@ public class NestedListWeightSum2 {
 	public void dfs(List<NestedInteger> integer, int[] res, int depth) {
 		for (NestedInteger in : integer) {
 			if (in.isInteger())
-				res[0] += in.getInteger().intValue();
+				res[0] += in.getInteger().intValue() *depth;
 			else
 				dfs(in.getList(), res, depth + 1);
 		}

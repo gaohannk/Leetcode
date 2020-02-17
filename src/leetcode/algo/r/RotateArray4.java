@@ -46,8 +46,8 @@ public class RotateArray4 {
 
 
     public static void main(String[] args) {
-        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-        rotate2(nums, 3);
+        int[] nums = {1, 2, 3, 4, 5, 6};
+        rotate2(nums, 2);
         System.out.println(Arrays.toString(nums));
     }
 }
