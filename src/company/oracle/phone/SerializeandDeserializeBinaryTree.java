@@ -1,10 +1,12 @@
+
+
 package company.oracle.phone;
 
 import leetcode.common.TreeNode;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
+// BFS
 public class SerializeandDeserializeBinaryTree {
     public static class Codec {
 
@@ -26,7 +28,7 @@ public class SerializeandDeserializeBinaryTree {
                     queue.add(cur.right);
                 }
             }
-            return res.substring(0, res.length() - 1);
+            return res.deleteCharAt(res.length() - 1).toString();
         }
 
         // Decodes your encoded data to tree.
@@ -64,6 +66,8 @@ public class SerializeandDeserializeBinaryTree {
         root.right.right = new TreeNode(5);
         String ser = codec.serialize(root);
         System.out.println(ser);
-        codec.deserialize(ser);
+        TreeNode deserRoot = codec.deserialize(ser);
+        ser = codec.serialize(deserRoot);
+        System.out.println(ser);
     }
 }

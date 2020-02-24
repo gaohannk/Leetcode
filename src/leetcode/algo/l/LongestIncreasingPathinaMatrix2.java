@@ -22,9 +22,10 @@ Return 4
 The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
 */
 // Naive DFS Solution
-public class LongestIncreasingPathinaMatrix {
+public class LongestIncreasingPathinaMatrix2 {
 
     private static final int[][] dirs = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    //static int res = 0;
 
     public static int longestIncreasingPath(int[][] matrix) {
         if (matrix.length == 0) {
@@ -32,24 +33,23 @@ public class LongestIncreasingPathinaMatrix {
         }
         int row = matrix.length;
         int col = matrix[0].length;
-        int res = 0;
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                res = Math.max(res, dfs(matrix, i, j));
+        int[] res = new int[1];
+        for (int i = 0; i < row; ++i) {
+            for (int j = 0; j < col; ++j) {
+                dfs(matrix, i, j, 1, res);
             }
         }
-        return res;
+        return res[0];
     }
 
-    private static int dfs(int[][] matrix, int i, int j) {
-        int ans = 0;
+    private static void dfs(int[][] matrix, int i, int j, int len, int[] res) {
         for (int[] d : dirs) {
             int x = i + d[0], y = j + d[1];
             if (0 <= x && x < matrix.length && 0 <= y && y < matrix[0].length && matrix[x][y] > matrix[i][j]) {
-                ans = Math.max(ans, dfs(matrix, x, y));
+                dfs(matrix, x, y, len + 1, res);
             }
         }
-        return ++ans;
+        res[0] = Math.max(res[0], len);
     }
 
     public static void main(String[] args) {

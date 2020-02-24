@@ -25,25 +25,32 @@ import java.util.Set;
  * The length of each pairs[i] will be 2.
  * The length of each words[i] and pairs[i][j] will be in the range [1, 20].
  */
-public class SentenceSimilarity {
+// HashMap
+public class SentenceSimilarity2 {
     public boolean areSentencesSimilar(String[] words1, String[] words2, String[][] pairs) {
-        if (words1.length != words2.length) {
+        if (words1.length != words2.length)
             return false;
-        }
 
-        Set<String> pairSet = new HashSet();
+        Map<String, Set<String>> similarMap = new HashMap<>();
+
         for (String[] pair : pairs) {
-            pairSet.add(pair[0] + "#" + pair[1]);
+            if (!similarMap.containsKey(pair[0]))
+                similarMap.put(pair[0], new HashSet<>());
+            if (!similarMap.containsKey(pair[1]))
+                similarMap.put(pair[1], new HashSet<>());
+            similarMap.get(pair[0]).add(pair[1]);
+            similarMap.get(pair[1]).add(pair[0]);
         }
 
         for (int i = 0; i < words1.length; ++i) {
-            if (words1[i].equals(words2[i])) {
+            if (words1[i].equals(words2[i]))
                 continue;
-            }
-            if (!pairSet.contains(words1[i] + "#" + words2[i]) && !pairSet.contains(words2[i] + "#" + words1[i])) {
+            if (!similarMap.containsKey(words1[i]))
                 return false;
-            }
+            if (!similarMap.get(words1[i]).contains(words2[i]))
+                return false;
         }
+
         return true;
     }
 }

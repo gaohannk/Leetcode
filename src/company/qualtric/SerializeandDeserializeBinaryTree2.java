@@ -1,4 +1,4 @@
-package leetcode.algo.s;
+package company.qualtric;
 
 import leetcode.common.TreeNode;
 

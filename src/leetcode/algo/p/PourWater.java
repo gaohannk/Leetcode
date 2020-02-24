@@ -1,5 +1,7 @@
 package leetcode.algo.p;
 
+import java.util.Arrays;
+
 /**
  * We are given an elevation map, heights[i] representing the height of the terrain at that index. The width at each index is 1. After V units of water fall at index K, how much water is at each index?
  * <p>
@@ -110,47 +112,59 @@ package leetcode.algo.p;
  * V will be in range [0, 2000].
  * K will be in range [0, heights.length - 1].
  */
+// Simulation
 public class PourWater {
     public int[] pourWater(int[] heights, int V, int K) {
         for (int i = 0; i < V; i++) {
-            boolean isAdd = false;
+            boolean isAdd = pourWaterLeft(heights, K);
+            isAdd = isAdd ? isAdd : pourWaterRight(heights, K);
 
-            // move left
-            int min = Integer.MAX_VALUE, index = 0;
-            for (int k = K - 1; k >= 0; k--) {
-                if (heights[k] > heights[K])
-                    break;
-                if (min > heights[k]) {
-                    min = heights[k];
-                    index = k;
-                }
-            }
-            if (min < heights[K]) {
-                isAdd = true;
-                heights[index]++;
-            }
-
-            if (!isAdd){
-                // move right
-                min = Integer.MAX_VALUE;
-                for (int k = K + 1; k < heights.length; k++) {
-                    if (heights[k] > heights[K])
-                        break;
-                    if (min > heights[k]) {
-                        min = heights[k];
-                        index = k;
-                    }
-                }
-                if (min < heights[K]) {
-                    isAdd = true;
-                    heights[index]++;
-                }
-            }
             // add in the middle
             if (!isAdd) {
                 heights[K]++;
             }
+            System.out.println(Arrays.toString(heights));
         }
         return heights;
+    }
+
+    private boolean pourWaterRight(int[] heights, int K) {
+        // move right
+        boolean isAdd = false;
+        int min = Integer.MAX_VALUE, index = 0;
+
+        for (int i = K + 1; i < heights.length; i++) {
+            if (heights[i] > heights[i - 1])
+                break;
+            if (min > heights[i]) {
+                min = heights[i];
+                index = i;
+            }
+        }
+        if (min < heights[K]) {
+            isAdd = true;
+            heights[index]++;
+        }
+        return isAdd;
+    }
+
+    private boolean pourWaterLeft(int[] heights, int K) {
+        boolean isAdd = false;
+
+        // move left
+        int min = Integer.MAX_VALUE, index = 0;
+        for (int i = K - 1; i >= 0; i--) {
+            if (heights[i] > heights[i + 1])
+                break;
+            if (min > heights[i]) {
+                min = heights[i];
+                index = i;
+            }
+        }
+        if (min < heights[K]) {
+            isAdd = true;
+            heights[index]++;
+        }
+        return isAdd;
     }
 }

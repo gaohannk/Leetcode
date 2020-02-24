@@ -119,7 +119,6 @@ public class TopNBuzzwords {
         return res;
     }
 
-
     public static void main(String[] args) {
         String[] toys = new String[]{"elmo", "elsa", "legos", "drone", "tablet", "warcraft"};
         String[] quotas = new String[]{

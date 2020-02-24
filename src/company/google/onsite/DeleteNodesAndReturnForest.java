@@ -1,4 +1,4 @@
-package leetcode.algo.d;
+package company.google.onsite;
 
 import leetcode.common.TreeNode;
 
@@ -37,7 +37,7 @@ public class DeleteNodesAndReturnForest {
 
         helper(root.left, set, res);
         helper(root.right, set, res);
-        // need to delete left child, left child child become root
+
         if (root.left != null && set.contains(root.left.val)) {
             if (root.left.left != null) {
                 res.add(root.left.left);
@@ -47,7 +47,7 @@ public class DeleteNodesAndReturnForest {
             }
             root.left = null;
         }
-        // need to delete right child, left child child become root
+
         if (root.right != null && set.contains(root.right.val)) {
             if (root.right.left != null) {
                 res.add(root.right.left);

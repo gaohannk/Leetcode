@@ -6,7 +6,7 @@ package company.google.phone;
  * For example:
  */
 
-public class Problem2 {
+public class ValidMatrix {
     static int res = 0;
 
     public int solution(int[][] A) {

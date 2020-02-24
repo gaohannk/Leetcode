@@ -52,10 +52,11 @@ public class RemoveInvalidParentheses {
                 helper(s, cur + 1, leftCount, rightCount, curExpression, removedCount);
                 curExpression.deleteCharAt(length);
             } else {
-                // Recursion where we delete the current character and move forward
+                // Case 1: Delete the current character and move forward
                 helper(s, cur + 1, leftCount, rightCount, curExpression, removedCount + 1);
-                curExpression.append(c);
 
+                // Case 2: Not delete, keep it
+                curExpression.append(c);
                 // If it's an opening parenthesis, consider it and recurse
                 if (c == '(') {
                     helper(s, cur + 1, leftCount + 1, rightCount, curExpression, removedCount);
@@ -63,8 +64,6 @@ public class RemoveInvalidParentheses {
                     // For a closing parenthesis, only recurse if right < left
                     helper(s, cur + 1, leftCount, rightCount + 1, curExpression, removedCount);
                 }
-
-                // Undoing the append operation for other recursions.
                 curExpression.deleteCharAt(length);
             }
         }

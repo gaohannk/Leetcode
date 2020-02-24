@@ -1,4 +1,4 @@
-package leetcode.algo.p;
+package company.qualtric;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,8 +1,6 @@
 package leetcode.algo.w;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 /* Given two words (start and end), and a dictionary, find the length of shortest transformation sequence from start to end, such that:
  * Only one letter can be changed at a time
@@ -13,40 +11,54 @@ import java.util.Set;
  * end = "cog"
  * dict = ["hot","dot","dog","lot","log"]
  * As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
- * return its length 5. 
+ * return its length 5.
  * Note:
  * Return 0 if there is no such transformation sequence.
  * All words have the same length.
  * All words contain only lowercase alphabetic characters.
  */
+// BFS with Map
 public class WordLadder2 {
-	public int ladderLength(String start, String end, Set<String> dict) {
-		if (start.equals(end))
-			return 0;
-		Queue<String> queue = new LinkedList<String>();
-		queue.add(start);
-		int level = 0;
-		while (!queue.isEmpty()) {
-			int size = queue.size();
-			for (int i = 0; i < size; i++) {
-				String cur = queue.remove();
-				if (cur.equals(end)) {
-					return level + 1;
-				}
-				for (int j = 0; j < cur.length(); j++) {
-					char[] word = cur.toCharArray();
-					for (char ch = 'a'; ch < 'z'; ch++) {
-						word[j] = ch;
-						String check = new String(word);
-						if (!check.equals(cur) && dict.contains(check)) {
-							queue.add(check);
-							dict.remove(check);
-						}
-					}
-				}
-			}
-			level++;
-		}
-		return 0;
-	}
+    public int ladderLength(String startWord, String endWord, List<String> wordList) {
+        if (startWord.equals(endWord))
+            return 0;
+        // *ug -> dug, hug
+        // h*g -> hug, heg
+        Map<String, List<String>> allComboDict = new HashMap<>();
+        for (String word : wordList) {
+            for (int i = 0; i < word.length(); i++) {
+                // Key is the generic word
+                // Value is a list of words which have the same intermediate generic word.
+                String newWord = word.substring(0, i) + '*' + word.substring(i + 1);
+                allComboDict.putIfAbsent(newWord, new ArrayList<>());
+                List<String> transformations = allComboDict.get(newWord);
+                transformations.add(word);
+            }
+        }
+
+        Set<String> visited = new HashSet<>();
+        Queue<String> queue = new LinkedList<String>();
+        queue.add(startWord);
+        int level = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                String cur = queue.remove();
+                visited.add(cur);
+                if (cur.equals(endWord)) {
+                    return level + 1;
+                }
+                for (int j = 0; j < cur.length(); j++) {
+                    String pattern = cur.substring(0, j) + '*' + cur.substring(j + 1);
+                    for (String nextWord : allComboDict.getOrDefault(pattern, new ArrayList<>())) {
+                        if (!nextWord.equals(cur) && !visited.contains(nextWord)) {
+                            queue.add(nextWord);
+                        }
+                    }
+                }
+            }
+            level++;
+        }
+        return 0;
+    }
 }
