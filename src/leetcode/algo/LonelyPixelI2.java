@@ -18,27 +18,23 @@ package leetcode.algo;
  * Note:
  * The range of width and height of the input 2D array is [1,500].
  */
-public class LonelyPixelI {
+public class LonelyPixelI2 {
     public int findLonelyPixel(char[][] picture) {
-        int m = picture.length;
-        int n = picture[0].length;
-        int[] M = new int[m];
-        int[] N = new int[n];
+        int m = picture.length, n = picture[0].length, rowLP = 0, colLP = 0;
+        int[] colCnt = new int[n];
         for (int i = 0; i < m; i++) {
+            int rowCnt = 0;
             for (int j = 0; j < n; j++) {
                 if (picture[i][j] == 'B') {
-                    M[i] = M[i] == 0 ? j + 1 : -1;
-                    N[j] = N[j] == 0 ? i + 1 : -1;
+                    rowCnt++;
+                    colCnt[j]++;
+                    if (rowCnt == 1) rowLP++;
+                    if (rowCnt == 2) rowLP--;
+                    if (colCnt[j] == 1) colLP++;
+                    if (colCnt[j] == 2) colLP--;
                 }
-
             }
         }
-        int sum = 0;
-        for (int i = 0; i < m; i++) {
-            if (M[i] > 0 && N[M[i] - 1] == i + 1) {
-                sum++;
-            }
-        }
-        return sum;
+        return Math.min(rowLP, colLP);
     }
 }
