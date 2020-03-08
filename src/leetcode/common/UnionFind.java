@@ -1,7 +1,7 @@
 package leetcode.common;
 
 public class UnionFind {
-    int[] parent;
+    public int[] parent;
 
     public UnionFind(int n) {
         parent = new int[n];

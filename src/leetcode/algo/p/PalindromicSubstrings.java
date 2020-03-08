@@ -24,4 +24,7 @@ package leetcode.algo.p;
  * The input string length won't exceed 1000.
  */
 public class PalindromicSubstrings {
+    public int countSubstrings(String s) {
+
+    }
 }

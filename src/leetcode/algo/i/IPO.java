@@ -1,7 +1,5 @@
 package leetcode.algo.i;
 
-import leetcode.common.Pair;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,6 +28,15 @@ import java.util.PriorityQueue;
  * The answer is guaranteed to fit in a 32-bit signed integer.
  */
 public class IPO {
+    public class Pair {
+        public int prf;
+        public int cap;
+
+        public Pair(int prf, int cap) {
+            this.prf = prf;
+            this.cap = cap;
+        }
+    }
     public int findMaximizedCapital(int k, int W, int[] Profits, int[] Capital) {
         if (Profits == null || Capital == null) {
             return 0;

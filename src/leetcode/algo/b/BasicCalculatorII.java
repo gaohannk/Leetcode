@@ -23,7 +23,7 @@ import java.util.Stack;
  **/
 public class BasicCalculatorII {
     public static int calculate(String s) {
-        s = trimEmpty(s);
+        s = s.replace(" ", "");
 
         Stack<Integer> num = new Stack<>();
         Queue<Character> sign = new LinkedList<>();
@@ -37,8 +37,9 @@ public class BasicCalculatorII {
                     i++;
                 }
                 i++;
-                if (flag == 0)
+                if (flag == 0) {
                     num.push(sum);
+                }
                 else if (flag == 1) {
                     num.push(num.pop() * sum);
                     flag = 0;
@@ -58,31 +59,21 @@ public class BasicCalculatorII {
             } else if (s.charAt(i) == '/') {
                 i++;
                 flag = 2;
-
             }
         }
         // don't forget upside down the num, since calculate from left to right
-        Stack<Integer> num2 = new Stack<>();
+        Stack<Integer> reverseNum = new Stack<>();
         while (!num.isEmpty()) {
-            num2.push(num.pop());
+            reverseNum.push(num.pop());
         }
         while (!sign.isEmpty()) {
             char c = sign.poll();
             if (c == '+')
-                num2.push(num2.pop() + num2.pop());
+                reverseNum.push(reverseNum.pop() + reverseNum.pop());
             else if (c == '-')
-                num2.push(num2.pop() - num2.pop());
+                reverseNum.push(reverseNum.pop() - reverseNum.pop());
         }
-        return num2.pop();
-    }
-
-    private static String trimEmpty(String s) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) != ' ')
-                sb.append(s.charAt(i));
-        }
-        return sb.toString();
+        return reverseNum.pop();
     }
 
     public static void main(String[] args) {

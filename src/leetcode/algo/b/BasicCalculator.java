@@ -13,31 +13,34 @@ import java.util.Stack;
  */
 public class BasicCalculator {
     public static int calculate(String s) {
-        int sign = 1, result = 0;
+        int sign = 1, res = 0;
         Stack<Integer> stack = new Stack<>();
         for (int i = 0; i < s.length(); i++) {
             if (Character.isDigit(s.charAt(i))) {
-                int sum = s.charAt(i) - '0';
+                int num = s.charAt(i) - '0';
                 while (i + 1 < s.length() && Character.isDigit(s.charAt(i + 1))) {
-                    sum = sum * 10 + s.charAt(i + 1) - '0';
+                    num = num * 10 + s.charAt(i + 1) - '0';
                     i++;
                 }
-                result += sum * sign;
+                res += num * sign;
             } else if (s.charAt(i) == '+')
                 sign = 1;
             else if (s.charAt(i) == '-')
                 sign = -1;
             else if (s.charAt(i) == '(') {
-                stack.push(result);
+                stack.push(res); // current res before '('
                 stack.push(sign);
-                result = 0;
+                res = 0;
                 sign = 1;
             } else if (s.charAt(i) == ')') {
-                result = result * stack.pop() + stack.pop();
+                res = res * stack.pop() + stack.pop();
             }
-
+            System.out.println(stack);
         }
-        return result;
+        return res;
     }
 
+    public static void main(String[] args) {
+        System.out.println(calculate("(1+(4+5+2)-3)+(6+8)"));
+    }
 }

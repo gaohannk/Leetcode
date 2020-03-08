@@ -1,9 +1,7 @@
 package leetcode.algo.c;
 
-import leetcode.common.Pair;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 // Dijkstra
 public class CheapestFlightsWithinKStops3 {
