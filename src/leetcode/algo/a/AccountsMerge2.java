@@ -24,50 +24,46 @@ import java.util.*;
  * The length of accounts[i] will be in the range [1, 10].
  * The length of accounts[i][j] will be in the range [1, 30].
  */
-public class AccountsMerge {
+public class AccountsMerge2 {
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
-        UnionFind uf = new UnionFind();
         Map<String, String> emailToName = new HashMap();
-        Map<String, Integer> emailToID = new HashMap();
-        int id = 0;
+        Map<String, ArrayList<String>> graph = new HashMap();
         for (List<String> account: accounts) {
-            String name = account.get(0);
+            String name = "";
             for (String email: account) {
-                if (email.equals(name)) {
+                if (name == "") {
+                    name = email;
                     continue;
                 }
+                graph.computeIfAbsent(email, x-> new ArrayList<String>()).add(account.get(1));
+                graph.computeIfAbsent(account.get(1), x-> new ArrayList<String>()).add(email);
                 emailToName.put(email, name);
-                if (!emailToID.containsKey(email)) {
-                    emailToID.put(email, id++);
-                }
-                uf.union(emailToID.get(account.get(1)), emailToID.get(email));
             }
         }
 
-        Map<Integer, List<String>> rootToEmails = new HashMap();
-        for (String email: emailToName.keySet()) {
-            int index = uf.find(emailToID.get(email));
-            rootToEmails.computeIfAbsent(index, x-> new ArrayList()).add(email);
+        Set<String> seen = new HashSet();
+        List<List<String>> res = new ArrayList();
+        for (String email: graph.keySet()) {
+            if (!seen.contains(email)) {
+                seen.add(email);
+                Queue<String> stack = new LinkedList<>();
+                stack.offer(email);
+                List<String> component = new ArrayList();
+                while (!stack.isEmpty()) {
+                    String node = stack.poll();
+                    component.add(node);
+                    for (String nei: graph.get(node)) {
+                        if (!seen.contains(nei)) {
+                            seen.add(nei);
+                            stack.offer(nei);
+                        }
+                    }
+                }
+                Collections.sort(component);
+                component.add(0, emailToName.get(email));
+                res.add(component);
+            }
         }
-        for (List<String> component: rootToEmails.values()) {
-            Collections.sort(component);
-            component.add(0, emailToName.get(component.get(0)));
-        }
-        return new ArrayList(rootToEmails.values());
-    }
-    class UnionFind {
-        int[] parent;
-        public UnionFind() {
-            parent = new int[10001];
-            for (int i = 0; i <= 10000; ++i)
-                parent[i] = i;
-        }
-        public int find(int x) {
-            if (parent[x] != x) parent[x] = find(parent[x]);
-            return parent[x];
-        }
-        public void union(int x, int y) {
-            parent[find(x)] = find(y);
-        }
+        return res;
     }
 }
