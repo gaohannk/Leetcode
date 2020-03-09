@@ -19,5 +19,7 @@ package leetcode.algo;
  * Output: [3,1,2,5,4]
  */
 public class BeautifulArray {
+    public int[] beautifulArray(int N) {
 
+    }
 }
