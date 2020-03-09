@@ -38,13 +38,19 @@ package leetcode.algo.b;
  * 1 <= X <= 10^9
  * 1 <= Y <= 10^9
  */
-public class BrokenCalculator {
+public class BrokenCalculator2 {
     public int brokenCalc(int X, int Y) {
-        int res = 0;
-        while (Y > X) {
+        int multiple = 1, res = 0;
+        while (X * multiple < Y) {
+            multiple <<= 1;
             res++;
-            Y = Y % 2 == 0 ? Y / 2 : Y + 1;
         }
-        return res + X - Y;
+        int diff = X * multiple - Y;
+        while (diff > 0) {
+            res += diff / multiple;
+            diff -= diff / multiple * multiple;
+            multiple >>= 1;
+        }
+        return res;
     }
 }
