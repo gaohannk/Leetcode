@@ -20,6 +20,6 @@ package leetcode.algo;
  */
 public class BeautifulArray {
     public int[] beautifulArray(int N) {
-
+        return null;
     }
 }

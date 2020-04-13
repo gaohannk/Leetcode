@@ -28,23 +28,15 @@ package leetcode.algo.a;
  */
 public class ArithmeticSlices {
     public int numberOfArithmeticSlices(int[] A) {
-        if (A.length < 3)
-            return 0;
         int count = 0;
-        for (int len = 3; len <= A.length; len++) {
-            for (int i = 0; i < A.length - len + 1; i++) {
-
-                int cur = i + 1;
-                int diff = A[cur] - A[i];
-                boolean flag = true;
-                while (cur < i + len) {
-                    if (A[cur] - A[cur - 1] != diff) {
-                        flag = false;
+        for (int s = 0; s < A.length - 2; s++) {
+            int d = A[s + 1] - A[s];
+            for (int e = s + 2; e < A.length; e++) {
+                int i = 0;
+                for (i = s + 1; i <= e; i++)
+                    if (A[i] - A[i - 1] != d)
                         break;
-                    }
-                    cur++;
-                }
-                if (flag)
+                if (i > e)
                     count++;
             }
         }

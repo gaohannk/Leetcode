@@ -54,7 +54,9 @@ public class RemoveKDigits4 {
         }
 
         /* return the final string  */
-        if (ret.length() == 0) return "0";
+        if (ret.length() == 0) {
+            return "0";
+        }
         return ret.toString();
     }
 }

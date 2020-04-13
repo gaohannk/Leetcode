@@ -2,6 +2,8 @@ package leetcode.algo.f;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /*Given a string, find the first non-repeating character in it and return it's index. If it doesn't exist, return -1.
 
@@ -20,8 +22,8 @@ public class FirstUniqueCharacterinaString {
 			return -1;
 		if (s.length() == 1)
 			return 0;
-		HashSet<Character> set = new HashSet<>();
-		HashMap<Character, Integer> map = new HashMap<>();
+		Set<Character> set = new HashSet<>();
+		Map<Character, Integer> map = new HashMap<>();
 		for (int i = 0; i < s.length(); i++) {
 			if (!set.contains(s.charAt(i))) {
 				set.add(s.charAt(i));

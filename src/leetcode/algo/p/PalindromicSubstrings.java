@@ -25,6 +25,6 @@ package leetcode.algo.p;
  */
 public class PalindromicSubstrings {
     public int countSubstrings(String s) {
-
+        return 0;
     }
 }
