@@ -16,7 +16,9 @@ public class SuperUglyNumber2 {
             next = Integer.MAX_VALUE;
             for (int j = 0; j < primes.length; j++) {
                 //skip duplicate and avoid extra multiplication
-                if (val[j] == ugly[i]) val[j] = ugly[idx[j]++] * primes[j];
+                if (val[j] == ugly[i]) {
+                    val[j] = ugly[idx[j]++] * primes[j];
+                }
                 //find next ugly number
                 next = Math.min(next, val[j]);
             }

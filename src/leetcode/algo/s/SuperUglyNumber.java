@@ -10,12 +10,15 @@ public class SuperUglyNumber {
             ugly = Math.min(Math.min(nums[i2] * 2, nums[i3] * 3), nums[i5] * 5);
             nums[i] = ugly;
 
-            if (ugly == nums[i2] * 2)
-                ++i2;
-            if (ugly == nums[i3] * 3)
-                ++i3;
-            if (ugly == nums[i5] * 5)
-                ++i5;
+            if (ugly == nums[i2] * 2) {
+                i2++;
+            }
+            if (ugly == nums[i3] * 3) {
+                i3++;
+            }
+            if (ugly == nums[i5] * 5) {
+                i5++;
+            }
         }
         return nums[n - 1];
 
