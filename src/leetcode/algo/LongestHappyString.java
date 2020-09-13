@@ -56,7 +56,7 @@ public class LongestHappyString {
                 Pair next = queue.poll();
                 res.append(next.c);
                 res.append(next.c);
-                next-=2;
+                //next-=2;
                 queue.offer(next);
             }
             if (cur.count > 2) {
