@@ -1,3 +1,9 @@
+package leetcode.algo;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Given a string s and an integer k, return the length of the longest substring of s that contains
  * at most k distinct characters.
@@ -17,30 +23,31 @@
  * 1 <= s.length <= 5 * 104 0 <= k <= 50
  */
 
-public LongestSubstringwithAtMostKDistinctCharacters{
-public int lengthOfLongestSubstringKDistinct(String s,int k){
-    int n=s.length();
-    if(n*k==0){
-    return 0;
+public class LongestSubstringwithAtMostKDistinctCharacters {
+
+  public int lengthOfLongestSubstringKDistinct(String s, int k) {
+    int n = s.length();
+    if (n * k == 0) {
+      return 0;
     }
-    int left=0;
-    int right=0;
+    int left = 0;
+    int right = 0;
 
-    Map<Character, Integer> rightmostPosition=new HashMap<>();
+    Map<Character, Integer> rightmostPosition = new HashMap<>();
 
-    int maxLength=1;
+    int maxLength = 1;
 
-    while(right<n){
-    rightmostPosition.put(s.charAt(right),right++);
+    while (right < n) {
+      rightmostPosition.put(s.charAt(right), right++);
 
-    if(rightmostPosition.size()==k+1){
-    int lowestIndex=Collections.min(rightmostPosition.values());
-    rightmostPosition.remove(s.charAt(lowestIndex));
-    left=lowestIndex+1;
-    }
+      if (rightmostPosition.size() == k + 1) {
+        int lowestIndex = Collections.min(rightmostPosition.values());
+        rightmostPosition.remove(s.charAt(lowestIndex));
+        left = lowestIndex + 1;
+      }
 
-    maxLength=Math.max(maxLength,right-left);
+      maxLength = Math.max(maxLength, right - left);
     }
     return maxLength;
-    }
-    }
+  }
+}

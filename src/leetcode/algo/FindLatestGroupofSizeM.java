@@ -51,6 +51,6 @@ package leetcode.algo;
  */
 public class FindLatestGroupofSizeM {
     public int findLatestStep(int[] arr, int m) {
-
+        return 0;
     }
 }
