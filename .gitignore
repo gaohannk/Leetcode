@@ -6,7 +6,7 @@
 bin/*
 .idea/*
 .settings/*
-./out
+./out/*
 
 # Log file
 *.log
